@@ -20,7 +20,7 @@ class Guru extends Model
         // 'kelas_id',
     ];
 
-    public function kelas() {
-        return $this->hasMany(Kelas::class, 'guru_id');
-    }
+    // public function kelas() {
+    //     return $this->hasMany(Kelas::class, 'guru_id');
+    // }
 }

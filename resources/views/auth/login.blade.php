@@ -11,9 +11,10 @@
                 @csrf
 
                 <div class="mb-4">
-                    <label class="mb-2 block text-sm font-medium text-black dark:text-white">Email</label>
+                    <label for="email" class="mb-2 block text-sm font-medium text-black dark:text-white">Email</label>
                     <input
                         type="email"
+                        id="email"
                         name="email"
                         placeholder="Masukkan email"
                         class="w-full rounded-lg border border-stroke bg-transparent px-4 py-2.5 text-black dark:text-white dark:border-form-strokedark dark:bg-form-input focus:outline-none focus:border-primary"
@@ -22,9 +23,10 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="mb-2 block text-sm font-medium text-black dark:text-white">Password</label>
+                    <label for="password" class="mb-2 block text-sm font-medium text-black dark:text-white">Password</label>
                     <input
                         type="password"
+                        id="password"
                         name="password"
                         placeholder="Masukkan password"
                         class="w-full rounded-lg border border-stroke bg-transparent px-4 py-2.5 text-black dark:text-white dark:border-form-strokedark dark:bg-form-input focus:outline-none focus:border-primary"
