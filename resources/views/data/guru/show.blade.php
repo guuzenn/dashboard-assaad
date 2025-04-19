@@ -61,7 +61,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-    
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -86,6 +86,11 @@
                   <p class="text-sm text-slate-500 mb-1">Tanggal Lahir</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $guru->tanggal_lahir }}</p>
                </div>
+                <!-- Usia -->
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">Usia</p>
+                    <p class="text-base font-medium text-black dark:text-white">{{ $guru->usia }}</p>
+                 </div>
                <!-- Jenis Kelamin -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Jenis Kelamin</p>

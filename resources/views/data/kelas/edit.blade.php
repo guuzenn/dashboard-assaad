@@ -101,7 +101,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -113,6 +113,9 @@
                      <h3 class="font-medium text-black dark:text-white">Form Edit Kelas</h3>
                   </div>
                   <div class="flex flex-col gap-5.5 p-6.5">
+                    <form action="{{ route('data.kelas.update', $kelas->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                      <!-- Nama Kelas -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Kelas</label>
@@ -124,6 +127,21 @@
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         />
                         @error('nama')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
+
+                      <!-- Deskripsi Kelas -->
+                      <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Deskripsi Kelas</label>
+                        <input
+                           type="text"
+                           name="deskripsi"
+                           value="{{ old('dekripsi', $kelas->deskripsi) }}"
+                           placeholder="Masukkan Deskripsi Kelas"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        />
+                        @error('deskripsi')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -143,21 +161,36 @@
                         @enderror
                      </div>
 
+                      <!-- Tingkat Kelas -->
+                      <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tingkat Kelas</label>
+                        <input
+                           type="text"
+                           name="tingkat"
+                           value="{{ old('tingkat', $kelas->tingkat) }}"
+                           placeholder="Masukkan Tingkat Kelas"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                        />
+                        @error('tingkat')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
+
                      <!-- Wali Kelas -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Wali Kelas</label>
                         <select
-                           name="wali_kelas_id"
+                           name="guru_id"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                         >
                            <option value="">Pilih Wali Kelas</option>
-                           @foreach ($guru as $g)
-                              <option value="{{ $g->id }}" {{ old('wali_kelas_id', $kelas->wali_kelas_id) == $g->id ? 'selected' : '' }}>
-                                 {{ $g->nama }}
+                           @foreach ($guru as $item)
+                              <option value="{{ $item->id }}" {{ old('guru_id', $kelas->guru_id) == $item->id ? 'selected' : '' }}>
+                                 {{ $item->nama }}
                               </option>
                            @endforeach
                         </select>
-                        @error('wali_kelas_id')
+                        @error('guru_id')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -183,6 +216,7 @@
                            Simpan Perubahan
                         </button>
                      </div>
+                    </form>
                   </div>
                </div>
             </div>

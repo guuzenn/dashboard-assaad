@@ -102,7 +102,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-    
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -117,11 +117,21 @@
                   <p class="text-sm text-slate-500 mb-1">Nama Kelas</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $kelas->nama }}</p>
                </div>
+               <!-- Nama Kelas -->
+               <div>
+                <p class="text-sm text-slate-500 mb-1">Deskripsi Kelas</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ $kelas->deskripsi }}</p>
+             </div>
                <!-- Tahun Ajar -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Tahun Ajar</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $kelas->tahun_ajar }}</p>
                </div>
+               <!-- Tingkat Kelas -->
+               <div>
+                <p class="text-sm text-slate-500 mb-1">Tingkat Kelas</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ $kelas->tingkat }}</p>
+             </div>
                <!-- Wali Kelas -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Wali Kelas</p>
@@ -130,9 +140,9 @@
                <!-- Status -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Status</p>
-                  <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium 
-                     {{ $kelas->status == 'aktif' 
-                        ? 'bg-success bg-opacity-10 text-success' 
+                  <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                     {{ $kelas->status == 'aktif'
+                        ? 'bg-success bg-opacity-10 text-success'
                         : 'bg-danger bg-opacity-10 text-danger' }}">
                      {{ ucfirst($kelas->status) }}
                   </span>

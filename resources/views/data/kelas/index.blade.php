@@ -138,6 +138,9 @@
                </button>
             </div>
             <div class="max-w-full overflow-x-auto">
+                @session("success")
+                <div class="alert alert-success">{{ $value }}</div>
+                @endsession
                <table class="w-full table-auto">
                   <thead>
                      <tr class="bg-gray-2 text-left dark:bg-meta-4">
@@ -160,17 +163,20 @@
                         </td>
 
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tahun_ajar }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->waliKelas->nama ?? '-' }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->guru->nama ?? '-' }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                                {{ $item->status == 'aktif' 
-                                    ? 'bg-success bg-opacity-10 text-success' 
+                                {{ $item->status == 'aktif'
+                                    ? 'bg-success bg-opacity-10 text-success'
                                     : 'bg-danger bg-opacity-10 text-danger' }}">
                                 {{ ucfirst($item->status) }}
                             </p>
                         </td>
 
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <form action="{{ route('data.kelas.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
                            <div class="flex items-center space-x-3.5">
                               <!-- Button Show -->
                               <a href="{{ route('data.kelas.show', $item->id) }}" class="hover:text-primary">
@@ -233,7 +239,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                                  </svg>
                               </a>
-                           </div>
+                            </div>
+                        </form>
                         </td>
                      </tr>
                      @endforeach

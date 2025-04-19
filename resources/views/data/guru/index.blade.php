@@ -110,7 +110,7 @@
             </div>
             <!-- Card Item End -->
          </div>
-         
+
          <!-- List Guru -->
          <div
             class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6"
@@ -143,9 +143,12 @@
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas}}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->no_hp }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <form action="{{ route('data.guru.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
                            <div class="flex items-center space-x-3.5">
                                <!-- Button Show -->
                              <a href="{{ route('data.guru.show', $item->id) }}" class="hover:text-primary">
@@ -209,6 +212,7 @@
                                  </svg>
                                </a>
                            </div>
+                            </form>
                         </td>
                      </tr>
                      @endforeach

@@ -35,6 +35,9 @@ Route::prefix('data/guru')->name('data.guru.')->group(function() {
     Route::get('/create', [GuruController::class, 'create'])->name('create');
     Route::get('/{id}/edit', [GuruController::class, 'edit'])->name('edit');
     Route::get('/{id}', [GuruController::class, 'show'])->name('show');
+    Route::post('/',[GuruController::class,'store'])->name('store');
+    Route::put('/{id}',[GuruController::class,'update'])->name('update');
+    Route::delete('/{id}',[GuruController::class,'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Kelas
@@ -43,6 +46,10 @@ Route::prefix('data/kelas')->name('data.kelas.')->group(function() {
     Route::get('/create', [KelasController::class, 'create'])->name('create');
     Route::get('/{id}/edit', [KelasController::class, 'edit'])->name('edit');
     Route::get('/{id}', [KelasController::class, 'show'])->name('show');
+    Route::post('/',[KelasController::class,'store'])->name('store');
+    Route::put('/{id}',[KelasController::class,'update'])->name('update');
+    Route::delete('/{id}',[KelasController::class,'destroy'])->name('destroy');
+
 });
 
 // Route Prefix Data Nilai
@@ -52,5 +59,3 @@ Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
     Route::get('/{id}', [NilaiController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [NilaiController::class, 'edit'])->name('edit');
 });
-
-

@@ -101,12 +101,12 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Guru</h4>
-         
+
          <!-- Form Elements Section Start -->
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
             <div class="flex flex-col gap-9">
@@ -116,6 +116,8 @@
                         <h3 class="font-medium text-black dark:text-white">Form Tambah Guru</h3>
                     </div>
                     <div class="flex flex-col gap-5.5 p-6.5">
+                        <form action="{{ route('data.guru.store') }}" method="POST">
+                            @csrf
                         <!-- Nama -->
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
@@ -159,6 +161,19 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Usia</label>
+                            <input
+                                type="text"
+                                name="usia"
+                                value="{{ old('usia') }}"
+                                placeholder="Masukkan Usia"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            @error('Usia')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
                         <!-- Jenis Kelamin -->
                         <div>
@@ -180,13 +195,13 @@
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kelas yang Diajarkan</label>
                             <select
-                                name="kelas"
+                                name="kelas_id"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             >
                                 <option value="">Pilih Kelas</option>
-                                <option value="TK A" @selected(old('kelas') == 'TK A')>TK A</option>
-                                <option value="TK B" @selected(old('kelas') == 'TK B')>TK B</option>
-                                <option value="TK C" @selected(old('kelas') == 'TK C')>TK C</option>
+                                @foreach ($kelas as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
                             </select>
                             @error('kelas')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -227,6 +242,7 @@
                                 Simpan
                             </button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Form End -->
