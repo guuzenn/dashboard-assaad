@@ -135,7 +135,7 @@
                <!-- Wali Kelas -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Wali Kelas</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $kelas->waliKelas->nama ?? '-' }}</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $kelas->guru->nama ?? '-' }}</p>
                </div>
                <!-- Status -->
                <div>

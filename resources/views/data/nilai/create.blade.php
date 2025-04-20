@@ -102,7 +102,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -116,21 +116,23 @@
                   </div>
 
                   <div class="flex flex-col gap-5.5 p-6.5">
+                    <form action="{{ route('data.nilai.store') }}" method="POST">
+                        @csrf
                      <!-- Nama Murid -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Murid</label>
                         <select
-                           name="murid_id"
+                           name="siswa_id"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                         >
                            <option value="">Pilih Murid</option>
                            @foreach ($murid as $m)
-                              <option value="{{ $m->id }}" @selected(old('murid_id') == $m->id)>
+                              <option value="{{ $m->id }}" @selected(old('siswa_id') == $m->id)>
                                  {{ $m->nama_lengkap }}
                               </option>
                            @endforeach
                         </select>
-                        @error('murid_id')
+                        @error('siswa_id')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -176,12 +178,12 @@
                         <input
                            type="number"
                            step="0.01"
-                           name="rata_rata"
-                           value="{{ old('rata_rata') }}"
+                           name="nilai"
+                           value="{{ old('nilai') }}"
                            placeholder="Contoh: 87.5"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                         />
-                        @error('rata_rata')
+                        @error('nilai')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -190,11 +192,11 @@
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Catatan</label>
                         <textarea
-                           name="catatan"
+                           name="deskripsi"
                            placeholder="Masukkan Catatan Umum"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
-                        >{{ old('catatan') }}</textarea>
-                        @error('catatan')
+                        >{{ old('deskripsi') }}</textarea>
+                        @error('deskripsi')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -205,6 +207,7 @@
                            Simpan
                         </button>
                      </div>
+                    </form>
                   </div>
                </div>
             </div>

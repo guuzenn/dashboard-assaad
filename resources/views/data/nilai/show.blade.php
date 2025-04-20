@@ -114,7 +114,7 @@
                <!-- Nama Murid -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Nama Murid</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $nilai->murid->nama_lengkap ?? '-' }}</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $nilai->siswa->nama_lengkap ?? '-' }}</p>
                </div>
                <!-- Kelas -->
                <div>
@@ -129,12 +129,12 @@
                <!-- Nilai Rata-rata -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Nilai Rata-rata</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $nilai->rata_rata ?? '-' }}</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $nilai->nilai ?? '-' }}</p>
                </div>
                <!-- Catatan -->
                <div class="sm:col-span-2">
                   <p class="text-sm text-slate-500 mb-1">Catatan / Deskripsi Singkat</p>
-                  <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $nilai->catatan ?? '-' }}</p>
+                  <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $nilai->deskripsi ?? '-' }}</p>
                </div>
                <!-- Back Button -->
                <div class="sm:col-span-2 flex justify-end mt-6">

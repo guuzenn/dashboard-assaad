@@ -181,12 +181,15 @@
                   @foreach ($nilai as $index => $item)
                   <tr>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->murid->nama_lengkap ?? '-' }}</td>
+                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->siswa->nama_lengkap ?? '-' }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama ?? '-' }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ ucfirst($item->semester) }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->rata_rata ?? '-' }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ Str::limit($item->catatan, 40) }}</td>
+                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->nilai ?? '-' }}</td>
+                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ Str::limit($item->deskripsi, 40) }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        <form action="{{ route('data.nilai.destroy', $item->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
                      <div class="flex items-center space-x-3.5">
                              <!-- Button Show -->
                              <a href="{{ route('data.nilai.show', $item->id) }}" class="hover:text-primary">
@@ -250,6 +253,7 @@
                                  </svg>
                                </a>
                            </div>
+                        </form>
                      </td>
                   </tr>
                   @endforeach

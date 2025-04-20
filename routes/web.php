@@ -27,6 +27,9 @@ Route::prefix('data/murid')->name('data.murid.')->group(function() {
     Route::post('/', [MuridController::class, 'store'])->name('store');
     Route::get('/{id}/edit', [MuridController::class, 'edit'])->name('edit');
     Route::get('/{id}', [MuridController::class, 'show'])->name('show');
+    Route::post('/',[MuridController::class,'store'])->name('store');
+    Route::put('/{id}',[MuridController::class,'update'])->name('update');
+    Route::delete('/{id}',[MuridController::class,'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Guru
@@ -58,4 +61,7 @@ Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
     Route::get('/create', [NilaiController::class, 'create'])->name('create');
     Route::get('/{id}', [NilaiController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [NilaiController::class, 'edit'])->name('edit');
+    Route::post('/',[NilaiController::class,'store'])->name('store');
+    Route::put('/{id}',[NilaiController::class,'update'])->name('update');
+    Route::delete('/{id}',[NilaiController::class,'destroy'])->name('destroy');
 });
