@@ -11,31 +11,33 @@ class MuridController extends Controller
 {
     public function index()
     {
-        // Dummy data
-        // $murid = collect([
-        //     (object)[
-        //         'id' => 1,
-        //         'nama_lengkap' => 'Budi Santoso',
-        //         'tanggal_lahir' => '2015-04-02',
-        //         'jenis_kelamin' => 'Laki-laki',
-        //         'agama' => 'Islam',
-        //         'kelas' => 'TK A'
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'nama_lengkap' => 'Siti Aminah',
-        //         'tanggal_lahir' => '2016-01-12',
-        //         'jenis_kelamin' => 'Perempuan',
-        //         'agama' => 'Kristen',
-        //         'kelas' => 'TK B'
-        //     ],
-        // ]);
+        $murid = collect([
+            (object)[
+                'id' => 1,
+                'nama_lengkap' => 'Budi Santoso',
+                'tanggal_lahir' => '2015-04-02',
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Islam',
+                'kelas' => 'TK A',
+                'status_pembayaran' => 'Lunas'
+            ],
+            (object)[
+                'id' => 2,
+                'nama_lengkap' => 'Siti Aminah',
+                'tanggal_lahir' => '2016-01-12',
+                'jenis_kelamin' => 'Perempuan',
+                'agama' => 'Kristen',
+                'kelas' => 'TK B',
+                'status_pembayaran' => 'Belum Lunas'
+            ],
+        ]);        
 
-        $murid = Siswa::get();
+        // $murid = Siswa::get();
 
-        $murid->each(function($item) {
-            $item->tanggal_lahir = Carbon::parse($item->tanggal_lahir)->format('d/m/Y');
-        });
+        // $murid->each(function($item) {
+        //     $item->tanggal_lahir = Carbon::parse($item->tanggal_lahir)->format('d/m/Y');
+        //     $item->status_pembayaran = 'Lunas';
+        // });
 
         return view('data.murid.index', compact('murid'));
     }
@@ -96,6 +98,7 @@ class MuridController extends Controller
         $murid = (object)[
             'id' => $id,
             'nama_lengkap' => 'Budi Santoso',
+            'status_pembayaran' => 'Lunas',
             'tanggal_lahir' => '2015-04-02',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',
@@ -107,7 +110,7 @@ class MuridController extends Controller
             'nama_ibu' => 'Bu Santi',
             'pekerjaan_ibu' => 'Ibu Rumah Tangga',
             'hp_ibu' => '089876543210',
-            'kelas_id' => 1, // misalnya TK A
+            'kelas_id' => 1,
         ];
 
         return view('data.murid.edit', compact('murid'));
@@ -118,6 +121,7 @@ class MuridController extends Controller
         $murid = (object)[
             'id' => $id,
             'nama_lengkap' => 'Budi Santoso',
+            'status_pembayaran' => 'Lunas',
             'tanggal_lahir' => '2015-04-02',
             'jenis_kelamin' => 'Laki-laki',
             'agama' => 'Islam',

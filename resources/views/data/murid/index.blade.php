@@ -156,12 +156,41 @@
             >
             <div class="flex items-center justify-between mb-4">
                <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
-               <button
-                  class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
-                  @click="window.location.href='{{ route('data.murid.create') }}'"
+               <div class="flex items-center gap-4">
+                  <div class="relative">
+                     <select
+                        name="filter_tahun"
+                        id="filter_tahun"
+                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                     >
+                        <option value="">Semua Kelas</option>
+                        <option value="A">TK A</option>
+                        <option value="B">TK B</option>
+                     </select>
+
+                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                        <svg
+                           width="14"
+                           height="10"
+                           viewBox="0 0 10 6"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg"
+                        >
+                           <path
+                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                              fill="#637381"
+                           />
+                        </svg>
+                     </span>
+                  </div>
+
+                  <button
+                     class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
+                     @click="window.location.href='{{ route('data.murid.create') }}'"
                   >
-               Tambah Murid
-               </button>
+                     Tambah Murid
+                  </button>
+               </div>
             </div>
             <!-- Table -->
             <div class="max-w-full overflow-x-auto">
@@ -172,6 +201,7 @@
                         <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Agama</th>
+                        <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th>
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                      </tr>
@@ -183,6 +213,14 @@
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama_lengkap }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->agama }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                           <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                              {{ $item->status_pembayaran == 'Lunas'
+                              ? 'bg-success bg-opacity-10 text-success'
+                              : 'bg-warning bg-opacity-10 text-warning' }}">
+                              {{ $item->status_pembayaran }}
+                           </p>
+                        </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                            <div class="flex items-center space-x-3.5">
@@ -256,7 +294,21 @@
             </div>
          </div>
          <!-- ====== Table Three End -->
-        <!-- Pagination -->
       </div>
    </main>
+   @if (session('success'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: 'Berhasil!',
+        text: "{{ session('success') }}",
+        confirmButtonColor: '#22c55e',
+        color: '#000000',
+        customClass: {
+        confirmButton: 'text-black' 
+    }
+    });
+</script>
+@endif
+
 </x-layout>

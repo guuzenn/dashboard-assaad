@@ -115,6 +115,13 @@ class PPDBController extends Controller
         return view('ppdb.show', compact('ppdb'));
     }
 
+    public function store(Request $request)
+    {
+
+        return redirect()->route('ppdb.index')->with('success', 'Data pendaftaran berhasil disimpan!');
+    }
+
+
 }
 
 

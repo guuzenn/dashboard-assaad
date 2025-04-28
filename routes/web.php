@@ -18,6 +18,7 @@ Route::prefix('ppdb')->name('ppdb.')->group(function() {
     Route::get('/create', [PPDBController::class, 'create'])->name('create');
     Route::get('/{id}/edit', [PPDBController::class, 'edit'])->name('edit');
     Route::get('/{id}', [PPDBController::class, 'show'])->name('show');
+    Route::post('/', [PPDBController::class, 'store'])->name('store');
 });
 
 // Route Prefix Data Murid

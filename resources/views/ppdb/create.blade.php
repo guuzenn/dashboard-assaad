@@ -109,7 +109,7 @@
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
       <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Data PPDB</h4>
 
-      <form action="#" method="POST">
+      <form action="{{ route('ppdb.store') }}" method="POST">
         @csrf
         <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
           <div class="flex flex-col gap-9">
