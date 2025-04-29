@@ -16,6 +16,7 @@ class Nilai extends Model
         'siswa_id',
         'kelas_id',
         'semester',
+        'mata_pelarajan_id',
         'nilai',
         'deskripsi',
     ];
@@ -29,4 +30,5 @@ class Nilai extends Model
     {
         return $this->belongsTo(Kelas::class);
     }
+
 }

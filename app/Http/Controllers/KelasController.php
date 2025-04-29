@@ -13,26 +13,6 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::get();
-        $kelas1 = [
-            (object)[
-                'id' => 1,
-                'nama' => 'TK A',
-                'tahun_ajar' => '2024/2025',
-                'waliKelas' => (object)['nama' => 'Bu Rina'],
-                'status' => 'aktif',
-                'total_murid' => 15,
-            ],
-            (object)[
-                'id' => 2,
-                'nama' => 'TK B',
-                'tahun_ajar' => '2024/2025',
-                'waliKelas' => (object)['nama' => 'Pak Budi'],
-                'status' => 'non-aktif',
-                'total_murid' => 0,
-            ],
-        ];
-
-
         return view('data.kelas.index', compact('kelas'));
     }
 
@@ -67,36 +47,14 @@ class KelasController extends Controller
 
     public function edit($id)
     {
-        // $kelas = (object)[
-        //     'id' => $id,
-        //     'nama' => 'TK A',
-        //     'tahun_ajar' => '2024/2025',
-        //     'waliKelas' => (object)['id' => 1, 'nama' => 'Bu Rina'],
-        //     'wali_kelas_id' => 1,
-        //     'status' => 'aktif',
-        //     'total_murid' => 15,
-        // ];
-
         $kelas = Kelas::find($id);
-
         $guru = Guru::all();
-
         return view('data.kelas.edit', compact('kelas', 'guru'));
     }
 
     public function show($id)
     {
-        // $kelas = (object)[
-        //     'id' => $id,
-        //     'nama' => 'TK A',
-        //     'tahun_ajar' => '2024/2025',
-        //     'waliKelas' => (object)['nama' => 'Bu Rina'],
-        //     'status' => 'aktif',
-        //     'total_murid' => 15,
-        // ];
-
         $kelas = Kelas::findOrFail($id);
-
         return view('data.kelas.show', compact('kelas'));
     }
 

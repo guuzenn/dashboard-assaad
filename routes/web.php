@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\PivotMataPelajaranKelasController;
 use App\Http\Controllers\PPDBController;
 use App\Http\Controllers\MuridController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\PivotMataPelajaranKelas;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -65,4 +68,24 @@ Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
     Route::post('/',[NilaiController::class,'store'])->name('store');
     Route::put('/{id}',[NilaiController::class,'update'])->name('update');
     Route::delete('/{id}',[NilaiController::class,'destroy'])->name('destroy');
+});
+
+Route::prefix('data/mapel')->name('data.mata_pelajaran.')->group(function() {
+    Route::get('/', [MataPelajaranController::class, 'index'])->name('index');
+    Route::get('/create', [MataPelajaranController::class, 'create'])->name('create');
+    Route::get('/{id}', [MataPelajaranController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [MataPelajaranController::class, 'edit'])->name('edit');
+    Route::post('/',[MataPelajaranController::class,'store'])->name('store');
+    Route::put('/{id}',[MataPelajaranController::class,'update'])->name('update');
+    Route::delete('/{id}',[MataPelajaranController::class,'destroy'])->name('destroy');
+});
+
+Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(function() {
+    Route::get('/', [PivotMataPelajaranKelasController::class, 'index'])->name('index');
+    Route::get('/create', [PivotMataPelajaranKelasController::class, 'create'])->name('create');
+    Route::get('/{id}', [PivotMataPelajaranKelasController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [PivotMataPelajaranKelasController::class, 'edit'])->name('edit');
+    Route::post('/',[PivotMataPelajaranKelasController::class,'store'])->name('store');
+    Route::put('/{id}',[PivotMataPelajaranKelasController::class,'update'])->name('update');
+    Route::delete('/{id}',[PivotMataPelajaranKelasController::class,'destroy'])->name('destroy');
 });

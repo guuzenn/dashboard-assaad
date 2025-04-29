@@ -49,7 +49,7 @@ class GuruController extends Controller
             'jenis_kelamin' => 'nullable|string',
             'alamat' => 'nullable',
             'no_hp'=> 'nullable',
-            'kelas_id'=> 'nullable',
+            // 'kelas_id'=> 'nullable',
         ]);
 
         Guru::create([
@@ -60,7 +60,7 @@ class GuruController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
-            'kelas_id' => $request->kelas_id
+            // 'kelas_id' => $request->kelas_id
         ]);
 
         return redirect()->route('data.guru.index')->with('success', 'Kelas berhasil ditambahkan');
@@ -93,7 +93,7 @@ class GuruController extends Controller
             'usia' => 'nullable|integer',
             'alamat' => 'nullable',
             'no_hp'=> 'nullable',
-            'kelas_id'=> 'nullable',
+            // 'kelas_id'=> 'nullable',
         ]);
         $guru = Guru::findOrFail($id);
         $guru->update([
@@ -103,7 +103,7 @@ class GuruController extends Controller
             'usia' => $request->usia,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
-            'kelas_id' => $request->kelas_id,
+            // 'kelas_id' => $request->kelas_id,
         ]);
 
 
