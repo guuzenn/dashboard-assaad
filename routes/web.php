@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::view('/login', 'auth.login')->name('login');
 
+// Test
 
 // Route Prefix PPDB
 Route::prefix('ppdb')->name('ppdb.')->group(function() {
