@@ -12,12 +12,29 @@ use App\Http\Controllers\PivotMataPelajaranKelas;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\CicilanController;
 use App\Http\Controllers\LaporanHarianController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::view('/login', 'auth.login')->name('login');
+// Routing Auth (Login)
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-// Test
+// Role-based dashboards Tests
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return 'Welcome, Admin!';
+    })->name('admin.dashboard')->middleware('role:admin');
+
+    Route::get('/guru/dashboard', function () {
+        return 'Welcome, Guru!';
+    })->name('guru.dashboard')->middleware('role:guru');
+
+    Route::get('/siswa/dashboard', function () {
+        return 'Welcome, Siswa!';
+    })->name('siswa.dashboard')->middleware('role:siswa');
+});
 
 // Route Prefix PPDB
 Route::prefix('ppdb')->name('ppdb.')->group(function() {
@@ -30,7 +47,6 @@ Route::prefix('ppdb')->name('ppdb.')->group(function() {
     Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy'); 
 });
 
-
 // Route Prefix Data Murid
 Route::prefix('data/murid')->name('data.murid.')->group(function() {
     Route::get('/', [MuridController::class, 'index'])->name('index');
@@ -38,9 +54,8 @@ Route::prefix('data/murid')->name('data.murid.')->group(function() {
     Route::post('/', [MuridController::class, 'store'])->name('store');
     Route::get('/{id}/edit', [MuridController::class, 'edit'])->name('edit');
     Route::get('/{id}', [MuridController::class, 'show'])->name('show');
-    Route::post('/',[MuridController::class,'store'])->name('store');
-    Route::put('/{id}',[MuridController::class,'update'])->name('update');
-    Route::delete('/{id}',[MuridController::class,'destroy'])->name('destroy');
+    Route::put('/{id}', [MuridController::class, 'update'])->name('update');
+    Route::delete('/{id}', [MuridController::class, 'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Guru
@@ -49,9 +64,9 @@ Route::prefix('data/guru')->name('data.guru.')->group(function() {
     Route::get('/create', [GuruController::class, 'create'])->name('create');
     Route::get('/{id}/edit', [GuruController::class, 'edit'])->name('edit');
     Route::get('/{id}', [GuruController::class, 'show'])->name('show');
-    Route::post('/',[GuruController::class,'store'])->name('store');
-    Route::put('/{id}',[GuruController::class,'update'])->name('update');
-    Route::delete('/{id}',[GuruController::class,'destroy'])->name('destroy');
+    Route::post('/', [GuruController::class, 'store'])->name('store');
+    Route::put('/{id}', [GuruController::class, 'update'])->name('update');
+    Route::delete('/{id}', [GuruController::class, 'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Kelas
@@ -60,10 +75,9 @@ Route::prefix('data/kelas')->name('data.kelas.')->group(function() {
     Route::get('/create', [KelasController::class, 'create'])->name('create');
     Route::get('/{id}/edit', [KelasController::class, 'edit'])->name('edit');
     Route::get('/{id}', [KelasController::class, 'show'])->name('show');
-    Route::post('/',[KelasController::class,'store'])->name('store');
-    Route::put('/{id}',[KelasController::class,'update'])->name('update');
-    Route::delete('/{id}',[KelasController::class,'destroy'])->name('destroy');
-
+    Route::post('/', [KelasController::class, 'store'])->name('store');
+    Route::put('/{id}', [KelasController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KelasController::class, 'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Nilai
@@ -72,31 +86,34 @@ Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
     Route::get('/create', [NilaiController::class, 'create'])->name('create');
     Route::get('/{id}', [NilaiController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [NilaiController::class, 'edit'])->name('edit');
-    Route::post('/',[NilaiController::class,'store'])->name('store');
-    Route::put('/{id}',[NilaiController::class,'update'])->name('update');
-    Route::delete('/{id}',[NilaiController::class,'destroy'])->name('destroy');
+    Route::post('/', [NilaiController::class, 'store'])->name('store');
+    Route::put('/{id}', [NilaiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [NilaiController::class, 'destroy'])->name('destroy');
 });
 
+// Route Prefix Mata Pelajaran
 Route::prefix('data/mapel')->name('data.mata_pelajaran.')->group(function() {
     Route::get('/', [MataPelajaranController::class, 'index'])->name('index');
     Route::get('/create', [MataPelajaranController::class, 'create'])->name('create');
     Route::get('/{id}', [MataPelajaranController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [MataPelajaranController::class, 'edit'])->name('edit');
-    Route::post('/',[MataPelajaranController::class,'store'])->name('store');
-    Route::put('/{id}',[MataPelajaranController::class,'update'])->name('update');
-    Route::delete('/{id}',[MataPelajaranController::class,'destroy'])->name('destroy');
+    Route::post('/', [MataPelajaranController::class, 'store'])->name('store');
+    Route::put('/{id}', [MataPelajaranController::class, 'update'])->name('update');
+    Route::delete('/{id}', [MataPelajaranController::class, 'destroy'])->name('destroy');
 });
 
+// Route Prefix Pembagian Mapel
 Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(function() {
     Route::get('/', [PivotMataPelajaranKelasController::class, 'index'])->name('index');
     Route::get('/create', [PivotMataPelajaranKelasController::class, 'create'])->name('create');
     Route::get('/{id}', [PivotMataPelajaranKelasController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PivotMataPelajaranKelasController::class, 'edit'])->name('edit');
-    Route::post('/',[PivotMataPelajaranKelasController::class,'store'])->name('store');
-    Route::put('/{id}',[PivotMataPelajaranKelasController::class,'update'])->name('update');
-    Route::delete('/{id}',[PivotMataPelajaranKelasController::class,'destroy'])->name('destroy');
+    Route::post('/', [PivotMataPelajaranKelasController::class, 'store'])->name('store');
+    Route::put('/{id}', [PivotMataPelajaranKelasController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PivotMataPelajaranKelasController::class, 'destroy'])->name('destroy');
 });
 
+// Route Prefix Admin Pembayaran
 Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () {
     Route::get('/', [PembayaranController::class, 'index'])->name('index');
     Route::get('/create', [PembayaranController::class, 'create'])->name('create');
@@ -104,7 +121,6 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
     Route::get('/{tagihan}/edit', [PembayaranController::class, 'edit'])->name('edit');
     Route::put('/{tagihan}', [PembayaranController::class, 'update'])->name('update');
     Route::delete('/{tagihan}', [PembayaranController::class, 'destroy'])->name('destroy');
-
     Route::get('/riwayat', [PembayaranController::class, 'riwayat'])->name('riwayat');
 
     Route::prefix('cicilan')->name('cicilan.')->group(function () {
@@ -119,6 +135,7 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
          ->name('show');
 });
 
+// Route Prefix Laporan Harian
 Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(function () {
     Route::get('/', [LaporanHarianController::class, 'index'])->name('index');
     Route::get('/create', [LaporanHarianController::class, 'create'])->name('create');
@@ -128,6 +145,3 @@ Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(functi
     Route::put('/{id}', [LaporanHarianController::class, 'update'])->name('update');
     Route::delete('/{id}', [LaporanHarianController::class, 'destroy'])->name('destroy');
 });
-
-
-
