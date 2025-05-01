@@ -147,6 +147,43 @@
                    Pembagian Mapel
                 </a>
              </li>
+
+            <!-- Menu Item Konten (Dropdown) -->
+            <li x-data="{ open: false }">
+               <button @click="open = !open"
+                  class="group relative flex items-center justify-between w-full gap-2.5 rounded-sm px-4 py-2 font-medium duration-300 ease-in-out
+                  hover:bg-graydark dark:hover:bg-meta-4
+                  text-bodydark1">
+                  <!-- SVG Konten -->
+                  <div class="flex items-center gap-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"></path>
+                     </svg>
+                     Konten
+                  </div>
+                  <!-- Arrow -->
+                  <svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor"
+                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 9l-7 7-7-7"></path>
+                  </svg>
+               </button>
+               <ul x-show="open" x-collapse class="mt-1 space-y-1 pl-9 text-sm text-bodydark2">
+                  <li>
+                     <a href="{{ route('konten.visi_misi') }}"
+                        class="block rounded-sm py-1.5 px-2 hover:bg-graydark dark:hover:bg-meta-4">
+                        Visi & Misi
+                     </a>
+                  </li>
+                  <li>
+                     <a href="{{ route('konten.kegiatan') }}"
+                        class="block rounded-sm py-1.5 px-2 hover:bg-graydark dark:hover:bg-meta-4">
+                        Kegiatan
+                     </a>
+                  </li>
+               </ul>
+            </li>
+
          </div>
       </nav>
       <!-- Sidebar Menu -->

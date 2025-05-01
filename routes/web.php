@@ -9,10 +9,16 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PivotMataPelajaranKelas;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\KontenController;
+use App\Http\Controllers\VisiMisiController;
+use App\Http\Controllers\KegiatanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::view('/login', 'auth.login')->name('login');
+// Routing Auth (Login)
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
 
 // Test
 
@@ -90,3 +96,13 @@ Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(fu
     Route::put('/{id}',[PivotMataPelajaranKelasController::class,'update'])->name('update');
     Route::delete('/{id}',[PivotMataPelajaranKelasController::class,'destroy'])->name('destroy');
 });
+
+// Route Resource Konten Website: Visi Misi dan Kegiatan
+Route::prefix('data')->group(function () {
+    Route::resource('visi-misi', VisiMisiController::class);
+    Route::resource('kegiatan', KegiatanController::class);
+});
+
+// Route untuk Konten Website: Visi Misi & Kegiatan
+Route::get('/konten/visi-misi', [KontenController::class, 'visiMisi'])->name('konten.visi_misi');
+Route::get('/konten/kegiatan', [KontenController::class, 'kegiatan'])->name('konten.kegiatan');
