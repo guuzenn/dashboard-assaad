@@ -16,8 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-// Test
+// Role-based dashboards Tests
+Route::middleware('auth')->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return 'Welcome, Admin!';
+    })->name('admin.dashboard')->middleware('role:admin');
+
+    Route::get('/guru/dashboard', function () {
+        return 'Welcome, Guru!';
+    })->name('guru.dashboard')->middleware('role:guru');
+
+    Route::get('/siswa/dashboard', function () {
+        return 'Welcome, Siswa!';
+    })->name('siswa.dashboard')->middleware('role:siswa');
+});
 
 // Route Prefix PPDB
 Route::prefix('ppdb')->name('ppdb.')->group(function() {
