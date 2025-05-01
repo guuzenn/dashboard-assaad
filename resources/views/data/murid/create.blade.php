@@ -110,6 +110,8 @@
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Murid</h4>
 
          <!-- Form Elements Section Start -->
+         <form action="{{ route('data.murid.store') }}" method="POST">
+         @csrf
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
             <div class="flex flex-col gap-9">
                 <!-- Form Start -->
@@ -117,9 +119,8 @@
                     <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
                         <h3 class="font-medium text-black dark:text-white">Form Tambah Murid</h3>
                     </div>
-                    <div class="flex flex-col gap-5.5 p-6.5">
-                        <form action="{{ route('data.murid.store') }}" method="POST">
-                            @csrf
+                    <div class="flex flex-col gap-6 p-6.5">
+
                         <!-- Nama Lengkap -->
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
@@ -372,7 +373,7 @@
                                 Simpan
                             </button>
                         </div>
-                        </form>
+                     
                     </div>
                 </div>
                 <!-- Form End -->
@@ -380,6 +381,7 @@
          </div>
          <!-- Form Elements Section End -->
       </div>
+      </form>
    </main>
    <!-- ===== Main Content End ===== -->
 </x-layout>

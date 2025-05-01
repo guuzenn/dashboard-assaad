@@ -5,17 +5,17 @@
          <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
             <!-- Hamburger Toggle BTN -->
             <button class="z-99999 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-strokedark dark:bg-boxdark lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
-               <span class="relative block h-5.5 w-5.5 cursor-pointer">
-                  <span class="du-block absolute right-0 h-full w-full">
-                     <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-300': !sidebarToggle }"></span>
-                     <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-400': !sidebarToggle }"></span>
-                     <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-500': !sidebarToggle }"></span>
-                  </span>
-                  <span class="du-block absolute right-0 h-full w-full rotate-45">
-                     <span class="absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white" :class="{ '!h-0 delay-[0]': !sidebarToggle }"></span>
-                     <span class="delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white" :class="{ '!h-0 dealy-200': !sidebarToggle }"></span>
-                  </span>
-               </span>
+            <span class="relative block h-5.5 w-5.5 cursor-pointer">
+            <span class="du-block absolute right-0 h-full w-full">
+            <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-300': !sidebarToggle }"></span>
+            <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-400': !sidebarToggle }"></span>
+            <span class="relative left-0 top-0 my-1 block h-0.5 w-0 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white" :class="{ '!w-full delay-500': !sidebarToggle }"></span>
+            </span>
+            <span class="du-block absolute right-0 h-full w-full rotate-45">
+            <span class="absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white" :class="{ '!h-0 delay-[0]': !sidebarToggle }"></span>
+            <span class="delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white" :class="{ '!h-0 dealy-200': !sidebarToggle }"></span>
+            </span>
+            </span>
             </button>
          </div>
          <div class="hidden sm:block">
@@ -23,7 +23,8 @@
                <div class="relative">
                   <button class="absolute left-0 top-1/2 -translate-y-1/2">
                      <svg class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill=""/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill="" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z" fill="" />
                      </svg>
                   </button>
                   <input type="text" placeholder="Type to search..." class="w-full bg-transparent pl-9 pr-4 focus:outline-none xl:w-125" />
@@ -101,45 +102,93 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-
-  <!-- ===== Main Content Start ===== -->
-  <main>
+   <!-- ===== Main Content Start ===== -->
+    <main>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-      <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Mata Pelajaran</h4>
-      
-      <form action="{{ route('data.mata_pelajaran.store') }}" method="POST">
-      @csrf
-      <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
-        <div class="flex flex-col gap-9">
-          <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-              <h3 class="font-medium text-black dark:text-white">Form Tambah Mata Pelajaran</h3>
-            </div>
+        <h4 class="text-lg font-bold text-black dark:text-white mb-4">Detail Cicilan</h4>
 
-            <div class="flex flex-col gap-5.5 p-6.5">
-          
-              <!-- Nama Mata Pelajaran -->
-              <div>
-                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Mata Pelajaran</label>
-                <input type="text" name="nama" placeholder="Contoh: Bahasa Indonesia"
-                  class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
-                @error('nama')
-                  <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-              </div>
-
-              <!-- Submit Button -->
-              <div class="flex items-center justify-end gap-4">
-                <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                  Simpan
-                </button>
-              </div>
-            </div>
-          </div>
+        <!-- Informasi Cicilan -->
+        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark mb-6">
+        <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+            <h3 class="font-medium text-black dark:text-white">Informasi Pengajuan Cicilan</h3>
         </div>
-      </div>
-      </form>
+        <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
+            <div>
+            <p class="text-sm text-slate-500 mb-1">Nama Siswa</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['siswa'] }}</p>
+            </div>
+            <div>
+            <p class="text-sm text-slate-500 mb-1">Jenis Tagihan</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['jenis_tagihan'] }}</p>
+            </div>
+            <div>
+            <p class="text-sm text-slate-500 mb-1">Total Tagihan</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">Rp {{ number_format($cicilan['total_tagihan'], 0, ',', '.') }}</p>
+            </div>
+            <div>
+            <p class="text-sm text-slate-500 mb-1">Jumlah Termin</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['jumlah_termin'] }}</p>
+            </div>
+            <div>
+            <p class="text-sm text-slate-500 mb-1">Status</p>
+            <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                {{ $cicilan['status'] == 'Disetujui' ? 'bg-success bg-opacity-10 text-success' :
+                ($cicilan['status'] == 'Ditolak' ? 'bg-danger bg-opacity-10 text-danger' : 'bg-warning bg-opacity-10 text-warning') }}">
+                {{ $cicilan['status'] }}
+            </p>
+            </div>
+        </div>
+        </div>
+
+        <!-- Daftar Termin -->
+        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+        <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+            <h3 class="font-medium text-black dark:text-white">Detail Termin Pembayaran</h3>
+        </div>
+        <div class="p-6.5 overflow-x-auto">
+            <table class="w-full table-auto">
+            <thead>
+                <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                <th class="min-w-[80px] px-4 py-3 font-medium text-black dark:text-white">Termin Ke</th>
+                <th class="min-w-[140px] px-4 py-3 font-medium text-black dark:text-white">Nominal</th>
+                <th class="min-w-[160px] px-4 py-3 font-medium text-black dark:text-white">Jatuh Tempo</th>
+                <th class="min-w-[140px] px-4 py-3 font-medium text-black dark:text-white">Status</th>
+                <th class="min-w-[160px] px-4 py-3 font-medium text-black dark:text-white">Tanggal Bayar</th>
+                <th class="min-w-[120px] px-4 py-3 font-medium text-black dark:text-white">Metode</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($termin as $item)
+                <tr>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $item['termin_ke'] }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $item['jatuh_tempo'] }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                    <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                    {{ $item['status'] == 'Lunas' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">
+                    {{ $item['status'] }}
+                    </p>
+                </td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                    {{ $item['tanggal_bayar'] ?? '-' }}
+                </td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
+                    {{ $item['metode'] ?? '-' }}
+                </td>
+                </tr>
+                @endforeach
+            </tbody>
+            </table>
+        </div>
+        </div>
+
+        <!-- Tombol Kembali -->
+        <div class="mt-6 flex justify-end">
+        <a href="{{ route('admin.pembayaran.cicilan.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+            Kembali
+        </a>
+        </div>
     </div>
-  </main>
-   <!-- ===== Main Content End ===== -->
+    </main>
+
 </x-layout>

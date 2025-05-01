@@ -17,13 +17,15 @@
                   </span>
                </span>
             </button>
+            <!-- Hamburger Toggle BTN -->
          </div>
          <div class="hidden sm:block">
             <form action="https://formbold.com/s/unique_form_id" method="POST">
                <div class="relative">
                   <button class="absolute left-0 top-1/2 -translate-y-1/2">
                      <svg class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill=""/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill="" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z" fill="" />
                      </svg>
                   </button>
                   <input type="text" placeholder="Type to search..." class="w-full bg-transparent pl-9 pr-4 focus:outline-none xl:w-125" />
@@ -104,42 +106,115 @@
 
   <!-- ===== Main Content Start ===== -->
   <main>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-      <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Mata Pelajaran</h4>
-      
-      <form action="{{ route('data.mata_pelajaran.store') }}" method="POST">
-      @csrf
+   <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+      <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Tagihan</h4>
+
       <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
-        <div class="flex flex-col gap-9">
-          <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-            <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-              <h3 class="font-medium text-black dark:text-white">Form Tambah Mata Pelajaran</h3>
-            </div>
+         <div class="flex flex-col gap-9">
+            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                  <h3 class="font-medium text-black dark:text-white">Form Tagihan Pembayaran</h3>
+               </div>
+               <div class="flex flex-col gap-5.5 p-6.5">
+                  <form action="{{ route('admin.pembayaran.store') }}" method="POST">
+                     @csrf
 
-            <div class="flex flex-col gap-5.5 p-6.5">
-          
-              <!-- Nama Mata Pelajaran -->
-              <div>
-                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Mata Pelajaran</label>
-                <input type="text" name="nama" placeholder="Contoh: Bahasa Indonesia"
-                  class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
-                @error('nama')
-                  <span class="text-red-500 text-sm">{{ $message }}</span>
-                @enderror
-              </div>
+                     <!-- Jenis Pembayaran -->
+                     <div class="mb-4">
+                        <label class="mb-2 block text-sm font-medium text-black dark:text-white">Jenis Pembayaran</label>
 
-              <!-- Submit Button -->
-              <div class="flex items-center justify-end gap-4">
-                <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                  Simpan
-                </button>
-              </div>
+                        <div class="relative">
+                            <select name="jenis_pembayaran"
+                                class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                                <option value="">Pilih Jenis</option>
+                                @foreach ($jenis as $j)
+                                    <option value="{{ $j }}">{{ $j }}</option>
+                                @endforeach
+                            </select>
+
+                            <!-- Custom Dropdown Icon -->
+                            <div class="pointer-events-none absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.167l3.71-3.937a.75.75 0 011.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        @error('jenis_pembayaran')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+
+                     <!-- Nominal -->
+                     <div class="mb-4">
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nominal</label>
+                        <input type="number" name="nominal" placeholder="Masukkan jumlah tagihan"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                           value="{{ old('nominal') }}">
+                        @error('nominal')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
+
+                     <!-- Jatuh Tempo -->
+                     <div class="mb-4">
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Jatuh Tempo</label>
+                        <input type="date" name="due_date"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                           value="{{ old('due_date') }}">
+                        @error('due_date')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
+
+                     <!-- Target Siswa -->
+                     <div class="mb-4">
+                        <label class="mb-2 block text-sm font-medium text-black dark:text-white">Tagih ke</label>
+
+                        <div class="relative">
+                            <select name="student_id"
+                                class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                                <option value="">Pilih Siswa</option>
+                                @foreach ($siswa as $s)
+                                    <option value="{{ $s }}">{{ $s }}</option>
+                                @endforeach
+                            </select>
+
+                            <div class="pointer-events-none absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
+                                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.167l3.71-3.937a.75.75 0 011.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-gray-500 mt-1">Kosongkan jika untuk semua siswa / massal</p>
+                        @error('student_id')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                     <!-- Boleh Cicilan -->
+                     <div class="flex items-center gap-2">
+                        <input type="checkbox" name="boleh_cicilan" id="boleh_cicilan"
+                           class="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary"
+                           {{ old('boleh_cicilan') ? 'checked' : '' }}>
+                        <label for="boleh_cicilan" class=" ml-2 text-sm text-black dark:text-white">Izinkan Cicilan?</label>
+                     </div>
+
+                     <!-- Submit -->
+                     <div class="flex items-center justify-end gap-4 pt-4">
+                        <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                           Simpan
+                        </button>
+                     </div>
+                  </form>
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
       </div>
-      </form>
-    </div>
-  </main>
+   </div>
+</main>
+
    <!-- ===== Main Content End ===== -->
 </x-layout>

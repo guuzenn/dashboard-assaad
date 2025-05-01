@@ -104,112 +104,139 @@
    <!-- ===== Header End ===== -->
    <!-- ===== Main Content Start ===== -->
    <main>
-   <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-      <h4 class="text-lg font-bold text-black dark:text-white mb-4">Detail Pendaftar</h4>
-      <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-         <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-            <h3 class="font-medium text-black dark:text-white">Informasi Pendaftar</h3>
-         </div>
-         <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
-            <!-- Informasi Pribadi -->
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Nama Lengkap</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_lengkap }}</p>
+      <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+         <h4 class="text-lg font-bold text-black dark:text-white mb-4">Detail Pendaftar</h4>
+         <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+               <h3 class="font-medium text-black dark:text-white">Informasi Pendaftar</h3>
             </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Tempat Lahir</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->tempat_lahir }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Tanggal Lahir</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->tanggal_lahir }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Usia</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->usia }} tahun</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Jenis Kelamin</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->jenis_kelamin }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Agama</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->agama }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Status Keluarga</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->status_keluarga }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Riwayat Penyakit</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->riwayat_penyakit ?? 'Tidak Ada' }}</p>
-            </div>
-            <div class="sm:col-span-2">
-               <p class="text-sm text-slate-500 mb-1">Alamat</p>
-               <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $ppdb->alamat }}</p>
-            </div>
+            <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
+               
+               <!-- Informasi Pribadi -->
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Nama Lengkap</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_lengkap }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Nama Panggilan</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_panggilan }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Jenjang Kelas</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->jenjang_kelas }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Tempat, Tanggal Lahir</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->tempat_lahir }}, {{ $ppdb->tanggal_lahir }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Usia</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->usia }} tahun</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Jenis Kelamin</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->jenis_kelamin }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Agama</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->agama }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Anak Ke-</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->anak_ke }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Status Keluarga</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->status_keluarga }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Jumlah Saudara</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->jumlah_saudara }}</p>
+               </div>
+               <div class="sm:col-span-2">
+                  <p class="text-sm text-slate-500 mb-1">Alamat</p>
+                  <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $ppdb->alamat }}</p>
+               </div>
 
-            <!-- Orang Tua -->
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Nama Ayah</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_ayah }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Pekerjaan Ayah</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->pekerjaan_ayah }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">No HP Ayah</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->hp_ayah }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Nama Ibu</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_ibu }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Pekerjaan Ibu</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->pekerjaan_ibu }}</p>
-            </div>
-            <div>
-               <p class="text-sm text-slate-500 mb-1">No HP Ibu</p>
-               <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->hp_ibu }}</p>
-            </div>
+               <!-- Informasi Kesehatan -->
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Penyakit Bawaan</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->penyakit_bawaan ?? 'Tidak Ada' }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Alergi</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->alergi ?? 'Tidak Ada' }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Pengawasan Medis / Obat Rutin</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->pengawasan_medis ?? 'Tidak Ada' }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Riwayat Cedera Serius</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->cedera_serius ?? 'Tidak Ada' }}</p>
+               </div>
 
-            <!-- Status Pendaftaran -->
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Status Pendaftaran</p>
-               <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                  @if ($ppdb->status_pendaftaran == 'Diterima')
-                     bg-success bg-opacity-10 text-success
-                  @elseif ($ppdb->status_pendaftaran == 'Ditolak')
-                     bg-danger bg-opacity-10 text-danger
-                  @else
-                     bg-warning bg-opacity-10 text-warning
-                  @endif">
-                  {{ $ppdb->status_pendaftaran }}
-               </p>
-            </div>
+               <!-- Informasi Orang Tua -->
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Nama Ayah</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_ayah }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Pekerjaan Ayah</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->pekerjaan_ayah }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">No HP Ayah</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->hp_ayah }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Nama Ibu</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->nama_ibu }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Pekerjaan Ibu</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->pekerjaan_ibu }}</p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">No HP Ibu</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $ppdb->hp_ibu }}</p>
+               </div>
 
-            <!-- Status Pembayaran -->
-            <div>
-               <p class="text-sm text-slate-500 mb-1">Status Pembayaran</p>
-               <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                  {{ $ppdb->status_pembayaran == 'Lunas'
-                     ? 'bg-success bg-opacity-10 text-success'
-                     : 'bg-warning bg-opacity-10 text-warning' }}">
-                  {{ $ppdb->status_pembayaran }}
-               </p>
-            </div>
+               <!-- Status -->
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Status Pendaftaran</p>
+                  <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                     @if ($ppdb->status_pendaftaran == 'Diterima')
+                        bg-success bg-opacity-10 text-success
+                     @elseif ($ppdb->status_pendaftaran == 'Ditolak')
+                        bg-danger bg-opacity-10 text-danger
+                     @else
+                        bg-warning bg-opacity-10 text-warning
+                     @endif">
+                     {{ $ppdb->status_pendaftaran }}
+                  </p>
+               </div>
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Status Pembayaran</p>
+                  <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                     {{ $ppdb->status_pembayaran == 'Lunas'
+                        ? 'bg-success bg-opacity-10 text-success'
+                        : 'bg-warning bg-opacity-10 text-warning' }}">
+                     {{ $ppdb->status_pembayaran }}
+                  </p>
+               </div>
 
-            <!-- Tombol Kembali -->
-            <div class="sm:col-span-2 flex justify-end mt-6">
-               <a href="{{ route('ppdb.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                  Kembali
-               </a>
+               <!-- Tombol Kembali -->
+               <div class="sm:col-span-2 flex justify-end mt-6">
+                  <a href="{{ route('ppdb.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                     Kembali
+                  </a>
+               </div>
             </div>
          </div>
       </div>
-   </div>
-</main>
+   </main>
+
+
 
 </x-layout>

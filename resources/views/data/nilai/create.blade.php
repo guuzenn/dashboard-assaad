@@ -107,7 +107,9 @@
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Rekap Nilai Murid</h4>
-
+         
+         <form action="{{ route('data.nilai.store') }}" method="POST">
+         @csrf
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
             <div class="flex flex-col gap-9">
                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -116,8 +118,7 @@
                   </div>
 
                   <div class="flex flex-col gap-5.5 p-6.5">
-                    <form action="{{ route('data.nilai.store') }}" method="POST">
-                        @csrf
+                  
                      <!-- Nama Murid -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Murid</label>
@@ -207,11 +208,11 @@
                            Simpan
                         </button>
                      </div>
-                    </form>
                   </div>
                </div>
             </div>
          </div>
+         </form>
       </div>
    </main>
    <!-- ===== Main Content End ===== -->

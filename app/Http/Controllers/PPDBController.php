@@ -12,14 +12,21 @@ class PPDBController extends Controller
             (object)[
                 'id' => 1,
                 'nama_lengkap' => 'Aisyah Putri',
-                'tanggal_lahir' => '2018-03-15',
+                'nama_panggilan' => 'Aisyah',
+                'jenjang_kelas' => 'TK A',
                 'tempat_lahir' => 'Jakarta',
-                'usia' => 6,
+                'tanggal_lahir' => '2018-03-15',
+                'usia' => '6 tahun 4 bulan',
                 'jenis_kelamin' => 'Perempuan',
                 'agama' => 'Islam',
+                'anak_ke' => 1,
                 'status_keluarga' => 'Anak Kandung',
-                'alamat' => 'Jl. Melati No. 12',
-                'riwayat_penyakit' => null,
+                'jumlah_saudara' => 2,
+                'alamat' => 'Jl. Melati No. 12, Jakarta',
+                'penyakit_bawaan' => null,
+                'alergi' => 'Susu sapi',
+                'pengawasan_medis' => null,
+                'cedera_serius' => 'Pernah jatuh dari sepeda, 2023',
                 'nama_ayah' => 'Ahmad Fauzi',
                 'pekerjaan_ayah' => 'Karyawan Swasta',
                 'hp_ayah' => '081234567890',
@@ -33,14 +40,21 @@ class PPDBController extends Controller
             (object)[
                 'id' => 2,
                 'nama_lengkap' => 'Budi Santoso',
-                'tanggal_lahir' => '2017-10-20',
+                'nama_panggilan' => 'Budi',
+                'jenjang_kelas' => 'TK B',
                 'tempat_lahir' => 'Bandung',
-                'usia' => 7,
+                'tanggal_lahir' => '2017-10-20',
+                'usia' => '7 tahun',
                 'jenis_kelamin' => 'Laki-laki',
                 'agama' => 'Kristen',
+                'anak_ke' => 2,
                 'status_keluarga' => 'Anak Angkat',
-                'alamat' => 'Jl. Kenanga No. 45',
-                'riwayat_penyakit' => 'Asma',
+                'jumlah_saudara' => 1,
+                'alamat' => 'Jl. Kenanga No. 45, Bandung',
+                'penyakit_bawaan' => 'Asma',
+                'alergi' => null,
+                'pengawasan_medis' => 'Mengonsumsi obat asma rutin',
+                'cedera_serius' => null,
                 'nama_ayah' => 'Slamet Riyadi',
                 'pekerjaan_ayah' => 'Pedagang',
                 'hp_ayah' => '081298765432',
@@ -56,6 +70,13 @@ class PPDBController extends Controller
         return view('ppdb.index', compact('ppdb'));
     }
 
+    public function show($id)
+    {
+        $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
+
+        return view('ppdb.show', compact('ppdb'));
+    }
+
     public function create()
     {
         return view('ppdb.create');
@@ -63,66 +84,13 @@ class PPDBController extends Controller
 
     public function edit($id)
     {
-        $ppdb = (object)[
-            'id' => $id,
-            'nama_lengkap' => 'Aisyah Putri',
-            'tempat_lahir' => 'Bandung',
-            'tanggal_lahir' => '2018-05-12',
-            'usia' => 6,
-            'jenis_kelamin' => 'Perempuan',
-            'agama' => 'Islam',
-            'status_keluarga' => 'Anak Kandung',
-            'alamat' => 'Jl. Merpati No. 17, Bandung',
-            'riwayat_penyakit' => 'Asma',
-            'nama_ayah' => 'Bapak Joko',
-            'pekerjaan_ayah' => 'Karyawan Swasta',
-            'hp_ayah' => '081234567890',
-            'nama_ibu' => 'Ibu Siti',
-            'pekerjaan_ibu' => 'Ibu Rumah Tangga',
-            'hp_ibu' => '089876543210',
-            'status_pendaftaran' => 'Menunggu',
-            'status_pembayaran' => 'Belum Lunas',
-            'tanggal_daftar' => '2024-06-01',
-        ];
+        $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
 
         return view('ppdb.edit', compact('ppdb'));
     }
 
-
-    public function show($id)
-    {
-        $ppdb = (object)[
-            'id' => $id,
-            'nama_lengkap' => 'Nabila Putri',
-            'tempat_lahir' => 'Bandung',
-            'tanggal_lahir' => '2018-05-20',
-            'usia' => 6,
-            'jenis_kelamin' => 'Perempuan',
-            'agama' => 'Islam',
-            'status_keluarga' => 'Anak Kandung',
-            'alamat' => 'Jl. Merpati No. 10, Bandung',
-            'riwayat_penyakit' => null,
-            'nama_ayah' => 'Bapak Hadi',
-            'pekerjaan_ayah' => 'Pegawai Negeri',
-            'hp_ayah' => '08123456789',
-            'nama_ibu' => 'Ibu Sari',
-            'pekerjaan_ibu' => 'Ibu Rumah Tangga',
-            'hp_ibu' => '08129876543',
-            'status_pendaftaran' => 'Menunggu',
-            'status_pembayaran' => 'Belum Lunas',
-        ];
-
-        return view('ppdb.show', compact('ppdb'));
-    }
-
     public function store(Request $request)
     {
-
         return redirect()->route('ppdb.index')->with('success', 'Data pendaftaran berhasil disimpan!');
     }
-
-
 }
-
-
-

@@ -103,17 +103,16 @@
    </header>
    <!-- ===== Header End ===== -->
    <!-- ===== Main Content Start ===== -->
-   <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data Mata Pelajaran</h4>
          <!-- List Kelas -->
          <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
             <div class="flex items-center justify-between mb-4">
-               <h4 class="text-lg font-bold text-black dark:text-white">List Kelas</h4>
+               <h4 class="text-lg font-bold text-black dark:text-white">List Mata Pelajaran</h4>
                <button class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
                   @click="window.location.href='{{ route('data.mata_pelajaran.create') }}'">
-               Tambah Kelas
+               Tambah Mata Pelajaran
                </button>
             </div>
             <div class="max-w-full overflow-x-auto">

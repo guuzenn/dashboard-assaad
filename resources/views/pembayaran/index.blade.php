@@ -1,6 +1,5 @@
 <x-layout>
    <!-- ===== Header Start ===== -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <header class="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
          <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
@@ -25,7 +24,7 @@
                   <button class="absolute left-0 top-1/2 -translate-y-1/2">
                      <svg class="fill-body hover:fill-primary dark:fill-bodydark dark:hover:fill-primary" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16666 3.33332C5.945 3.33332 3.33332 5.945 3.33332 9.16666C3.33332 12.3883 5.945 15 9.16666 15C12.3883 15 15 12.3883 15 9.16666C15 5.945 12.3883 3.33332 9.16666 3.33332ZM1.66666 9.16666C1.66666 5.02452 5.02452 1.66666 9.16666 1.66666C13.3088 1.66666 16.6667 5.02452 16.6667 9.16666C16.6667 13.3088 13.3088 16.6667 9.16666 16.6667C5.02452 16.6667 1.66666 13.3088 1.66666 9.16666Z" fill="" />
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z" fill="#969AA1" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2857 13.2857C13.6112 12.9603 14.1388 12.9603 14.4642 13.2857L18.0892 16.9107C18.4147 17.2362 18.4147 17.7638 18.0892 18.0892C17.7638 18.4147 17.2362 18.4147 16.9107 18.0892L13.2857 14.4642C12.9603 14.1388 12.9603 13.6112 13.2857 13.2857Z" fill="" />
                      </svg>
                   </button>
                   <input type="text" placeholder="Type to search..." class="w-full bg-transparent pl-9 pr-4 focus:outline-none xl:w-125" />
@@ -103,11 +102,11 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-         
-         <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data PPDB</h4>
+         <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data Tagihan</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
             <!-- Card Item Start -->
             <div
@@ -123,7 +122,7 @@
                      <h4 class="text-title-md font-bold text-black dark:text-white">
                         12
                      </h4>
-                     <span class="text-sm font-medium">Diterima</span>
+                     <span class="text-sm font-medium">Lunas</span>
                   </div>
                </div>
             </div>
@@ -142,118 +141,136 @@
                      <h4 class="text-title-md font-bold text-black dark:text-white">
                         5
                      </h4>
-                     <span class="text-sm font-medium">Ditolak</span>
+                     <span class="text-sm font-medium">Belum Bayar</span>
                   </div>
                </div>
             </div>
             <!-- Card Item End -->
          </div>
-         <!-- List PPDB -->
-         <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
-            <div class="flex items-center justify-between mb-4">
-               <h4 class="text-lg font-bold text-black dark:text-white">List Pendaftar</h4>
 
+         <!-- List Murid -->
+         <div
+            class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6"
+            >
+            <div class="flex items-center justify-between mb-4">
+               <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
                <div class="flex items-center gap-4">
-                  <!-- Filter Status Pendaftaran -->
-                  <div class="relative">
+                 <div class="relative">
                      <select
-                        name="filter_status"
-                        id="filter_status"
+                        name="filter_tahun"
+                        id="filter_tahun"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
                      >
-                        <option value="">Semua Status</option>
-                        <option value="Diterima">Diterima</option>
-                        <option value="Verifikasi">Verifikasi</option>
-                        <option value="Ditolak">Ditolak</option>
+                        <option value="">Jenis Pembayaran</option>
+                        <option value="SPP">SPP</option>
+                        <option value="Daftar Ulang">Daftar Ulang</option>
                      </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
-                        width="14"
-                        height="10"
-                        viewBox="0 0 10 6"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
+                           width="14"
+                           height="10"
+                           viewBox="0 0 10 6"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg"
                         >
-                        <path
-                           d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
-                           fill="#637381"
-                        />
+                           <path
+                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                              fill="#637381"
+                           />
+                        </svg>
+                     </span>
+                  </div>
+                  <div class="relative">
+                     <select
+                        name="filter_tahun"
+                        id="filter_tahun"
+                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                     >
+                        <option value="">Semua Status</option>
+                        <option value="Lunas">Lunas</option>
+                        <option value="Belum Bayar">Belum Bayar</option>
+                        <option value="Cicilan">Cicilan</option>
+                     </select>
+
+                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                        <svg
+                           width="14"
+                           height="10"
+                           viewBox="0 0 10 6"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg"
+                        >
+                           <path
+                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                              fill="#637381"
+                           />
                         </svg>
                      </span>
                   </div>
 
-                  <!-- Tombol Tambah -->
                   <button
                      class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
-                     @click="window.location.href='{{ route('ppdb.create') }}'"
+                     @click="window.location.href='{{ route('admin.pembayaran.create') }}'"
                   >
-                     Tambah Pendaftar
+                     Tambah Tagihan
                   </button>
                </div>
-
-
             </div>
             <!-- Table -->
             <div class="max-w-full overflow-x-auto">
-            <table class="w-full table-auto">
-               <thead>
-                  <tr class="bg-gray-2 text-left dark:bg-meta-4">
-                     <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
-                     <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
-                     <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
-                     <th class="min-w-[80px] px-4 py-4 font-medium text-black dark:text-white">Usia</th>
-                     <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenjang</th>
-                     <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Telepon Ortu</th>
-                     <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pendaftaran</th>
-                     <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th>
-                     <th class="min-w-[130px] px-4 py-4 font-medium text-black dark:text-white">Tanggal Daftar</th>
-                     <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  @foreach ($ppdb as $index => $item)
-                  <tr>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->nama_lengkap }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->usia }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenjang_kelas }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->hp_ayah ?? $item->hp_ibu }}</td>
-                     <!-- Status Pendaftaran -->
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           @if ($item->status_pendaftaran == 'Diterima')
-                              bg-success bg-opacity-10 text-success
-                           @elseif ($item->status_pendaftaran == 'Ditolak')
-                              bg-danger bg-opacity-10 text-danger
-                           @else
-                              bg-warning bg-opacity-10 text-warning
-                           @endif">
-                           {{ $item->status_pendaftaran }}
-                        </p>
-                     </td>
-                     <!-- Status Pembayaran -->
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           {{ $item->status_pembayaran == 'Lunas'
-                           ? 'bg-success bg-opacity-10 text-success'
-                           : 'bg-warning bg-opacity-10 text-warning' }}">
-                           {{ $item->status_pembayaran }}
-                        </p>
-                     </td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal_daftar }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                        <div class="flex items-center space-x-3.5">
-                           <!-- Show -->
-                           <a href="{{ route('ppdb.show', $item->id) }}" class="hover:text-primary">
-                              <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z" />
-                                 <path d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z" />
-                              </svg>
-                           </a>
-                           <!-- Delete -->
-                           <button class="hover:text-primary">
+                <table class="w-full table-auto">
+                    <thead>
+                        <tr class="bg-gray-2 text-left dark:bg-meta-4">
+                            <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
+                            <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Nama Siswa</th>
+                            <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Jenis Pembayaran</th>
+                            <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Nominal</th>
+                            <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Jatuh Tempo</th>
+                            <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                            <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tagihan as $index => $item)
+                        <tr>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item['siswa'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jenis'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['due_date'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                                {{ $item['status'] == 'Lunas'
+                                ? 'bg-success bg-opacity-10 text-success'
+                                : ($item['status'] == 'Cicilan' ? 'bg-warning bg-opacity-10 text-warning' : 'bg-danger bg-opacity-10 text-danger') }}">
+                                {{ $item['status'] }}
+                            </p>
+                            </td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                           <div class="flex items-center space-x-3.5">
+                             <!-- Button Show -->
+                             <a href="{{ route('admin.pembayaran.show', $item['id']) }}" class="hover:text-primary">
+                                 <svg
+                                    class="fill-current"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 18 18"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path
+                                       d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z"
+                                       fill=""
+                                       />
+                                    <path
+                                       d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z"
+                                       fill=""
+                                       />
+                                 </svg>
+                            </a>
+                               <!-- Button Trash -->
+                              <button class="hover:text-primary">
                                  <svg
                                     class="fill-current"
                                     width="18"
@@ -279,26 +296,31 @@
                                        fill=""
                                        />
                                  </svg>
-                           </button>
-                           <!-- Edit -->
-                           <a href="{{ route('ppdb.edit', $item->id) }}" class="hover:text-primary">
-                              <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                              </svg>
-                           </a>
-                        </div>
-                     </td>
-                  </tr>
-                  @endforeach
-               </tbody>
-            </table>
-
+                              </button>
+                              <!-- Button Edit -->
+                              <a href="{{route('admin.pembayaran.edit', $item['id']) }}" class="hover:text-primary">
+                                 <svg
+                                    class="fill-current"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                 </svg>
+                               </a>
+                           </div>
+                        </td>
+                     </tr>
+                     @endforeach
+                  </tbody>
+               </table>
             </div>
          </div>
-      </div>
+         <!-- ====== Table Three End -->
       </div>
    </main>
-
    @if (session('success'))
 <script>
     Swal.fire({
