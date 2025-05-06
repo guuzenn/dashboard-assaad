@@ -33,4 +33,8 @@ class Kelas extends Model
     {
         return $this->hasMany(PivotMataPelajaranKelas::class, 'kelas_id');
     }
+
+    public function laporan_harian() {
+        return $this->hasMany(LaporanHarian::class, 'kelas_id');
+    }
 }

@@ -166,11 +166,27 @@
                                     <select name="kelas_id"
                                         class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
                                         <option value="">Pilih Kelas</option>
-                                        @foreach ($kelas_list as $kelas)
-                                            <option value="{{ $kelas->id }}">{{ $kelas->nama }}</option>
+                                        @foreach ($kelas as $k)
+                                            <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                         @endforeach
                                     </select>
                                     @error('kelas_id')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Siswa -->
+                                <div>
+                                    <label
+                                        class="mb-3 block text-sm font-medium text-black dark:text-white">Siswa</label>
+                                    <select name="siswa_id"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+                                        <option value="">Pilih Siswa</option>
+                                        @foreach ($murid as $m)
+                                            <option value="{{ $m->id }}">{{ $m->nama_lengkap }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('murid_id')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -190,9 +206,9 @@
                                 <div>
                                     <label class="mb-3 block text-sm font-medium text-black dark:text-white">Upload
                                         Foto</label>
-                                    <input type="file" name="foto"
+                                    <input type="file" name="image"
                                         class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
-                                    @error('foto')
+                                    @error('image')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>

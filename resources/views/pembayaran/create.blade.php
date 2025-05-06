@@ -116,7 +116,7 @@
                   <h3 class="font-medium text-black dark:text-white">Form Tagihan Pembayaran</h3>
                </div>
                <div class="flex flex-col gap-5.5 p-6.5">
-                  <form action="{{ route('admin.pembayaran.store') }}" method="POST">
+                  <form action="{{ route('pembayaran.store') }}" method="POST">
                      @csrf
 
                      <!-- Jenis Pembayaran -->
@@ -124,7 +124,7 @@
                         <label class="mb-2 block text-sm font-medium text-black dark:text-white">Jenis Pembayaran</label>
 
                         <div class="relative">
-                            <select name="jenis_pembayaran"
+                            <select name="judul"
                                 class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                                 <option value="">Pilih Jenis</option>
                                 @foreach ($jenis as $j)
@@ -160,10 +160,10 @@
                      <!-- Jatuh Tempo -->
                      <div class="mb-4">
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Jatuh Tempo</label>
-                        <input type="date" name="due_date"
+                        <input type="date" name="tanggal_tempo"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
-                           value="{{ old('due_date') }}">
-                        @error('due_date')
+                           value="{{ old('tanggal_tempo') }}">
+                        @error('tanggal-tempo')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
@@ -173,11 +173,11 @@
                         <label class="mb-2 block text-sm font-medium text-black dark:text-white">Tagih ke</label>
 
                         <div class="relative">
-                            <select name="student_id"
+                            <select name="siswa_id"
                                 class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                                 <option value="">Pilih Siswa</option>
-                                @foreach ($siswa as $s)
-                                    <option value="{{ $s }}">{{ $s }}</option>
+                                @foreach ($murid as $m)
+                                    <option value="{{ $m->id }}">{{ $m->nama }}</option>
                                 @endforeach
                             </select>
 
@@ -189,10 +189,23 @@
                         </div>
 
                         <p class="text-xs text-gray-500 mt-1">Kosongkan jika untuk semua siswa / massal</p>
-                        @error('student_id')
+                        @error('siswa_id')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
+
+                    <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status</label>
+                        <select name="status_tagihan"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
+                           <option value="">Pilih Status</option>
+                           <option value="aktif" @selected(old('status_tagihan') == 'aktif')>Aktif</option>
+                           <option value="non-aktif" @selected(old('status_tagihan') == 'non-aktif')>Non-Aktif</option>
+                        </select>
+                        @error('status')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
 
                      <!-- Boleh Cicilan -->
                      <div class="flex items-center gap-2">

@@ -2,116 +2,163 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
+use App\Models\LaporanHarian;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class LaporanHarianController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kelas_list = [
-            (object)['id' => 1, 'nama' => 'TK A'],
-            (object)['id' => 2, 'nama' => 'TK B'],
-        ];
+        $laporan = LaporanHarian::with('kelas','siswa');
+        $filter = Kelas::all();
 
-        $laporan = [
-            (object)[
-                'id' => 1,
-                'tanggal' => '2024-06-01',
-                'judul' => 'Kegiatan Menggambar',
-                'deskripsi' => 'Anak-anak belajar menggambar hewan.',
-                'foto' => 'https://via.placeholder.com/150',
-                'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-            ],
-            (object)[
-                'id' => 2,
-                'tanggal' => '2024-06-02',
-                'judul' => 'Senam Pagi',
-                'deskripsi' => 'Senam pagi bersama di halaman.',
-                'foto' => 'https://via.placeholder.com/150',
-                'kelas' => (object)['id' => 2, 'nama' => 'TK B'],
-            ],
-        ];
+        if ($request->kelas_id) {
+            $laporan->where('kelas_id', $request->kelas_id);
+        }
 
-        return view('data.laporan_harian.index', compact('laporan', 'kelas_list'));
+        $laporan = $laporan->latest()->get();
+        return view('data.laporan_harian.index', compact('laporan','filter'));
     }
 
     public function show($id)
     {
-        $dummy = [
-            1 => (object)[
-                'id' => 1,
-                'judul' => 'Kegiatan Mewarnai',
-                'tanggal' => '2024-06-01',
-                'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-                'deskripsi' => 'Anak-anak belajar mengenal warna melalui kegiatan mewarnai bersama guru.',
-                'foto' => 'https://via.placeholder.com/150',
-            ],
-            2 => (object)[
-                'id' => 2,
-                'judul' => 'Senam Pagi',
-                'tanggal' => '2024-06-03',
-                'kelas' => (object)['id' => 2, 'nama' => 'TK B'],
-                'deskripsi' => 'Senam pagi bersama sebagai rutinitas sebelum belajar.',
-                'foto' => 'https://via.placeholder.com/150',
-            ],
-            3 => (object)[
-                'id' => 3,
-                'judul' => 'Menanam Sayur',
-                'tanggal' => '2024-06-04',
-                'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-                'deskripsi' => 'Mengenalkan konsep bercocok tanam kepada siswa melalui praktik langsung.',
-                'foto' => 'https://via.placeholder.com/150',
-            ],
-        ];
+        // $dummy = [
+        //     1 => (object)[
+        //         'id' => 1,
+        //         'judul' => 'Kegiatan Mewarnai',
+        //         'tanggal' => '2024-06-01',
+        //         'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
+        //         'deskripsi' => 'Anak-anak belajar mengenal warna melalui kegiatan mewarnai bersama guru.',
+        //         'foto' => 'https://via.placeholder.com/150',
+        //     ],
+        //     2 => (object)[
+        //         'id' => 2,
+        //         'judul' => 'Senam Pagi',
+        //         'tanggal' => '2024-06-03',
+        //         'kelas' => (object)['id' => 2, 'nama' => 'TK B'],
+        //         'deskripsi' => 'Senam pagi bersama sebagai rutinitas sebelum belajar.',
+        //         'foto' => 'https://via.placeholder.com/150',
+        //     ],
+        //     3 => (object)[
+        //         'id' => 3,
+        //         'judul' => 'Menanam Sayur',
+        //         'tanggal' => '2024-06-04',
+        //         'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
+        //         'deskripsi' => 'Mengenalkan konsep bercocok tanam kepada siswa melalui praktik langsung.',
+        //         'foto' => 'https://via.placeholder.com/150',
+        //     ],
+        // ];
 
-        $laporan = $dummy[$id] ?? abort(404);
+        $laporan = LaporanHarian::with('kelas','siswa')->findOrFail($id);;
 
         return view('data.laporan_harian.show', compact('laporan'));
     }
 
     public function create()
     {
-        $kelas_list = [
-            (object)['id' => 1, 'nama' => 'TK A'],
-            (object)['id' => 2, 'nama' => 'TK B'],
-        ];
-
-        return view('data.laporan_harian.create', compact('kelas_list'));
+        $murid = Siswa::all();
+        $kelas = Kelas::all();
+        return view('data.laporan_harian.create', compact('kelas','murid'));
     }
 
     public function store(Request $request)
     {
-        // Dummy save log
-        logger('Data yang diterima:', $request->all());
+        $request->validate([
+            'judul' => 'required|string',
+            'tanggal' => 'required|date',
+            'kelas_id' => 'nullable',
+            'siswa_id' => 'nullable',
+            'deskripsi' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-        return redirect()->route('data.laporan_harian.index')->with('success', 'Laporan harian berhasil ditambahkan (dummy).');
+        $fotoPath = null;
+
+    if ($request->hasFile('image')) {
+        $filename = time() . '.' . $request->image->getClientOriginalExtension();
+        $request->image->move(public_path('assets/images/laporan_harian'), $filename);
+        $fotoPath = 'assets/images/laporan_harian/' . $filename;
+    }
+
+    LaporanHarian::create([
+        'judul' => $request->judul,
+        'tanggal' => $request->tanggal,
+        'kelas_id' => $request->kelas_id,
+        'siswa_id' => $request->siswa_id,
+        'deskripsi' => $request->deskripsi,
+        'image' => $fotoPath,
+    ]);
+
+        return redirect()->route('data.laporan_harian.index')->with('success', 'Laporan harian berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
-        $kelas_list = [
-            (object)['id' => 1, 'nama' => 'TK A'],
-            (object)['id' => 2, 'nama' => 'TK B'],
-        ];
+        // $kelas_list = [
+        //     (object)['id' => 1, 'nama' => 'TK A'],
+        //     (object)['id' => 2, 'nama' => 'TK B'],
+        // ];
 
-        $laporan = (object)[
-            'id' => $id,
-            'judul' => 'Dummy Edit Laporan',
-            'tanggal' => '2024-06-05',
-            'deskripsi' => 'Deskripsi laporan dummy untuk edit.',
-            'kelas_id' => 1,
-            'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-            'foto' => 'https://via.placeholder.com/150',
-        ];
+        // $laporan = (object)[
+        //     'id' => $id,
+        //     'judul' => 'Dummy Edit Laporan',
+        //     'tanggal' => '2024-06-05',
+        //     'deskripsi' => 'Deskripsi laporan dummy untuk edit.',
+        //     'kelas_id' => 1,
+        //     'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
+        //     'foto' => 'https://via.placeholder.com/150',
+        // ];
+        $murid = Siswa::all();
+        $kelas = Kelas::all();
+        $laporan= LaporanHarian::findOrFail($id);
 
-        return view('data.laporan_harian.edit', compact('laporan', 'kelas_list'));
+        return view('data.laporan_harian.edit', compact('laporan', 'kelas', 'murid'));
     }
 
     public function update(Request $request, $id)
     {
-        // Dummy update log
-        logger("Update laporan id $id dengan data:", $request->all());
+        $request->validate([
+            'judul' => 'required|string',
+            'tanggal' => 'required|date',
+            'kelas_id' => 'nullable',
+            'siswa_id' => 'nullable',
+            'deskripsi' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+        $laporan=LaporanHarian::findOrFail($id);
+        if ($request->hasFile('image')) {
+            // Hapus image lama jika ada
+            if ($laporan->image && file_exists(public_path($laporan->image))) {
+                unlink(public_path($laporan->image));
+            }
 
-        return redirect()->route('data.laporan_harian.index')->with('success', 'Laporan harian berhasil diperbarui (dummy).');
+            $filename = time() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('assets/images/laporan_harian'), $filename);
+            $laporan->image = 'assets/images/laporan_harian/' . $filename;
+        }
+
+        $laporan->update([
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'tanggal' => $request->tanggal,
+            'kelas_id' => $request->kelas_id,
+            'siswa_id' => $request->siswa_id,
+            'image' => $laporan->image,
+        ]);
+
+        return redirect()->route('data.laporan_harian.index')->with('success', 'Laporan harian berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $laporan=LaporanHarian::findOrFail($id);
+        if ($laporan->foto && file_exists(public_path($laporan->foto))) {
+            unlink(public_path($laporan->foto));
+        }
+
+        $laporan->delete();
+        return redirect()->route('data.laporan_harian.index')->with('success', 'Laporan berhasil dihapus.');
     }
 }

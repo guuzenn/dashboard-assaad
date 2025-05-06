@@ -138,7 +138,7 @@
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Jenis Pembayaran</p>
-                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['jenis'] }}</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['judul'] }}</p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Nominal Bayar</p>
@@ -170,7 +170,7 @@
 
                 <!-- Tombol Kembali -->
                 <div class="mt-6 px-6.5 pb-6.5 flex justify-end mb-4">
-                    <a href="{{ route('admin.pembayaran.riwayat') }}"
+                    <a href="{{ route('pembayaran.riwayat') }}"
                         class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
                         Kembali
                     </a>

@@ -184,7 +184,7 @@
 
         <!-- Tombol Kembali -->
         <div class="mt-6 flex justify-end">
-        <a href="{{ route('admin.pembayaran.cicilan.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+        <a href="{{ route('pembayaran.cicilan.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
             Kembali
         </a>
         </div>

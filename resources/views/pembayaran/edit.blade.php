@@ -128,7 +128,7 @@
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <h4 class="text-lg font-bold text-black dark:text-white mb-4">Edit Pembayaran</h4>
 
-            <form action="{{ route('admin.pembayaran.update', $pembayaran['id']) }}" method="POST">
+            <form action="{{ route('pembayaran.update', $tagihan->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -150,7 +150,7 @@
                                 <!-- Jenis Pembayaran -->
                                 <div>
                                     <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenis Pembayaran</label>
-                                    <select name="jenis"
+                                    <select name='judul"
                                         class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition
                                         focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
                                         <option value="SPP" @selected($pembayaran['jenis'] == 'SPP')>SPP</option>

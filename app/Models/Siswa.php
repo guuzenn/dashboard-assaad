@@ -33,4 +33,7 @@ class Siswa extends Model
     public function nilai() {
         return $this->hasMany(Nilai::class, 'nilai_id');
     }
+    public function laporan_harian() {
+        return $this->hasMany(LaporanHarian::class, 'siswa_id');
+    }
 }

@@ -139,8 +139,8 @@
                         </svg>
                     </div>
                     <div class="mt-4">
-                        <h4 class="text-title-md font-bold text-black dark:text-white">5</h4>
-                        <span class="text-sm font-medium">Laporan Hari Ini</span>
+                        <h4 class="text-title-md font-bold text-black dark:text-white">{{ count($laporan)}}</h4>
+                        <span class="text-sm font-medium">Laporan Harian</span>
                     </div>
                 </div>
             </div>
@@ -151,13 +151,15 @@
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-lg font-bold text-black dark:text-white">Daftar Laporan</h4>
                     <div class="flex items-center gap-4">
+                        <form method="GET" action="{{ route('data.laporan_harian.index') }}">
+                            @csrf
                         <div class="relative">
-                            <select name="filter_kelas" id="filter_kelas"
+                            <select name="kelas_id" id="kelas_id" onchange="this.form.submit()"
                                 class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary">
                                 <option value="">Semua Kelas</option>
-                                @foreach ($kelas_list as $kelas)
-                                    <option value="{{ $kelas->id }}">
-                                        {{ $kelas->nama }}
+                                @foreach ($filter as $item)
+                                    <option value="{{ $item->id }}" {{ request('kelas_id') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama }}
                                     </option>
                                 @endforeach
                             </select>
@@ -170,6 +172,7 @@
                                 </svg>
                             </span>
                         </div>
+                        </form>
 
                         <button class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
                             @click="window.location.href='{{ route('data.laporan_harian.create') }}'">
@@ -188,7 +191,9 @@
                                     Kegiatan</th>
                                 <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Tanggal</th>
                                 <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th>
+                                <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Nama Siswa</th>
                                 <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Foto</th>
+                                <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Keterangan</th>
                                 <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                             </tr>
                         </thead>
@@ -202,12 +207,19 @@
                                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                         {{ $item->tanggal }}</td>
                                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                        {{ $item->kelas->nama }}</td>
+                                        {{ $item->kelas->nama?? '-' }}</td>
                                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                        <img src="{{ $item->foto }}" alt="Foto Kegiatan"
+                                        {{ $item->siswa->nama_lengkap?? '-' }}</td>
+                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <img src="{{ asset($item->image) }}" alt="Foto Kegiatan"
                                             class="w-20 h-20 object-cover rounded" />
                                     </td>
                                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        {{ $item->deskripsi }}</td>
+                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                        <form action="{{ route('data.laporan_harian.destroy', $item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                         <div class="flex items-center space-x-3.5">
                                             <!-- Button Show -->
                                             <a href="{{ route('data.laporan_harian.show', $item->id) }}"
@@ -253,6 +265,7 @@
                                                 </svg>
                                             </a>
                                         </div>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

@@ -187,11 +187,11 @@
                         </ul>
                     </li>
                     <!-- Panel Keuangan (Dropdown) -->
-                    <li x-data="{ open: {{ Request::routeIs('admin.pembayaran.*', 'admin.pembayaran.cicilan.*') ? 'true' : 'false' }} }">
+                    <li x-data="{ open: {{ Request::routeIs('pembayaran.*', 'pembayaran.cicilan.*') ? 'true' : 'false' }} }">
                         <button @click="open = !open"
                             class="w-full flex items-center justify-between gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
                             hover:bg-primary/10 dark:hover:bg-meta-4
-                            {{ Request::routeIs('admin.pembayaran.*', 'admin.pembayaran.cicilan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                            {{ Request::routeIs('pembayaran.*', 'pembayaran.cicilan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
                             <div class="flex items-center gap-2.5">
                                 <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,26 +214,26 @@
                         </button>
                         <ul x-show="open" class="mt-1 space-y-1 pl-6 text-sm" x-transition>
                             <li>
-                            <a href="{{ route('admin.pembayaran.index') }}"
+                            <a href="{{ route('pembayaran.index') }}"
                                 class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
                                 hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('admin.pembayaran.index', 'admin.pembayaran.create', 'admin.pembayaran.edit') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                {{ Request::routeIs('pembayaran.index', 'pembayaran.create', 'pembayaran.edit') ? 'text-primary bg-primary-active' : 'text-dark' }}">
                                     Tagihan Pembayaran
                                 </a>
                             </li>
                             <li>
-                            <a href="{{ route('admin.pembayaran.riwayat') }}"
+                            <a href="{{ route('pembayaran.riwayat') }}"
                                 class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
                                 hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('admin.pembayaran.riwayat') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                {{ Request::routeIs('pembayaran.riwayat') ? 'text-primary bg-primary-active' : 'text-dark' }}">
                                     Riwayat Pembayaran
                                 </a>
                             </li>
                             <li>
-                            <a href="{{ route('admin.pembayaran.cicilan.index') }}"
+                            <a href="{{ route('pembayaran.cicilan.index') }}"
                                 class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
                                 hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('admin.pembayaran.cicilan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                {{ Request::routeIs('pembayaran.cicilan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
                                     Pengajuan Cicilan
                                 </a>
                             </li>

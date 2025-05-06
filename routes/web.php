@@ -43,8 +43,8 @@ Route::prefix('ppdb')->name('ppdb.')->group(function() {
     Route::post('/', [PPDBController::class, 'store'])->name('store');
     Route::get('/{id}', [PPDBController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PPDBController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');   
-    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy'); 
+    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Murid
@@ -114,7 +114,7 @@ Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(fu
 });
 
 // Route Prefix Admin Pembayaran
-Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () {
+Route::prefix('admin/pembayaran')->name('pembayaran.')->group(function () {
     Route::get('/', [PembayaranController::class, 'index'])->name('index');
     Route::get('/create', [PembayaranController::class, 'create'])->name('create');
     Route::post('/', [PembayaranController::class, 'store'])->name('store');
@@ -131,7 +131,7 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
     });
 
     Route::get('/{tagihan}', [PembayaranController::class, 'show'])
-         ->where('tagihan', '[0-9]+') 
+         ->where('tagihan', '[0-9]+')
          ->name('show');
 });
 

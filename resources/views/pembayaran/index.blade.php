@@ -211,7 +211,7 @@
 
                   <button
                      class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
-                     @click="window.location.href='{{ route('admin.pembayaran.create') }}'"
+                     @click="window.location.href='{{ route('pembayaran.create') }}'"
                   >
                      Tambah Tagihan
                   </button>
@@ -235,10 +235,10 @@
                         @foreach ($tagihan as $index => $item)
                         <tr>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item['siswa'] }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jenis'] }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['due_date'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->siswa->nama?? '-' }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->judul}}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal_tempo}}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                                 {{ $item['status'] == 'Lunas'
@@ -250,7 +250,7 @@
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                            <div class="flex items-center space-x-3.5">
                              <!-- Button Show -->
-                             <a href="{{ route('admin.pembayaran.show', $item['id']) }}" class="hover:text-primary">
+                             <a href="{{ route('pembayaran.show', $item['id']) }}" class="hover:text-primary">
                                  <svg
                                     class="fill-current"
                                     width="18"
@@ -298,7 +298,7 @@
                                  </svg>
                               </button>
                               <!-- Button Edit -->
-                              <a href="{{route('admin.pembayaran.edit', $item['id']) }}" class="hover:text-primary">
+                              <a href="{{route('pembayaran.edit', $item['id']) }}" class="hover:text-primary">
                                  <svg
                                     class="fill-current"
                                     width="18"
@@ -330,7 +330,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

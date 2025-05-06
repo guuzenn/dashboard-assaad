@@ -127,7 +127,7 @@
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
             <h4 class="text-lg font-bold text-black dark:text-white mb-4">Edit Laporan Harian</h4>
-            
+
             <form action="{{ route('data.laporan_harian.update', $laporan->id) }}" method="POST"
                                 enctype="multipart/form-data">
                                 @csrf
@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="flex flex-col gap-5.5 p-6.5">
-                            
+
 
                                 <!-- Judul Kegiatan -->
                                 <div>
@@ -174,9 +174,9 @@
                                     <select name="kelas_id"
                                         class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white">
                                         <option value="">Pilih Kelas</option>
-                                        @foreach ($kelas_list as $kelas)
-                                            <option value="{{ $kelas->id }}" @selected($laporan->kelas->id == $kelas->id)>
-                                                {{ $kelas->nama }}
+                                        @foreach ($kelas as $k)
+                                            <option value="{{ $k->id }}" @selected($laporan->kelas_id == $k->id)>
+                                                {{ $k->nama }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -184,6 +184,25 @@
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+                                 <!-- Siswa -->
+                                 <div>
+                                    <label
+                                        class="mb-3 block text-sm font-medium text-black dark:text-white">Siswa</label>
+                                    <select name="siswa_id"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white">
+                                        <option value="">Pilih Siswa</option>
+                                        @foreach ($murid as $m)
+                                            <option value="{{ $m->id }}" @selected($laporan->siswa_id == $m->id)>
+                                                {{ $m->nama_lengkap}}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('siswa_id')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
 
                                 <!-- Deskripsi -->
                                 <div>
@@ -200,9 +219,9 @@
                                 <div>
                                     <label class="mb-3 block text-sm font-medium text-black dark:text-white">Foto
                                         Kegiatan (Opsional)</label>
-                                    <input type="file" name="foto"
+                                    <input type="file" name="image"
                                         class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-2 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white" />
-                                    @error('foto')
+                                    @error('image')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
