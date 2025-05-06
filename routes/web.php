@@ -15,13 +15,15 @@ use App\Http\Controllers\Konten\KegiatanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\CicilanController;
 use App\Http\Controllers\LaporanHarianController;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentDashboardController;
 use App\Http\Controllers\StudentProfileController;
 use App\Http\Controllers\StudentLaporanHarianController;
 use App\Http\Controllers\StudentPembayaranController;
 use App\Http\Controllers\StudentCicilanController;
+use App\Http\Controllers\AkunController;
+use App\Http\Controllers\Auth\ForgotPasswordController as AuthForgotPasswordController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\ForgotPasswordController;
 
 // Routing Auth (Login)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -52,6 +54,12 @@ Route::middleware(['auth', 'role:siswa'])->group(function () {
         Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
     });
 });
+
+Route::prefix('auth')->group(function () {
+    Route::get('forgot-password', [AuthForgotPasswordController::class, 'index'])->name('auth.forgot-password');
+    Route::post('forgot-password', [AuthForgotPasswordController::class, 'sendResetLink']);
+});
+
 
 // Route Prefix PPDB
 Route::prefix('ppdb')->name('ppdb.')->group(function() {
@@ -204,3 +212,25 @@ Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('b
 Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
 Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+
+
+Route::prefix('admin')->name('admin.')->group(function() {
+    // Route Akun
+    Route::prefix('akun')->name('akun.')->group(function() {
+        Route::get('/', [AkunController::class, 'index'])->name('index'); 
+        Route::get('/create', [AkunController::class, 'create'])->name('create'); 
+        Route::post('/create', [AkunController::class, 'store'])->name('store'); 
+        Route::get('{id}', [AkunController::class, 'show'])->name('show'); 
+        Route::get('{id}/edit', [AkunController::class, 'edit'])->name('edit');
+        Route::post('{id}/edit', [AkunController::class, 'update'])->name('update');
+        Route::delete('{id}', [AkunController::class, 'destroy'])->name('destroy');
+        Route::post('logout', [AkunController::class, 'logout'])->name('logout'); 
+    });
+
+    // Route Profil
+    Route::get('profil', [ProfilController::class, 'index'])->name('profile.index');
+    Route::get('profil/edit', [ProfilController::class, 'edit'])->name('profile.edit');
+    Route::post('profil/edit', [ProfilController::class, 'update'])->name('profile.update');
+});
+
+
