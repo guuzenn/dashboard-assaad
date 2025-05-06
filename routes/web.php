@@ -14,6 +14,11 @@ use App\Http\Controllers\CicilanController;
 use App\Http\Controllers\LaporanHarianController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\StudentLaporanHarianController;
+use App\Http\Controllers\StudentPembayaranController;
+use App\Http\Controllers\StudentCicilanController;
 
 // Routing Auth (Login)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -133,7 +138,7 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
     Route::get('/{tagihan}', [PembayaranController::class, 'show'])
          ->where('tagihan', '[0-9]+') 
          ->name('show');
-});
+});     
 
 // Route Prefix Laporan Harian
 Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(function () {
@@ -144,4 +149,23 @@ Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(functi
     Route::get('/{id}/edit', [LaporanHarianController::class, 'edit'])->name('edit');
     Route::put('/{id}', [LaporanHarianController::class, 'update'])->name('update');
     Route::delete('/{id}', [LaporanHarianController::class, 'destroy'])->name('destroy');
+});
+
+
+Route::prefix('student')->name('student.')->group(function () {
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [StudentProfileController::class, 'index'])->name('profile');
+
+    Route::prefix('laporan-harian')->name('laporan_harian.')->group(function () {
+        Route::get('/', [StudentLaporanHarianController::class, 'index'])->name('index');
+        Route::get('/{id}', [StudentLaporanHarianController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+        Route::get('/', [StudentPembayaranController::class, 'index'])->name('index');
+
+        Route::get('/cicilan', [StudentCicilanController::class, 'index'])->name('cicilan.index');
+        Route::get('/cicilan/create', [StudentCicilanController::class, 'create'])->name('cicilan.create');
+        Route::post('/cicilan', [StudentCicilanController::class, 'store'])->name('cicilan.store');
+    });
 });
