@@ -47,7 +47,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'guru') {
                 return redirect()->route('data.murid.index');
             } else {
-                return redirect()->route('ppdb.index');
+                return redirect()->route('beranda'); // Default for siswa. Redirect to the PPFB prefix
             }
         } else {
             return redirect()->back()->with('error', 'Invalid credentials.')->withInput();

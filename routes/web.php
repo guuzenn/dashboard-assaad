@@ -15,6 +15,13 @@ use App\Http\Controllers\Konten\KegiatanController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\CicilanController;
 use App\Http\Controllers\LaporanHarianController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\StudentLaporanHarianController;
+use App\Http\Controllers\StudentPembayaranController;
+use App\Http\Controllers\StudentCicilanController;
 
 // Routing Auth (Login)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -25,16 +32,25 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 // Role-based dashboards Tests
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', function () {
-        return 'Welcome, Admin!';
+        // return 'Welcome, Admin!';
     })->name('admin.dashboard')->middleware('role:admin');
 
     Route::get('/guru/dashboard', function () {
-        return 'Welcome, Guru!';
+        // return 'Welcome, Guru!';
     })->name('guru.dashboard')->middleware('role:guru');
 
     Route::get('/siswa/dashboard', function () {
-        return 'Welcome, Siswa!';
+        // return 'Welcome, Siswa!';
     })->name('siswa.dashboard')->middleware('role:siswa');
+});
+
+Route::middleware(['auth', 'role:siswa'])->group(function () {
+    Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {
+        Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+        Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
+        Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+        Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+    });
 });
 
 // Route Prefix PPDB
@@ -44,8 +60,8 @@ Route::prefix('ppdb')->name('ppdb.')->group(function() {
     Route::post('/', [PPDBController::class, 'store'])->name('store');
     Route::get('/{id}', [PPDBController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PPDBController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');   
-    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy'); 
+    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy');
 });
 
 // Data Murid
@@ -150,8 +166,10 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
         Route::post('/{id}/reject', [CicilanController::class, 'reject'])->name('reject');
     });
 
-    Route::get('/{tagihan}', [PembayaranController::class, 'show'])->where('tagihan', '[0-9]+')->name('show');
-});
+    Route::get('/{tagihan}', [PembayaranController::class, 'show'])
+         ->where('tagihan', '[0-9]+')
+         ->name('show');
+});     
 
 // Laporan Harian
 Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(function () {
@@ -163,3 +181,26 @@ Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(functi
     Route::put('/{id}', [LaporanHarianController::class, 'update'])->name('update');
     Route::delete('/{id}', [LaporanHarianController::class, 'destroy'])->name('destroy');
 });
+
+
+Route::prefix('student')->name('student.')->group(function () {
+    Route::get('/dashboard', [StudentDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [StudentProfileController::class, 'index'])->name('profile');
+
+    Route::prefix('laporan-harian')->name('laporan_harian.')->group(function () {
+        Route::get('/', [StudentLaporanHarianController::class, 'index'])->name('index');
+        Route::get('/{id}', [StudentLaporanHarianController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+        Route::get('/', [StudentPembayaranController::class, 'index'])->name('index');
+
+        Route::get('/cicilan', [StudentCicilanController::class, 'index'])->name('cicilan.index');
+        Route::get('/cicilan/create', [StudentCicilanController::class, 'create'])->name('cicilan.create');
+        Route::post('/cicilan', [StudentCicilanController::class, 'store'])->name('cicilan.store');
+    });
+});
+Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
+Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
