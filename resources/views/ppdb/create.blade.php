@@ -106,106 +106,213 @@
   <!-- ===== Main Content Start ===== -->
   <!-- ===== Main Content Start ===== -->
   <main>
-    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+   <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
       <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Data PPDB</h4>
 
       <form action="{{ route('ppdb.store') }}" method="POST">
-        @csrf
-        <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
-          <div class="flex flex-col gap-9">
+         @csrf
+         <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+         <div class="flex flex-col gap-9">
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-              <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                <h3 class="font-medium text-black dark:text-white">Form Tambah PPDB</h3>
-              </div>
-              <div class="flex flex-col gap-5.5 p-6.5">
-                <!-- Nama Lengkap -->
-                <div>
+               <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+               <h3 class="font-medium text-black dark:text-white">Form Tambah PPDB</h3>
+               </div>
+               <div class="flex flex-col gap-5.5 p-6.5">
+               
+               <!-- Nama Lengkap -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
-                  <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Masukkan Nama Lengkap" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
-                </div>
+                  <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}" placeholder="Masukkan Nama Lengkap"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
 
-                <!-- Tempat Lahir -->
-                <div>
+               <!-- Nama Panggilan -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Panggilan</label>
+                  <input type="text" name="nama_panggilan" value="{{ old('nama_panggilan') }}" placeholder="Masukkan Nama Panggilan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Jenjang -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenjang Kelas</label>
+                  <input type="text" name="jenjang" value="{{ old('jenjang') }}" placeholder="Contoh: TK A"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Tempat Lahir -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tempat Lahir</label>
-                  <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}" placeholder="Masukkan Tempat Lahir" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
-                </div>
+                  <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}" placeholder="Masukkan Tempat Lahir"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
 
-                <!-- Tanggal Lahir -->
-                <div>
+               <!-- Tanggal Lahir -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Lahir</label>
-                  <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
-                </div>
+                  <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
 
-                <!-- Usia -->
-                <div>
+               <!-- Usia -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Usia</label>
-                  <input type="number" name="usia" value="{{ old('usia') }}" placeholder="Masukkan Usia" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
-                </div>
+                  <input type="text" name="usia" value="{{ old('usia') }}" placeholder="Contoh: 6 tahun 3 bulan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
 
-                <!-- Jenis Kelamin -->
-                <div>
+               <!-- Jenis Kelamin -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenis Kelamin</label>
-                  <select name="jenis_kelamin" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                    <option value="">Pilih Jenis Kelamin</option>
-                    <option value="Laki-laki" @selected(old('jenis_kelamin') == 'Laki-laki')>Laki-laki</option>
-                    <option value="Perempuan" @selected(old('jenis_kelamin') == 'Perempuan')>Perempuan</option>
+                  <select name="jenis_kelamin"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                     <option value="">Pilih Jenis Kelamin</option>
+                     <option value="Laki-laki" @selected(old('jenis_kelamin') == 'Laki-laki')>Laki-laki</option>
+                     <option value="Perempuan" @selected(old('jenis_kelamin') == 'Perempuan')>Perempuan</option>
                   </select>
-                </div>
+               </div>
 
-                <!-- Agama -->
-                <div>
+               <!-- Agama -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Agama</label>
-                  <select name="agama" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                    <option value="">Pilih Agama</option>
-                    <option value="Islam" @selected(old('agama') == 'Islam')>Islam</option>
-                    <option value="Kristen" @selected(old('agama') == 'Kristen')>Kristen</option>
-                    <option value="Katolik" @selected(old('agama') == 'Katolik')>Katolik</option>
-                    <option value="Hindu" @selected(old('agama') == 'Hindu')>Hindu</option>
-                    <option value="Buddha" @selected(old('agama') == 'Buddha')>Buddha</option>
-                    <option value="Konghucu" @selected(old('agama') == 'Konghucu')>Konghucu</option>
+                  <select name="agama"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                     <option value="">Pilih Agama</option>
+                     <option value="Islam" @selected(old('agama') == 'Islam')>Islam</option>
+                     <option value="Kristen" @selected(old('agama') == 'Kristen')>Kristen</option>
+                     <option value="Katolik" @selected(old('agama') == 'Katolik')>Katolik</option>
+                     <option value="Hindu" @selected(old('agama') == 'Hindu')>Hindu</option>
+                     <option value="Buddha" @selected(old('agama') == 'Buddha')>Buddha</option>
+                     <option value="Konghucu" @selected(old('agama') == 'Konghucu')>Konghucu</option>
                   </select>
-                </div>
+               </div>
 
-                <!-- Status Keluarga -->
-                <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Keluarga</label>
-                  <select name="status_keluarga" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                    <option value="">Pilih Status</option>
-                    <option value="Anak Kandung" @selected(old('status_keluarga') == 'Anak Kandung')>Anak Kandung</option>
-                    <option value="Anak Angkat" @selected(old('status_keluarga') == 'Anak Angkat')>Anak Angkat</option>
-                  </select>
-                </div>
+               <!-- Anak Ke -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Anak Ke</label>
+                  <input type="number" name="anak_ke" value="{{ old('anak_ke') }}" placeholder="Anak ke-berapa"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
 
-                <!-- Status Pendaftaran -->
-                <div>
+               <!-- Jumlah Saudara -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jumlah Saudara</label>
+                  <input type="number" name="jumlah_saudara" value="{{ old('jumlah_saudara') }}" placeholder="Masukkan Jumlah Saudara"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Alamat -->
+               <div class="sm:col-span-2">
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat</label>
+                  <textarea name="alamat" placeholder="Masukkan Alamat Lengkap"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alamat') }}</textarea>
+               </div>
+
+               <!-- Alergi -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alergi</label>
+                  <input type="text" name="alergi" value="{{ old('alergi') }}" placeholder="Jika ada, tuliskan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Penyakit Bawaan -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Penyakit Bawaan</label>
+                  <input type="text" name="riwayat_penyakit" value="{{ old('riwayat_penyakit') }}" placeholder="Jika ada, tuliskan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Pengawasan Medis -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pengawasan Medis / Obat Rutin</label>
+                  <input type="text" name="pengawasan_medis" value="{{ old('pengawasan_medis') }}" placeholder="Jika ada, tuliskan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Cedera Serius -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Cedera Serius</label>
+                  <input type="text" name="cedera_serius" value="{{ old('cedera_serius') }}" placeholder="Jika ada, tuliskan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Nama Ayah -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ayah</label>
+                  <input type="text" name="nama_ayah" value="{{ old('nama_ayah') }}" placeholder="Nama Lengkap Ayah"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Pekerjaan Ayah -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ayah</label>
+                  <input type="text" name="pekerjaan_ayah" value="{{ old('pekerjaan_ayah') }}" placeholder="Pekerjaan Ayah"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Nomor HP Ayah -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ayah</label>
+                  <input type="text" name="hp_ayah" value="{{ old('hp_ayah') }}" placeholder="Nomor HP Ayah"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Nama Ibu -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ibu</label>
+                  <input type="text" name="nama_ibu" value="{{ old('nama_ibu') }}" placeholder="Nama Lengkap Ibu"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Pekerjaan Ibu -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ibu</label>
+                  <input type="text" name="pekerjaan_ibu" value="{{ old('pekerjaan_ibu') }}" placeholder="Pekerjaan Ibu"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Nomor HP Ibu -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ibu</label>
+                  <input type="text" name="hp_ibu" value="{{ old('hp_ibu') }}" placeholder="Nomor HP Ibu"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Status Pendaftaran -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>
-                  <select name="status_pendaftaran" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                    <option value="Menunggu" @selected(old('status_pendaftaran') == 'Menunggu')>Menunggu</option>
-                    <option value="Diterima" @selected(old('status_pendaftaran') == 'Diterima')>Diterima</option>
-                    <option value="Ditolak" @selected(old('status_pendaftaran') == 'Ditolak')>Ditolak</option>
+                  <select name="status_pendaftaran"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                     <option value="">Pilih Status</option>
+                     <option value="Diterima" @selected(old('status_pendaftaran') == 'Diterima')>Diterima</option>
+                     <option value="Ditolak" @selected(old('status_pendaftaran') == 'Ditolak')>Ditolak</option>
+                     <option value="Menunggu" @selected(old('status_pendaftaran') == 'Menunggu')>Menunggu</option>
                   </select>
-                </div>
+               </div>
 
-                <!-- Status Pembayaran -->
-                <div>
+               <!-- Status Pembayaran -->
+               <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pembayaran</label>
-                  <select name="status_pembayaran" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                    <option value="Lunas" @selected(old('status_pembayaran') == 'Lunas')>Lunas</option>
-                    <option value="Belum Lunas" @selected(old('status_pembayaran') == 'Belum Lunas')>Belum Lunas</option>
+                  <select name="status_pembayaran"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                     <option value="">Pilih Status</option>
+                     <option value="Lunas" @selected(old('status_pembayaran') == 'Lunas')>Lunas</option>
+                     <option value="Belum Lunas" @selected(old('status_pembayaran') == 'Belum Lunas')>Belum Lunas</option>
                   </select>
-                </div>
+               </div>
 
-                <!-- Submit -->
-                <div class="flex items-center justify-end gap-4">
+               <!-- Submit -->
+               <div class="flex items-center justify-end gap-4">
                   <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                    Simpan
+                     Simpan
                   </button>
-                </div>
-              </div>
+               </div>
+
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
+         </div>
       </form>
-    </div>
-  </main>
+   </div>
+   </main>
 </x-layout>

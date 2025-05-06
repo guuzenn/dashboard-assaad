@@ -131,7 +131,7 @@
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Dashboard</h4>
-         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5 mb-6">
             <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -174,42 +174,69 @@
             </div>
             <!-- Card Item End -->
          </div>
-         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            <!-- PPDB Card -->
-            <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-               <h4 class="text-lg font-bold text-black dark:text-white mb-4">PPDB</h4>
-               <!-- Label Row -->
-               <div class="flex justify-between mb-2">
-                  <div class="flex-1 text-center">
-                     <p class="text-sm font-medium text-gray-600 dark:text-white">Total Pendaftar</p>
+       
+         <!-- Teks judul PPDB seperti Dashboard -->
+         <h4 class="text-lg font-bold text-black dark:text-white mb-4">PPDB</h4>
+
+            <!-- Box besar -->
+            <div class="rounded-sm border border-stroke bg-white p-6 shadow-default dark:border-strokedark dark:bg-boxdark mb-6">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+               <!-- Card Item -->
+               <div class="flex items-center gap-4">
+                  <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                  <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 
+                     0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
+                  </svg>
                   </div>
-                  <div class="flex-1 text-center">
-                     <p class="text-sm font-medium text-gray-600 dark:text-white">Diterima</p>
-                  </div>
-                  <div class="flex-1 text-center">
-                     <p class="text-sm font-medium text-gray-600 dark:text-white">Verifikasi</p>
-                  </div>
-                  <div class="flex-1 text-center">
-                     <p class="text-sm font-medium text-gray-600 dark:text-white">Ditolak</p>
+                  <div>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">60</h4>
+                  <span class="text-sm font-medium text-gray-600 dark:text-white">Total Pendaftar</span>
                   </div>
                </div>
-               <!-- Value Row -->
-               <div class="flex justify-between text-center">
-                  <div class="flex-1">
-                     <p class="text-xl font-bold text-black dark:text-white">60</p>
+
+               <div class="flex items-center gap-4">
+                  <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                   <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0 1 12 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 0 1 3.498 1.307 4.491 4.491 0 0 1 1.307 3.497A4.49 4.49 0 0 1 21.75 12a4.49 4.49 0 0 1-1.549 3.397 4.491 4.491 0 0 1-1.307 3.497 4.491 4.491 0 0 1-3.497 1.307A4.49 4.49 0 0 1 12 21.75a4.49 4.49 0 0 1-3.397-1.549 4.49 4.49 0 0 1-3.498-1.306 4.491 4.491 0 0 1-1.307-3.498A4.49 4.49 0 0 1 2.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 0 1 1.307-3.497 4.49 4.49 0 0 1 3.497-1.307Zm7.007 6.387a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clip-rule="evenodd" />
+                  </svg>
                   </div>
-                  <div class="flex-1">
-                     <p class="text-xl font-bold text-black dark:text-white">42</p>
+                  <div>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">42</h4>
+                  <span class="text-sm font-medium text-gray-600 dark:text-white">Diterima</span>
                   </div>
-                  <div class="flex-1">
-                     <p class="text-xl font-bold text-black dark:text-white">8</p>
+               </div>
+
+               <!-- Verifikasi -->
+               <div class="flex items-center gap-4">
+                  <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                   <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM15.375 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
+                  </svg>
+
                   </div>
-                  <div class="flex-1">
-                     <p class="text-xl font-bold text-black dark:text-white">10</p>
+                  <div>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">8</h4>
+                  <span class="text-sm font-medium text-gray-600 dark:text-white">Verifikasi</span>
+                  </div>
+               </div>
+
+               <!-- Ditolak -->
+               <div class="flex items-center gap-4">
+                  <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                   <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                  </svg>
+                  </div>
+                  <div>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">10</h4>
+                  <span class="text-sm font-medium text-gray-600 dark:text-white">Ditolak</span>
                   </div>
                </div>
             </div>
          </div>
+  
+   
          <!-- Akses Cepat Cards -->
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Akses Cepat</h4>
          <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

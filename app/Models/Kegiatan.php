@@ -11,5 +11,5 @@ class Kegiatan extends Model
 
     protected $table = 'kegiatans';
 
-    protected $fillable = ['judul', 'deskripsi', 'tanggal', 'foto'];
+    protected $fillable = ['judul', 'deskripsi', 'tanggal', 'gambar'];
 }

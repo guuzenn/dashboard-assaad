@@ -114,16 +114,16 @@ class GuruController extends Controller
 
     public function show($id)
     {
-        // $guru = (object)[
-        //     'id' => $id,
-        //     'nama' => 'Ibu Rina Mulyani',
-        //     'tanggal_lahir' => '1985-06-12',
-        //     'tempat_lahir' => 'Bandung',
-        //     'jenis_kelamin' => 'Perempuan',
-        //     'kelas' => 'TK A',
-        //     'alamat' => 'Jl. Kenanga No. 10, Bandung',
-        //     'no_hp' => '081234567891',
-        // ];
+        $guru = (object)[
+            'id' => $id,
+            'nama' => 'Ibu Rina Mulyani',
+            'tanggal_lahir' => '1985-06-12',
+            'tempat_lahir' => 'Bandung',
+            'jenis_kelamin' => 'Perempuan',
+            'kelas' => 'TK A',
+            'alamat' => 'Jl. Kenanga No. 10, Bandung',
+            'no_hp' => '081234567891',
+        ];
 
         $guru = Guru::findOrFail($id);
 

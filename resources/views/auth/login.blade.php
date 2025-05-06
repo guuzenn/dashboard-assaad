@@ -4,22 +4,36 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin Login</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+  <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+  <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+
+  <!-- Custom Style -->
+  <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+  <script src="{{ asset('assets/js/bundle.js') }}" defer></script>
 </head>
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
   <div class="bg-white shadow-lg rounded-lg flex w-full max-w-5xl h-[600px] md:h-[650px] lg:h-[700px] overflow-hidden">
+    
     <!-- Left Image Section -->
     <div class="md:w-1/2 w-full hidden md:block">
-    <img 
-      src="{{ asset('assets/images/cover/image_login.jpeg') }}"
-      alt="Login Illustration"
-      class="h-full w-full object-cover"im
-    />
+      <img 
+        src="{{ asset('assets/images/cover/image_login.jpeg') }}"
+        alt="Login Illustration"
+        class="h-full w-full object-cover"
+      />
     </div>
 
     <!-- Right Login Section -->
     <div class="w-full md:w-1/2 flex flex-col items-center justify-center px-6 sm:px-10 py-10 relative">
+      
       <!-- Close Button -->
       <div class="absolute top-4 right-4 text-xl text-gray-700 cursor-pointer hover:text-black md:block hidden">&times;</div>
 
@@ -86,8 +100,9 @@
         </div>
       </form>
     </div>
-  </div>  
+  </div>
 
+  <!-- Toggle Password Script -->
   <script>
     function togglePassword() {
       const passwordInput = document.getElementById("password");

@@ -106,7 +106,9 @@
   <main>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
       <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Mata Pelajaran</h4>
-
+      
+      <form action="{{ route('data.mata_pelajaran.store') }}" method="POST">
+      @csrf
       <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
         <div class="flex flex-col gap-9">
           <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -115,13 +117,12 @@
             </div>
 
             <div class="flex flex-col gap-5.5 p-6.5">
-            <form action="{{ route('data.mata_pelajaran.store') }}" method="POST">
-                @csrf
+          
               <!-- Nama Mata Pelajaran -->
               <div>
                 <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Mata Pelajaran</label>
                 <input type="text" name="nama" placeholder="Contoh: Bahasa Indonesia"
-                  class="w-full rounded-lg border-[1.5008px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
+                  class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary" />
                 @error('nama')
                   <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
@@ -133,11 +134,11 @@
                   Simpan
                 </button>
               </div>
-            </form>
             </div>
           </div>
         </div>
       </div>
+      </form>
     </div>
   </main>
    <!-- ===== Main Content End ===== -->

@@ -2,31 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login'); // file resources/views/auth/login.blade.php
+        return view('auth.login');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'siswa',
+        ]);
+
+        return redirect()->route('login')->with('success', 'Registrasi berhasil, silahkan login.');
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|string|email',
+            'password' => 'required|string',
         ]);
 
-        if ($request->email === 'admin@email.com' && $request->password === 'admin123') {
-            return redirect()->route('dashboard');
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect()->route('data.guru.index');
+            } elseif ($user->role === 'guru') {
+                return redirect()->route('data.murid.index');
+            } else {
+                return redirect()->route('ppdb.index');
+            }
         } else {
-            return back()->with('error', 'Email atau password salah!');
+            return redirect()->back()->with('error', 'Invalid credentials.')->withInput();
         }
     }
 
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login')->with('success', 'Logged out successfully.');
+    }
+
+    // Tambahkan method dashboard
     public function dashboard()
     {
-        return view('dashboard.index'); // tampilkan halaman dashboard
+        return view('dashboard.index'); // pastikan file ini ada
     }
 }

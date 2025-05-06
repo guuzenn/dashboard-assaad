@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('judul'); // Judul kegiatan
             $table->text('deskripsi'); // Deskripsi singkat
             $table->date('tanggal'); // Tanggal kegiatan
-            $table->string('foto')->nullable(); // Gambar
+            $table->string('gambar')->nullable(); // Gambar
             $table->timestamps();
         });
     }

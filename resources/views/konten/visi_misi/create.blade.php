@@ -61,37 +61,67 @@
    </header>
    <!-- ===== Header End ===== -->
 
-      <!-- ===== Main Content Start ===== -->
-      <main>
-      <div class="max-w-4xl mx-auto mt-10 bg-white p-8 rounded shadow-md dark:bg-boxdark">
-         <h2 class="text-2xl font-semibold mb-6 text-gray-800 dark:text-white">Tambah Visi Misi</h2>
+   <!-- ===== Main Content Start ===== -->
+  <main>
+      <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+         <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Konten</h4>
+
+         <!-- Form Elements Section Start -->
          <form action="{{ route('konten.visi_misi.store') }}" method="POST">
-            @csrf
-            <div class="mb-4">
-               <label for="judul" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Judul</label>
-               <input type="text" id="judul" name="judul" required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50 dark:bg-form-input dark:border-gray-600 dark:text-white" />
-            </div>
+         @csrf
+         <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+            <div class="flex flex-col gap-9">
+                <!-- Form Start -->
+                <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                    <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                        <h3 class="font-medium text-black dark:text-white">Form Tambah Visi Misi</h3>
+                    </div>
+                    <div class="flex flex-col gap-6 p-6.5">
 
-            <div class="mb-4">
-               <label for="konten" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Konten</label>
-               <textarea id="konten" name="konten" rows="5" required
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50 dark:bg-form-input dark:border-gray-600 dark:text-white"></textarea>
-            </div>
+                        <!-- Judul -->
+                        <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Judul</label>
+                            <select
+                                name="judul"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            >
+                                <option value="">Pilih Judul</option>
+                                <option value="Visi" @selected(old('judul') == 'Visi')>Visi</option>
+                                <option value="Misi" @selected(old('judul') == 'Misi')>Misi</option>
+                            </select>
+                            @error('judul')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-            <div class="mb-6">
-               <label for="updated_at" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Terakhir Diupdate</label>
-               <input type="datetime-local" id="updated_at" name="updated_at"
-                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/50 dark:bg-form-input dark:border-gray-600 dark:text-white" />
-            </div>
+                        <!-- Konten -->
+                        <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Konten</label>
+                            <textarea
+                                name="konten"
+                                placeholder="Masukkan Isi Konten"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            >{{ old('konten') }}</textarea>
+                            @error('konten')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-            <div class="flex justify-end">
-               <a href="{{ route('konten.visi_misi.index') }}"
-                  class="inline-block px-4 py-2 mr-2 text-sm font-medium text-gray-700 bg-gray-200 rounded hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">Kembali</a>
-               <button type="submit"
-                  class="px-4 py-2 text-sm font-semibold text-white bg-primary rounded hover:bg-primary-dark">Simpan</button>
+                        <!-- Submit Button -->
+                        <div class="flex items-center justify-end gap-4">
+                            <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                Simpan
+                            </button>
+                        </div>
+                     
+                    </div>
+                </div>
+                <!-- Form End -->
             </div>
-         </form>
+         </div>
+         <!-- Form Elements Section End -->
       </div>
+      </form>
    </main>
+   <!-- ===== Main Content End ===== -->
 </x-layout>
