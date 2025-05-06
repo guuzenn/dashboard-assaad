@@ -182,7 +182,7 @@
                             </select>
 
                             <div class="pointer-events-none absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400">
-                                <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <svg class="h-  4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.167l3.71-3.937a.75.75 0 011.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                                 </svg>
                             </div>

@@ -22,19 +22,20 @@ class Kelas extends Model
     {
         // return $this->hasMany(Guru::class, 'kelas_id');
         return $this->belongsTo(Guru::class);
-    }
+                    }
 
     public function siswa()
     {
         return $this->hasMany(Siswa::class, 'kelas_id');
     }
 
+    
     public function mataPelajarans()
     {
         return $this->hasMany(PivotMataPelajaranKelas::class, 'kelas_id');
     }
 
-    public function laporan_harian() {
         return $this->hasMany(LaporanHarian::class, 'kelas_id');
     }
+    public function laporan_harian() {
 }

@@ -50,7 +50,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'guru') {
                 return redirect()->route('data.murid.index'); // Redirect to the Murid data prefix
             } else {
-                return redirect()->route('ppdb.index'); // Default for siswa. Redirect to the PPFB prefix
+                return redirect()->route('beranda'); // Default for siswa. Redirect to the PPFB prefix
             }
         }
         else {
