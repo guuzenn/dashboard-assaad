@@ -24,16 +24,25 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 // Role-based dashboards Tests
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', function () {
-        return 'Welcome, Admin!';
+        // return 'Welcome, Admin!';
     })->name('admin.dashboard')->middleware('role:admin');
 
     Route::get('/guru/dashboard', function () {
-        return 'Welcome, Guru!';
+        // return 'Welcome, Guru!';
     })->name('guru.dashboard')->middleware('role:guru');
 
     Route::get('/siswa/dashboard', function () {
-        return 'Welcome, Siswa!';
+        // return 'Welcome, Siswa!';
     })->name('siswa.dashboard')->middleware('role:siswa');
+});
+
+Route::middleware(['auth', 'role:siswa'])->group(function () {
+    Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {
+        Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+        Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
+        Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+        Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+    });
 });
 
 // Route Prefix PPDB
@@ -43,8 +52,8 @@ Route::prefix('ppdb')->name('ppdb.')->group(function() {
     Route::post('/', [PPDBController::class, 'store'])->name('store');
     Route::get('/{id}', [PPDBController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PPDBController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');   
-    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy'); 
+    Route::put('/{id}', [PPDBController::class, 'update'])->name('update');
+    Route::delete('/{id}', [PPDBController::class, 'destroy'])->name('destroy');
 });
 
 // Route Prefix Data Murid
@@ -131,7 +140,7 @@ Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () 
     });
 
     Route::get('/{tagihan}', [PembayaranController::class, 'show'])
-         ->where('tagihan', '[0-9]+') 
+         ->where('tagihan', '[0-9]+')
          ->name('show');
 });
 
@@ -145,3 +154,8 @@ Route::prefix('data/laporan-harian')->name('data.laporan_harian.')->group(functi
     Route::put('/{id}', [LaporanHarianController::class, 'update'])->name('update');
     Route::delete('/{id}', [LaporanHarianController::class, 'destroy'])->name('destroy');
 });
+
+Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
+Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
