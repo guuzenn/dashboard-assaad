@@ -7,7 +7,7 @@
     <title>As-Sa'ad Dashboard</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/bundle.js') }}" defer></script>
 </head>

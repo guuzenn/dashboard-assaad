@@ -6,18 +6,25 @@
     @click.outside="sidebarToggle = false">
     <!-- SIDEBAR HEADER -->
     <div class="flex items-center justify-between gap-2 px-4 py-3 pt-6">
-        <a href="/dashboard" class="pl-6">
-            <h1 class="text-2xl font-bold text-primary dark:text-black">As-Sa'ad</h1>
+    <!-- Logo tetap tampil di semua halaman -->
+    <div class="w-full flex flex-col items-center">
+        <img src="/assets/images/logo/as-saad.png" alt="Logo As-Sa'ad" class="h-20 w-20 object-contain mb-2" />
+        <a href="/dashboard">
+        <h1 class="text-2xl font-bold text-primary dark:text-black">As-Sa'ad</h1>
         </a>
-        <button class="block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
-            <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M19 8.175H2.98748L9.36248 1.6875C9.69998 1.35 9.69998 0.825 9.36248 0.4875C9.02498 0.15 8.49998 0.15 8.16248 0.4875L0.399976 8.3625C0.0624756 8.7 0.0624756 9.225 0.399976 9.5625L8.16248 17.4375C8.31248 17.5875 8.53748 17.7 8.76248 17.7C8.98748 17.7 9.17498 17.625 9.36248 17.475C9.69998 17.1375 9.69998 16.6125 9.36248 16.275L3.02498 9.8625H19C19.45 9.8625 19.825 9.4875 19.825 9.0375C19.825 8.55 19.45 8.175 19 8.175Z"
-                    fill="" />
-            </svg>
-        </button>
     </div>
+
+    <!-- Tombol toggle sidebar -->
+    <button class="absolute top-4 right-4 block lg:hidden" @click.stop="sidebarToggle = !sidebarToggle">
+        <svg class="fill-current" width="20" height="18" viewBox="0 0 20 18" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M19 8.175H2.98748L9.36248 1.6875C9.69998 1.35 9.69998 0.825 9.36248 0.4875C9.02498 0.15 8.49998 0.15 8.16248 0.4875L0.399976 8.3625C0.0624756 8.7 0.0624756 9.225 0.399976 9.5625L8.16248 17.4375C8.31248 17.5875 8.53748 17.7 8.76248 17.7C8.98748 17.7 9.17498 17.625 9.36248 17.475C9.69998 17.1375 9.69998 16.6125 9.36248 16.275L3.02498 9.8625H19C19.45 9.8625 19.825 9.4875 19.825 9.0375C19.825 8.55 19.45 8.175 19 8.175Z"
+            fill="" />
+        </svg>
+    </button>
+    </div>
+
     <!-- SIDEBAR HEADER -->
     <div class="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <!-- Sidebar Menu -->
@@ -52,6 +59,20 @@
                         </a>
                     </li>
 
+                     <!-- Akun Panel (Akun) -->
+                     <li>
+                        <a href="{{ route('admin.akun.index') }}"
+                            class="group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
+                            hover:bg-primary/10 dark:hover:bg-meta-4
+                            {{ Request::routeIs('admin.akun.index') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" 
+                                clip-rule="evenodd" />
+                            </svg>
+                            Akun
+                        </a>
+                    </li>
                     <!-- Menu Item PPDB -->
                     <li>
                     <a href="{{ route('ppdb.index') }}"
@@ -239,6 +260,75 @@
                             </li>
                         </ul>
                     </li>
+                    
+                    <!-- Panel Konten (Dropdown) -->
+                    <li x-data="{ open: {{ Request::routeIs('konten.visi_misi.*', 'konten.kegiatan.*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open"
+                            class="w-full flex items-center justify-between gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
+                            hover:bg-primary/10 dark:hover:bg-meta-4
+                            {{ Request::routeIs('konten.visi_misi.*', 'konten.kegiatan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                            <div class="flex items-center gap-2.5">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="feather feather-file">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"></path>
+                                </svg>
+                                Konten
+                            </div>
+                            <svg :class="open ? 'rotate-180' : ''"
+                                class="fill-current transform transition-transform duration-200" width="12" height="8"
+                                viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M0.41 0.91a1 1 0 011.18 0L6 5.32l4.41-4.41a1 1 0 111.18 1.18l-5 5a1 1 0 01-1.18 0l-5-5a1 1 0 010-1.18z"
+                                    fill="currentColor" />
+                            </svg>
+                        </button>
+                        <ul x-show="open" x-transition class="mt-1 space-y-1 pl-6 text-sm">
+                            <li>
+                                <a href="{{ route('konten.visi_misi.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::routeIs('konten.visi_misi.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                    Visi & Misi
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('konten.kegiatan.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::routeIs('konten.kegiatan.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                    Kegiatan
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('admin.profile.index') }}"
+                            class="group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
+                            hover:bg-primary/10 dark:hover:bg-meta-4
+                            {{ Request::is('admin/profil') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 
+                                0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                            </svg>
+                            Profil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.akun.logout') }}"
+                            class="group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
+                            hover:bg-primary/10 dark:hover:bg-meta-4">
+                            <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3 
+                                3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
+                            </svg>
+                            Logout
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <!-- Sidebar Menu -->
