@@ -57,7 +57,24 @@ Route::prefix('compro')->name('compro.')->group(function () {
     Route::get('/beranda', function () {
         return view('compro.beranda');
     })->name('beranda');
+
+    Route::get('/tentang', function () {
+        return view('compro.tentang');
+    })->name('tentang');
+
+    Route::get('/event', function () {
+        return view('compro.event');
+    })->name('event');
+
+    Route::get('/kontak', function () {
+        return view('compro.kontak');
+    })->name('kontak');
+
+    Route::get('/school-visit', function () {
+        return view('compro.school_visit');
+    })->name('school_visit');
 });
+
 
 // Route for student registration
 Route::get('/login-student', function () { return view('webppdb.auth.login'); })->name('login-student');
