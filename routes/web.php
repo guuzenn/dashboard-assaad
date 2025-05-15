@@ -26,6 +26,11 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\StudentRekapNilaiController;
 
+// Route Prefix Landing Page
+Route::get('/', function () {
+    return redirect()->route('compro.beranda');
+});
+
 // Routing Auth (Login)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -45,6 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/siswa/dashboard', function () {
         // return 'Welcome, Siswa!';
     })->name('siswa.dashboard')->middleware('role:siswa');
+});
+
+// Route Prefix Compro
+Route::prefix('compro')->name('compro.')->group(function () {
+    Route::get('/beranda', function () {
+        return view('compro.beranda');
+    })->name('beranda');
 });
 
 Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
