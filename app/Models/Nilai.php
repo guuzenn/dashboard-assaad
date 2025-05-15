@@ -10,13 +10,13 @@ class Nilai extends Model
     //
     use HasFactory;
 
-    // protected $table = 'nilai';
+    protected $table = 'nilai';
 
     protected $fillable = [
         'siswa_id',
         'kelas_id',
         'semester',
-        'mata_pelarajan_id',
+        'mata_pelajaran_id',
         'nilai',
         'deskripsi',
     ];
@@ -29,6 +29,10 @@ class Nilai extends Model
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
+    }
+    public function mata_pelajaran()
+    {
+        return $this->belongsTo(MataPelajaran::class);
     }
 
 }

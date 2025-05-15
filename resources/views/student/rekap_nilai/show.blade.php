@@ -67,9 +67,6 @@
                   </svg>
                </a>
                <!-- Dropdown Start -->
-               <form method="POST" action="{{ route('logout') }}">
-                @csrf
-
                <div x-show="dropdownOpen"
                   class="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                   <button
@@ -86,7 +83,6 @@
                      Log Out
                   </button>
                </div>
-               </form>
                <!-- Dropdown End -->
             </div>
             <!-- User Area -->
@@ -95,79 +91,46 @@
    </header>
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            <h4 class="text-lg font-bold text-black dark:text-white mb-4">Laporan Harian Saya</h4>
-
-            <!-- Statistik Ringkas -->
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-                <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                        <svg class="fill-primary dark:fill-white" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M4 4H20V6H4V4ZM4 11H20V13H4V11ZM4 18H14V20H4V18Z" />
-                        </svg>
-                    </div>
-                    <div class="mt-4">
-                        <h4 class="text-title-md font-bold text-black dark:text-white">1</h4>
-                        <span class="text-sm font-medium">Total Laporan Saya</span>
-                    </div>
+            <h4 class="text-lg font-bold text-black dark:text-white mb-4">Detail Laporan Harian</h4>
+            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                    <h3 class="font-medium text-black dark:text-white">Informasi Laporan</h3>
                 </div>
-            </div>
-
-            <!-- List Laporan -->
-            <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-lg font-bold text-black dark:text-white">Daftar Laporan</h4>
-                </div>
-
-                <!-- Table -->
-                <div class="max-w-full overflow-x-auto">
-                    <table class="w-full table-auto">
-                        <thead>
-                            <tr class="bg-gray-2 text-left dark:bg-meta-4">
-                                <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
-                                <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Judul</th>
-                                <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Tanggal</th>
-                                <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Deskripsi</th>
-                                <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Foto</th>
-                                <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($laporan as $index => $item)
-                                <tr>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->judul }}</td>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal }}</td>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->deskripsi }}</td>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                        <img src="{{ asset($item->image) }}" alt="Foto" class="w-20 h-20 object-cover rounded" />
-                                    </td>
-                                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                        <a href="{{ route('student.laporan_harian.show', $item->id) }}" class="hover:text-primary">
-                                            <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                                                <path d="M8.99981 14.8219C3.43106 14.8219 0.674805 9.50624 0.562305 9.28124C0.47793 9.11249 0.47793 8.88749 0.562305 8.71874C0.674805 8.49374 3.43106 3.20624 8.99981 3.20624C14.5686 3.20624 17.3248 8.49374 17.4373 8.71874C17.5217 8.88749 17.5217 9.11249 17.4373 9.28124C17.3248 9.50624 14.5686 14.8219 8.99981 14.8219ZM1.85605 8.99999C2.4748 10.0406 4.89356 13.5562 8.99981 13.5562C13.1061 13.5562 15.5248 10.0406 16.1436 8.99999C15.5248 7.95936 13.1061 4.44374 8.99981 4.44374C4.89356 4.44374 2.4748 7.95936 1.85605 8.99999Z" fill="" />
-                                                <path d="M9 11.3906C7.67812 11.3906 6.60938 10.3219 6.60938 9C6.60938 7.67813 7.67812 6.60938 9 6.60938C10.3219 6.60938 11.3906 7.67813 11.3906 9C11.3906 10.3219 10.3219 11.3906 9 11.3906ZM9 7.875C8.38125 7.875 7.875 8.38125 7.875 9C7.875 9.61875 8.38125 10.125 9 10.125C9.61875 10.125 10.125 9.61875 10.125 9C10.125 8.38125 9.61875 7.875 9 7.875Z" fill="" />
-                                            </svg>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
+                    <!-- Judul Kegiatan -->
+                    <div class="mb-4">
+                        <p class="text-sm text-slate-500 mb-1">Mata Pelajaran</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $laporan->mata_pelajaran->nama }}</p>
+                    </div>
+                    <!-- Tanggal -->
+                    <div class="mb-4">
+                        <p class="text-sm text-slate-500 mb-1">Kelas</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $laporan->kelas->nama }}</p>
+                    </div>
+                    <!-- Kelas -->
+                    <div class="mb-4">
+                        <p class="text-sm text-slate-500 mb-1">Semester</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $laporan->semester }}</p>
+                    </div>
+                    <!-- Deskripsi -->
+                    <div class="sm:col-span-2">
+                        <p class="text-sm text-slate-500 mb-1">Nilai</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $laporan->nilai }}</p>
+                    </div>
+                    <!-- Deskripsi -->
+                    <div class="sm:col-span-2">
+                        <p class="text-sm text-slate-500 mb-1">Catatan</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $laporan->catatan ?? "-" }}</p>
+                    </div>
+                    <!-- Tombol Kembali -->
+                    <div class="sm:col-span-2 flex justify-end mt-6">
+                        <a href="{{ route('student.rekap_nilai.index') }}"
+                            class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                            Kembali
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: "{{ session('success') }}",
-                confirmButtonColor: '#22c55e',
-                color: '#000000',
-                customClass: { confirmButton: 'text-black' }
-            });
-        </script>
-    @endif
 </x-student-layout>

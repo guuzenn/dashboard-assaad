@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gurus', function (Blueprint $table) {
+        Schema::create('guru', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->date('tanggal_lahir');
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('usia');
             $table->string('jenis_kelamin');
             $table->string('alamat');
-            $table->integer('no_hp');
-            // $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
+            $table->bigInteger('no_hp');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gurus');
+        Schema::dropIfExists('guru');
     }
 };

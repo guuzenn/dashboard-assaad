@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pivot_mata_pelajaran_kelas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kelas_id')->constrained()->onDelete('cascade');
-            $table->foreignId('mata_pelajaran_id')->constrained()->onDelete('cascade');
+            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,4 +1,4 @@
-<x-layout>
+<x-student-layout>
     <!-- ===== Header Start ===== -->
     <header class="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
         <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -45,7 +45,7 @@
                                     fill="" />
                             </svg>
                         </button>
-                        <input type="text" placeholder="Type to searchw-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                        <input type="text" placeholder="Type to search..."
                             class="w-full bg-transparent pl-9 pr-4 focus:outline-none xl:w-125" />
                     </div>
                 </form>
@@ -122,110 +122,101 @@
         </div>
     </header>
     <!-- ===== Header End ===== -->
-
     <!-- ===== Main Content Start ===== -->
     <main>
         <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            <h4 class="text-lg font-bold text-black dark:text-white mb-4">Edit Pembayaran</h4>
+            <h4 class="text-lg font-bold text-black dark:text-white mb-4">Detail Pembayaran</h4>
 
-
-
-                <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
-                    <div class="flex flex-col gap-9">
-                        <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-                            <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-                                <h3 class="font-medium text-black dark:text-white">Form Edit Pembayaran</h3>
-                            </div>
-                            <div class="flex flex-col gap-5.5 p-6.5">
-                                <form action="{{ route('pembayaran.update', $tagihan->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-
-                                <!-- Jenis Pembayaran -->
-                                <div class="mb-4">
-                                    <label class="mb-2 block text-sm font-medium text-black dark:text-white">Jenis Pembayaran</label>
-                                    <div class="relative">
-                                        <select name="judul" class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                                            <option value="">Pilih Jenis</option>
-                                            @foreach ($jenis as $j)
-                                                <option value="{{ $j }}" @selected(old('judul', $tagihan->judul) == $j)>{{ $j }}</option>
-                                            @endforeach
-                                        </select>
-                                        <!-- Dropdown icon -->
-                                    </div>
-                                    @error('judul')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Deskripsi -->
-                                <div class="mb-4">
-                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Keterangan</label>
-                                    <input type="text" name="deskripsi" placeholder="Masukkan Deskripsi Tagihan"
-                                        class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" value="{{ old('deskripsi', $tagihan->deskripsi) }}">
-                                    @error('deskripsi')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Nominal -->
-                                <div class="mb-4">
-                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nominal</label>
-                                    <input type="number" name="nominal" placeholder="Masukkan jumlah tagihan"
-                                        class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" value="{{ old('nominal', $tagihan->nominal) }}">
-                                    @error('nominal')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Tanggal Tempo -->
-                                <div class="mb-4">
-                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Jatuh Tempo</label>
-                                    <input type="date" name="tanggal_tempo"
-                                        class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" value="{{ old('tanggal_tempo', $tagihan->tanggal_tempo ? date('Y-m-d', strtotime($tagihan->tanggal_tempo)) : '') }}">
-                                    @error('tanggal_tempo')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
-                                <!-- Target Siswa -->
-                                <div class="mb-4">
-                                    <label class="mb-2 block text-sm font-medium text-black dark:text-white">Tagih ke</label>
-                                    <div class="relative">
-                                        <select name="siswa_id" class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
-                                            <option value="">Pilih Siswa</option>
-                                            @foreach ($murid as $m)
-                                                <option value="{{ $m->id }}" @selected(old('siswa_id', $tagihan->siswa_id) == $m->id)>{{ $m->nama_lengkap }}</option>
-                                            @endforeach
-                                        </select>
-                                        <!-- Dropdown icon -->
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">Kosongkan jika untuk semua siswa / massal</p>
-                                    @error('siswa_id')
-                                        <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <!-- Boleh Cicilan -->
-                                <div class="flex items-center gap-2">
-                                    <input type="checkbox" name="boleh_cicilan" id="boleh_cicilan"
-                                    class="h-5 w-5 rounded border-gray-300 text-primary focus:ring-primary"
-                                    {{ old('boleh_cicilan') ? 'checked' : '' }}>
-                                    <label for="boleh_cicilan" class=" ml-2 text-sm text-black dark:text-white">Izinkan Cicilan?</label>
-                                </div>
-
-                                <!-- Submit -->
-                                <div class="flex items-center justify-end gap-4 pt-4">
-                                    <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                                        Simpan
-                                    </button>
-                                </div>
-                            </form>
-
-                        </div>
+            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                    <h3 class="font-medium text-black dark:text-white">Informasi Pembayaran</h3>
+                </div>
+                <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Nama Siswa</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->siswa->nama_lengkap ?? "-" }}</p>
                     </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Jenis Pembayaran</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->tagihan->judul }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Keterangan</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->tagihan->deskripsi}}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Nominal Bayar</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">Rp
+                            {{ number_format($riwayat->tagihan->nominal, 0, ',', '.') }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Tanggal Tempo</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->tagihan->tanggal_tempo}}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Tanggal Bayar</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->tanggal_bayar ?? "-"}}
+                        </p>
+                    </div>
+                     <div>
+                        <p class="text-sm text-slate-500 mb-1">Metode</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $riwayat->metode ?? "-"}}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Status</p>
+                        <p
+                            class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                            {{
+                                $riwayat->status == 'Lunas' || $riwayat->status == 'lunas'
+                                    ? 'bg-success bg-opacity-10 text-success'
+                                    : (
+                                        $riwayat->status == 'Pending' || $riwayat->status == 'pending'
+                                            ? 'bg-warning bg-opacity-10 text-warning'
+                                            : (
+                                                $riwayat->status == 'Cicilan' || $riwayat->status == 'cicilan'
+                                                    ? 'bg-primary bg-opacity-10 text-primary'
+                                                    : 'bg-danger bg-opacity-10 text-danger'
+                                            ))}}">
+                                    {{ $riwayat->status}}
+                                </p>
+                    </div>
+                </div>
+
+                <!-- Tombol Kembali -->
+                <div class="mt-6 px-6.5 pb-6.5 flex justify-end mb-4">
+                    @if(strtolower($riwayat->status) !== 'lunas')
+                        <button class="px-4 py-2 mx-2 text-white bg-primary rounded-md hover:bg-primary-dark" id="pay-button">
+                            Bayar
+                        </button>
+                    @endif
+                    <a href="{{ route('student.pembayaran.index') }}"
+                        class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                        Kembali
+                    </a>
+
                 </div>
             </div>
         </div>
     </main>
 
-</x-layout>
+@section('script')
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
+    <script>
+        document.getElementById('pay-button').addEventListener('click', function () {
+            window.snap.pay('{{ $snapToken }}', {
+            onSuccess: function(result){
+                window.location.href = '/student/pembayaran/';
+            },
+            onPending: function(result){
+                alert("Menunggu pembayaran...");
+            },
+            onError: function(result){
+                alert("Pembayaran gagal!");
+            },
+            });
+        });
+    </script>
+
+@endsection
+</x-student-layout>

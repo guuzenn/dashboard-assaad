@@ -102,7 +102,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -117,13 +117,16 @@
                         <h3 class="font-medium text-black dark:text-white">Form Edit Murid</h3>
                     </div>
                     <div class="flex flex-col gap-5.5 p-6.5">
+                        <form action="{{ route('data.murid.update', $murid->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
                         <!-- Nama Lengkap -->
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
                             <input
                                 type="text"
                                 name="nama_lengkap"
-                                value="{{ old('nama_lengkap', $murid->nama_lengkap) }}"  
+                                value="{{ old('nama_lengkap', $murid->nama_lengkap) }}"
                                 placeholder="Masukkan Nama Lengkap"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -138,7 +141,7 @@
                             <input
                                 type="date"
                                 name="tanggal_lahir"
-                                value="{{ old('tanggal_lahir', $murid->tanggal_lahir) }}"  
+                                value="{{ old('tanggal_lahir', $murid->tanggal_lahir) }}"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                             @error('tanggal_lahir')
@@ -146,6 +149,45 @@
                             @enderror
                         </div>
 
+                         <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tempat Lahir</label>
+                            <input
+                                type="text"
+                                name="tempat_lahir"
+                                value="{{ old('tempat_lahir', $murid->tempat_lahir) }}"
+                                placeholder="Masukkan Tempat Lahir"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            @error('tempat_lahir')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                         <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Usia</label>
+                            <input
+                                type="text"
+                                name="usia"
+                                value="{{ old('usia', $murid->usia) }}"
+                                placeholder="Masukkan Usia"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            @error('usia')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                         <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Keluarga</label>
+                            <input
+                                type="text"
+                                name="status_keluarga"
+                                value="{{ old('status_keluarga', $murid->status_keluarga) }}"
+                                placeholder="Masukkan Status Keluarga"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            @error('status_keluarga')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <!-- Agama -->
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Agama</label>
@@ -188,7 +230,7 @@
                             <input
                                 type="text"
                                 name="riwayat_penyakit"
-                                value="{{ old('riwayat_penyakit', $murid->riwayat_penyakit) }}"  
+                                value="{{ old('riwayat_penyakit', $murid->riwayat_penyakit) }}"
                                 placeholder="Masukkan Riwayat Penyakit (Opsional)"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -197,7 +239,7 @@
                             @enderror
                         </div>
 
-                        
+
                         <!-- Alamat -->
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat</label>
@@ -217,7 +259,7 @@
                             <input
                                 type="text"
                                 name="nama_ayah"
-                                value="{{ old('nama_ayah', $murid->nama_ayah) }}"  
+                                value="{{ old('nama_ayah', $murid->nama_ayah) }}"
                                 placeholder="Masukkan Nama Ayah"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -232,7 +274,7 @@
                             <input
                                 type="text"
                                 name="pekerjaan_ayah"
-                                value="{{ old('pekerjaan_ayah', $murid->pekerjaan_ayah) }}"  
+                                value="{{ old('pekerjaan_ayah', $murid->pekerjaan_ayah) }}"
                                 placeholder="Masukkan Pekerjaan Ayah"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -247,7 +289,7 @@
                             <input
                                 type="text"
                                 name="hp_ayah"
-                                value="{{ old('hp_ayah', $murid->hp_ayah) }}"  
+                                value="{{ old('hp_ayah', $murid->hp_ayah) }}"
                                 placeholder="Masukkan No HP Ayah"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -262,7 +304,7 @@
                             <input
                                 type="text"
                                 name="nama_ibu"
-                                value="{{ old('nama_ibu', $murid->nama_ibu) }}"  
+                                value="{{ old('nama_ibu', $murid->nama_ibu) }}"
                                 placeholder="Masukkan Nama Ibu"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -277,7 +319,7 @@
                             <input
                                 type="text"
                                 name="pekerjaan_ibu"
-                                value="{{ old('pekerjaan_ibu', $murid->pekerjaan_ibu) }}"  
+                                value="{{ old('pekerjaan_ibu', $murid->pekerjaan_ibu) }}"
                                 placeholder="Masukkan Pekerjaan Ibu"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -292,7 +334,7 @@
                             <input
                                 type="text"
                                 name="hp_ibu"
-                                value="{{ old('hp_ibu', $murid->hp_ibu) }}"  
+                                value="{{ old('hp_ibu', $murid->hp_ibu) }}"
                                 placeholder="Masukkan No HP Ibu"
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
@@ -309,9 +351,11 @@
                                 class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             >
                                 <option value="">Pilih Kelas</option>
-                                <option value="1" @selected(old('kelas_id', $murid->kelas_id) == 1)>TK A</option>
-                                <option value="2" @selected(old('kelas_id', $murid->kelas_id) == 2)>TK B</option>
-                                <option value="3" @selected(old('kelas_id', $murid->kelas_id) == 3)>TK C</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->id }}" {{ old('kelas_id', $murid->kelas_id) == $item->id ? 'selected' : '' }}>
+                                            {{ $item->nama }}
+                                        </option>
+                                    @endforeach
                             </select>
                             @error('kelas_id')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -324,6 +368,7 @@
                                 Simpan
                             </button>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Form End -->

@@ -13,4 +13,5 @@
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/bundle.js') }}" defer></script>
 
+
 </head>

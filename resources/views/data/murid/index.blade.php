@@ -201,7 +201,7 @@
                         <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Agama</th>
-                        <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th>
+                        {{-- <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th> --}}
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                      </tr>
@@ -213,15 +213,15 @@
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama_lengkap }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->agama }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        {{-- <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                            <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                               {{ $item->status_pembayaran == 'Lunas'
                               ? 'bg-success bg-opacity-10 text-success'
                               : 'bg-warning bg-opacity-10 text-warning' }}">
                               {{ $item->status_pembayaran }}
                            </p>
-                        </td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas }}</td>
+                        </td> --}}
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                            <div class="flex items-center space-x-3.5">
                              <!-- Button Show -->
@@ -305,7 +305,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

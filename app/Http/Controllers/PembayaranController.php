@@ -6,6 +6,7 @@ use App\Models\RiwayatPembayaran;
 use App\Models\Siswa;
 use App\Models\TagihanPembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PembayaranController extends Controller
 {
@@ -55,7 +56,7 @@ class PembayaranController extends Controller
     {
         //
         $murid = Siswa::all();
-        $jenis = ['SPP Bulanan', 'Daftar Ulang', 'Seragam'];
+        $jenis = ['SPP Bulanan', 'Daftar Ulang', 'Seragam','Uang Pangkal'];
         return view('pembayaran.create', compact('murid','jenis'));
     }
 
@@ -66,19 +67,21 @@ class PembayaranController extends Controller
     {
         //
           $request->validate([
-            'jenis_pembayaran' => 'required|string',
+            'judul' => 'required|string',
             'nominal' => 'required|integer',
             'tanggal_tempo' => 'nullable|date',
             'siswa_id' => 'nullable',
-            'status_tagihan' => 'nullable|in:aktif,non-aktif'
+            'deskripsi' => 'nullable|string',
+            // 'status_tagihan' => 'nullable|in:aktif,non-aktif'
         ]);
 
         $tagihan=TagihanPembayaran::create([
-            'jenis_pembayaran' => $request->jenis_pembayaran,
+            'judul' => $request->judul,
             'nominal' => $request->nominal,
             'tanggal_tempo' => $request->tanggal_tempo,
             'siswa_id' => $request->siswa_id,
-            'status_tagihan' => $request->status_tagihan,
+            'deskripsi' => $request->deskripsi,
+            // 'status_tagihan' => $request->status_tagihan,
         ]);
 
         if ($request->siswa_id) {
@@ -93,14 +96,14 @@ class PembayaranController extends Controller
             $siswa = Siswa::all();
             foreach ($siswa as $siswa) {
                 RiwayatPembayaran::create([
-                    'student_id' => $siswa->id,
+                    'siswa_id' => $siswa->id,
                     'tagihan_id' => $tagihan->id,
                     'status' => 'unpaid',
                 ]);
             }
         }
 
-        return redirect()->route('data.pembayaran.index')->with('success', 'Tagihan berhasil ditambahkan');
+        return redirect()->route('pembayaran.index')->with('success', 'Tagihan berhasil ditambahkan');
 
 
     }
@@ -111,7 +114,7 @@ class PembayaranController extends Controller
     public function show(string $id)
     {
         //
-        $tagihan = TagihanPembayaran::with('siswa')->get();
+        $tagihan = TagihanPembayaran::with('siswa')->first();
         return view('pembayaran.show', compact('tagihan'));
     }
 
@@ -121,9 +124,10 @@ class PembayaranController extends Controller
     public function edit(string $id)
     {
         //
-        $tagihan = TagihanPembayaran::get($id);
+       $tagihan = TagihanPembayaran::findOrFail($id);
         $murid = Siswa::all();
-        return view('pembayaran.show', compact('tagihan','murid'));
+        $jenis = ['SPP Bulanan', 'Daftar Ulang', 'Seragam','Uang Pangkal'];
+        return view('pembayaran.edit', compact('tagihan', 'murid', 'jenis'));
     }
 
     /**
@@ -132,22 +136,47 @@ class PembayaranController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'jenis_pembayaran' => 'required|string',
+            'judul' => 'required|string',
             'nominal' => 'required|integer',
             'tanggal_tempo' => 'nullable|date',
             'siswa_id' => 'nullable',
-            'status' => 'required|in:aktif,non-aktif'
+            'deskripsi' => 'nullable|string',
         ]);
-        $tagihan=TagihanPembayaran::get($id);
+
+        $tagihan = TagihanPembayaran::findOrFail($id);
+
+        // Update data tagihan
         $tagihan->update([
-            'jenis_pembayaran' => $request->jenis_pembayaran,
+            'judul' => $request->judul,
             'nominal' => $request->nominal,
             'tanggal_tempo' => $request->tanggal_tempo,
             'siswa_id' => $request->siswa_id,
-            'status' => $request->status,
+            'deskripsi' => $request->deskripsi,
         ]);
 
-        return redirect()->route('pembayaran.index')->with('success', 'Tagihan berhasil diubah');
+        // Hapus semua riwayat pembayaran lama terkait tagihan ini
+        RiwayatPembayaran::where('tagihan_id', $tagihan->id)->delete();
+
+        if ($request->siswa_id) {
+            // Hanya untuk satu siswa
+            RiwayatPembayaran::create([
+                'siswa_id' => $request->siswa_id,
+                'tagihan_id' => $tagihan->id,
+                'status' => 'unpaid',
+            ]);
+        } else {
+            // Untuk semua siswa
+            $siswa = Siswa::all();
+            foreach ($siswa as $s) {
+                RiwayatPembayaran::create([
+                    'siswa_id' => $s->id,
+                    'tagihan_id' => $tagihan->id,
+                    'status' => 'unpaid',
+                ]);
+            }
+        }
+
+        return redirect()->route('pembayaran.index')->with('success', 'Tagihan berhasil diperbarui');
     }
 
     /**
@@ -155,39 +184,19 @@ class PembayaranController extends Controller
      */
     public function destroy(string $id)
     {
-        TagihanPembayaran::get($id)->delete();
+        $tagihan = TagihanPembayaran::findOrFail($id);
+
+        // Hapus semua riwayat pembayaran terkait
+        RiwayatPembayaran::where('tagihan_id', $tagihan->id)->delete();
+
+        // Hapus tagihan
+        $tagihan->delete();
         return redirect()->route('pembayaran.index')->with('success', 'Tagihan berhasil dihapus');
     }
 
     public function riwayat()
     {
-        $riwayat = [
-            [
-                'siswa' => 'Alya Zahra',
-                'jenis' => 'SPP Juli',
-                'nominal' => 150000,
-                'metode' => 'Cash',
-                'tanggal' => '2024-07-05',
-                'status' => 'Lunas',
-            ],
-            [
-                'siswa' => 'Rafi Maulana',
-                'jenis' => 'Daftar Ulang',
-                'nominal' => 125000,
-                'metode' => 'Transfer',
-                'tanggal' => '2024-07-10',
-                'status' => 'Cicilan',
-            ],
-            [
-                'siswa' => 'Nabila Aisyah',
-                'jenis' => 'Seragam',
-                'nominal' => 0,
-                'metode' => '-',
-                'tanggal' => '-',
-                'status' => 'Belum',
-            ],
-        ];
-
+        $riwayat= RiwayatPembayaran::with('siswa','tagihan')->get();
         return view('pembayaran.riwayat', compact('riwayat'));
     }
 
@@ -198,28 +207,4 @@ class PembayaranController extends Controller
     //     $bills = RiwayatPembayaran::with('tagihan')->where('siswa_id', $siswa->id)->get();
     //     return view('stupor.bills.index', compact('bills'));
     // }
-
-    public function pay(RiwayatPembayaran $riwayatPembayaran)
-{
-    $orderId = 'ORD-' . time();
-
-    $params = [
-        'transaction_details' => [
-            'order_id' => $orderId,
-            'gross_amount' => $riwayatPembayaran->tagihan->nominal,
-        ],
-        'customer_details' => [
-            'first_name' => $riwayatPembayaran->siswa->nama_lengkap,
-            // 'email' => auth()->user()->email,
-        ]
-    ];
-
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
-
-    $riwayatPembayaran->update([
-        'midtrans_order_id' => $orderId,
-    ]);
-
-    return view('stupor.pembayaran.pay', compact('snapToken', 'riwayatPembayaran'));
-}
 }

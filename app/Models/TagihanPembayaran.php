@@ -9,12 +9,13 @@ class TagihanPembayaran extends Model
 {
     //
     use HasFactory;
+    protected $table = 'tagihan_pembayaran';
     protected $fillable = [
-        'jenis_pembayaran',
+        'judul',
         'nominal',
         'tanggal_tempo',
         'siswa_id',
-        'status_tagihan',
+        'deskripsi',
     ];
 
     public function siswa()

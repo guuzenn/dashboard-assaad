@@ -9,6 +9,8 @@ class Siswa extends Model
 {
     //
     use HasFactory;
+
+    protected $table = 'siswa';
     protected $fillable = [
         'nama_lengkap',
         'tanggal_lahir',
@@ -25,9 +27,8 @@ class Siswa extends Model
         'nama_ibu',
         'pekerjaan_ibu',
         'hp_ibu',
-        // 'status_pendaftaran',
-        // 'status_pembayaran',
-        'kelas_id'
+        'kelas_id',
+        'user_id'
     ];
 
     public function nilai() {
@@ -35,5 +36,16 @@ class Siswa extends Model
     }
     public function laporan_harian() {
         return $this->hasMany(LaporanHarian::class, 'siswa_id');
+    }
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function kelas(){
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function riwayat(){
+        return $this->hasMany(RiwayatPembayaran::class);
     }
 }

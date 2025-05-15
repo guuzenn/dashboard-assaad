@@ -24,6 +24,7 @@ use App\Http\Controllers\AkunController;
 use App\Http\Controllers\Auth\ForgotPasswordController as AuthForgotPasswordController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\StudentRekapNilaiController;
 
 // Routing Auth (Login)
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -108,8 +109,9 @@ Route::prefix('data/kelas')->name('data.kelas.')->group(function() {
 // Data Nilai
 Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
     Route::get('/', [NilaiController::class, 'index'])->name('index');
-    Route::get('/create', [NilaiController::class, 'create'])->name('create');
-    Route::post('/', [NilaiController::class, 'store'])->name('store');
+    Route::get('/{id}/list', [NilaiController::class, 'list'])->name('list');
+    Route::get('/{id}/create', [NilaiController::class, 'create'])->name('create');
+    Route::post('/{id}', [NilaiController::class, 'store'])->name('store');
     Route::get('/{id}', [NilaiController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [NilaiController::class, 'edit'])->name('edit');
     Route::put('/{id}', [NilaiController::class, 'update'])->name('update');
@@ -138,7 +140,6 @@ Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(fu
     Route::delete('/{id}', [PivotMataPelajaranKelasController::class, 'destroy'])->name('destroy');
 });
 
-
 // Konten
 Route::prefix('konten')->name('konten.')->group(function () {
     // Visi Misi
@@ -159,7 +160,7 @@ Route::prefix('konten')->name('konten.')->group(function () {
 });
 
 // Admin Pembayaran
-Route::prefix('admin/pembayaran')->name('admin.pembayaran.')->group(function () {
+Route::prefix('admin/pembayaran')->name('pembayaran.')->group(function () {
     Route::get('/', [PembayaranController::class, 'index'])->name('index');
     Route::get('/create', [PembayaranController::class, 'create'])->name('create');
     Route::post('/', [PembayaranController::class, 'store'])->name('store');
@@ -200,9 +201,15 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::get('/', [StudentLaporanHarianController::class, 'index'])->name('index');
         Route::get('/{id}', [StudentLaporanHarianController::class, 'show'])->name('show');
     });
+    Route::prefix('rekap-nilai')->name('rekap_nilai.')->group(function () {
+        Route::get('/', [StudentRekapNilaiController::class, 'index'])->name('index');
+        Route::get('/{id}', [StudentRekapNilaiController::class, 'show'])->name('show');
+    });
 
     Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
         Route::get('/', [StudentPembayaranController::class, 'index'])->name('index');
+        Route::get('/{id}', [StudentPembayaranController::class, 'bayar'])->name('bayar');
+        Route::post('/midtrans/callback', [StudentPembayaranController::class, 'callback'])->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
         Route::get('/cicilan', [StudentCicilanController::class, 'index'])->name('cicilan.index');
         Route::get('/cicilan/create', [StudentCicilanController::class, 'create'])->name('cicilan.create');

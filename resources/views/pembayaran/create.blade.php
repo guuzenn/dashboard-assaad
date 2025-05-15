@@ -140,11 +140,21 @@
                             </div>
                         </div>
 
-                        @error('jenis_pembayaran')
+                        @error('judul')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
 
+                    <!-- Nominal -->
+                     <div class="mb-4">
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Keterangan</label>
+                        <input type="text" name="deskripsi" placeholder="Masukkan Deskripsi Tagihan"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                           value="{{ old('deskripsi') }}">
+                        @error('deskripsi')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
 
                      <!-- Nominal -->
                      <div class="mb-4">
@@ -177,7 +187,7 @@
                                 class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                                 <option value="">Pilih Siswa</option>
                                 @foreach ($murid as $m)
-                                    <option value="{{ $m->id }}">{{ $m->nama }}</option>
+                                    <option value="{{ $m->id }}">{{ $m->nama_lengkap }}</option>
                                 @endforeach
                             </select>
 
@@ -194,7 +204,7 @@
                         @enderror
                     </div>
 
-                    <div>
+                    {{-- <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status</label>
                         <select name="status_tagihan"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary">
@@ -205,7 +215,7 @@
                         @error('status')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
-                     </div>
+                     </div> --}}
 
                      <!-- Boleh Cicilan -->
                      <div class="flex items-center gap-2">

@@ -99,17 +99,13 @@
                 <div class="grid grid-cols-3 divide-x divide-gray-300">
                     <div class="text-center">
                         <p class="text-sm text-gray-500 mb-1">Total Tagihan</p>
-                        <p class="text-lg font-bold text-black dark:text-white">Rp {{ number_format(30000000, 0, ',', '.') }}</p>
+                        <p class="text-lg font-bold text-black dark:text-white">Rp {{ number_format($totalTagihan, 0, ',', '.') }}</p>
                     </div>
                     <div class="text-center">
                         <p class="text-sm text-gray-500 mb-1">Total Pembayaran</p>
-                        <p class="text-lg font-bold text-black dark:text-white">Rp {{ number_format(30000000, 0, ',', '.') }}</p>
+                        <p class="text-lg font-bold text-black dark:text-white">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
                     </div>
                     <div class="text-center">
-                        @php
-                            $sisaTagihan = 30000000 - 30000000; // contoh dummy
-                            $status = $sisaTagihan <= 0 ? 'Lunas' : 'Belum Lunas';
-                        @endphp
                         <p class="text-sm text-gray-500 mb-1">Status</p>
                         <p class="text-lg font-bold {{ $sisaTagihan <= 0 ? 'text-green-500' : 'text-red-500' }}">{{ $status }}</p>
                         <p class="text-sm text-gray-500">Sisa: Rp {{ number_format(max($sisaTagihan, 0), 0, ',', '.') }}</p>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AkunController extends Controller
@@ -14,7 +15,7 @@ class AkunController extends Controller
             'role' => 'Admin',
             'no_hp' => '081234567890',
             'kelas' => 'Kelas A',
-            'status' => 'aktif', 
+            'status' => 'aktif',
         ],
         2 => [
             'id' => 2,
@@ -41,17 +42,13 @@ class AkunController extends Controller
     public function store(Request $request)
     {
         // Mendapatkan ID baru untuk akun
-        $newId = count($this->akunData) + 1;
 
-        $this->akunData[$newId] = [
-            'id' => $newId,
-            'nama' => $request->nama,
+        User::created([
+            'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
-            'no_hp' => $request->no_hp,
-            'kelas' => $request->kelas,
             'status' => $request->status ?? 'nonaktif',
-        ];
+        ]);
 
         return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil ditambahkan');
     }
@@ -64,7 +61,7 @@ class AkunController extends Controller
         }
         return view('admin.akun.show', compact('akun'));
     }
- 
+
     public function edit($id)
     {
         $akun = $this->akunData[$id] ?? null;
@@ -111,7 +108,7 @@ class AkunController extends Controller
     public function destroy($id)
     {
         if (isset($this->akunData[$id])) {
-            unset($this->akunData[$id]); 
+            unset($this->akunData[$id]);
             return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil dihapus');
         }
 

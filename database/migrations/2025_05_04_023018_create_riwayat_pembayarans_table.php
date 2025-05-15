@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('riwayat_pembayarans', function (Blueprint $table) {
+        Schema::create('riwayat_pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id')->constrained()->onDelete('cascade');
-            $table->foreignId('tagihan_id')->constrained()->onDelete('cascade');
-            $table->string( 'midtrans_order_id');
-            $table->string( 'payment_url');
+            $table->foreignId('siswa_id')->constrained('siswa')->onDelete('cascade');
+            $table->foreignId('tagihan_id')->constrained('tagihan_pembayaran')->onDelete('cascade');
+            $table->string( 'status');
+            $table->date( 'tanggal_bayar')->nullable();
+            $table->string( 'midtrans_order_id')->nullable();
+            $table->string( 'metode')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('riwayat_pembayarans');
+        Schema::dropIfExists('riwayat_pembayaran');
     }
 };

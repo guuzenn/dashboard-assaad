@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class RiwayatPembayaran extends Model
 {
     use HasFactory;
-    protected $fillable = ['siswa_id','tagihan_id','status', 'midtrans_order_id', 'payment_url'];
 
-    public function siswat() {
-        return $this->hasMany(Siswa::class);
+    protected $table = 'riwayat_pembayaran';
+    protected $fillable = ['siswa_id','tagihan_id','status', 'tanggal_bayar','midtrans_order_id', 'metode'];
+
+    public function siswa() {
+        return $this->belongsTo(Siswa::class);
     }
     public function tagihan() {
         return $this->belongsTo(TagihanPembayaran::class);

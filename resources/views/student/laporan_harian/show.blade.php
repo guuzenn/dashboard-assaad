@@ -120,7 +120,7 @@
                     <!-- Foto -->
                     <div class="sm:col-span-2">
                         <p class="text-sm text-slate-500 mb-1">Foto Kegiatan</p>
-                        <img src="{{ $laporan->foto }}" alt="Foto Kegiatan"
+                        <img src="{{ asset($laporan->image) }}" alt="Foto Kegiatan"
                             class="rounded-md max-w-xs border border-stroke dark:border-strokedark">
                     </div>
                     <!-- Tombol Kembali -->

@@ -227,7 +227,7 @@
                             <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Jenis Pembayaran</th>
                             <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Nominal</th>
                             <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Jatuh Tempo</th>
-                            <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                            <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Keterangan</th>
                             <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                         </tr>
                     </thead>
@@ -235,19 +235,23 @@
                         @foreach ($tagihan as $index => $item)
                         <tr>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->siswa->nama?? '-' }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->siswa->nama_lengkap?? '-' }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->judul}}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item->nominal, 0, ',', '.') }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal_tempo}}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->deskripsi}}</td>
+                            {{-- <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                                 {{ $item['status'] == 'Lunas'
                                 ? 'bg-success bg-opacity-10 text-success'
                                 : ($item['status'] == 'Cicilan' ? 'bg-warning bg-opacity-10 text-warning' : 'bg-danger bg-opacity-10 text-danger') }}">
                                 {{ $item['status'] }}
                             </p>
-                            </td>
+                            </td> --}}
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            <form action="{{ route('pembayaran.destroy', $item->id) }}" method="POST" class="form-delete">
+                                @csrf
+                                @method('DELETE')
                            <div class="flex items-center space-x-3.5">
                              <!-- Button Show -->
                              <a href="{{ route('pembayaran.show', $item['id']) }}" class="hover:text-primary">
@@ -311,6 +315,7 @@
                                  </svg>
                                </a>
                            </div>
+                            </form>
                         </td>
                      </tr>
                      @endforeach

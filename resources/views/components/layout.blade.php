@@ -39,5 +39,49 @@
         </div>
     </div>
 
+    @yield('script')
 </body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+                color: '#000000',
+                customClass: {
+                confirmButton: 'text-black'
+            }
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#d33'
+            });
+        @endif
+
+        document.querySelectorAll('.form-delete').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // hentikan submit default
+
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit(); // submit form jika user mengkonfirmasi
+                }
+            });
+        });
+    });
+</script>
 </html>

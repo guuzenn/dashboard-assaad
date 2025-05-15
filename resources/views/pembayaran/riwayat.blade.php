@@ -221,6 +221,7 @@
                     <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Nominal Bayar</th>
                     <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Metode</th>
                     <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Tanggal Bayar</th>
+                    <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Keterangan</th>
                     <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
                 </tr>
                 </thead>
@@ -228,11 +229,12 @@
                 @foreach ($riwayat as $index => $item)
                 <tr>
                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                    <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item['siswa'] }}</td>
-                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jenis'] }}</td>
-                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
+                    <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->siswa->nama_lengkap }}</td>
+                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tagihan->judul }}</td>
+                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item->tagihan->nominal, 0, ',', '.') }}</td>
                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['metode'] }}</td>
-                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['tanggal'] }}</td>
+                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal_bayar??"-" }}</td>
+                    <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tagihan->deskripsi }}</td>
                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                     <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                         {{ $item['status'] == 'Lunas'
@@ -260,7 +262,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

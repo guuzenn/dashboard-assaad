@@ -136,15 +136,16 @@
                                 <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Nominal</th>
                                 <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Jatuh Tempo</th>
                                 <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                                <th class="min-w-[160px] px-4 py-4 font-medium text-black dark:text-white">Bayar</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tagihan as $index => $item)
                             <tr>
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jenis'] }}</td>
-                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
-                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['due_date'] }}</td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tagihan->judul }}</td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">Rp {{ number_format($item->tagihan->nominal, 0, ',', '.') }}</td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tagihan->tanggal_tempo }}</td>
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                     <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                                         {{ $item['status'] == 'Lunas'
@@ -152,6 +153,12 @@
                                         : ($item['status'] == 'Cicilan' ? 'bg-warning bg-opacity-10 text-warning' : 'bg-danger bg-opacity-10 text-danger') }}">
                                         {{ $item['status'] }}
                                     </p>
+
+                                </td>
+                                <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                                    <a href="{{ route('student.pembayaran.bayar', $item->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                        Bayar
+                                    </a>
                                 </td>
                             </tr>
                             @endforeach
@@ -161,4 +168,7 @@
             </div>
         </div>
     </main>
+
+
 </x-student-layout>
+

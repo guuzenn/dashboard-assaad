@@ -100,62 +100,62 @@
                     <!-- Nama Lengkap -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Nama Lengkap</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->nama_lengkap }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->nama_lengkap }}</p>
                     </div>
                     <!-- Tanggal Lahir -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Tanggal Lahir</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->tanggal_lahir }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->tanggal_lahir }}</p>
                     </div>
                     <!-- Agama -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Agama</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->agama }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->agama }}</p>
                     </div>
                     <!-- Jenis Kelamin -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Jenis Kelamin</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->jenis_kelamin }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->jenis_kelamin }}</p>
                     </div>
                     <!-- Riwayat Penyakit -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Riwayat Penyakit</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->riwayat_penyakit ?? 'Tidak Ada' }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->riwayat_penyakit ?? 'Tidak Ada' }}</p>
                     </div>
                     <!-- Alamat -->
                     <div class="sm:col-span-2 mb-4">
                         <p class="text-sm text-slate-500 mb-1">Alamat</p>
-                        <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $student->alamat }}</p>
+                        <p class="text-base font-medium text-black dark:text-white whitespace-pre-line">{{ $siswa->alamat }}</p>
                     </div>
                     <!-- Orang Tua -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Nama Ayah</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->nama_ayah }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->nama_ayah }}</p>
                     </div>
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Pekerjaan Ayah</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->pekerjaan_ayah }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->pekerjaan_ayah }}</p>
                     </div>
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">No HP Ayah</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->hp_ayah }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->hp_ayah }}</p>
                     </div>
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Nama Ibu</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->nama_ibu }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->nama_ibu }}</p>
                     </div>
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Pekerjaan Ibu</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->pekerjaan_ibu }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->pekerjaan_ibu }}</p>
                     </div>
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">No HP Ibu</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->hp_ibu }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->hp_ibu }}</p>
                     </div>
                     <!-- Kelas -->
                     <div class="mb-4">
                         <p class="text-sm text-slate-500 mb-1">Kelas</p>
-                        <p class="text-base font-medium text-black dark:text-white">{{ $student->kelas->nama }}</p>
+                        <p class="text-base font-medium text-black dark:text-white">{{ $siswa->kelas->nama }}</p>
                     </div>
                     <!-- Back Button -->
                     <div class="sm:col-span-2 flex justify-end mt-6">

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('siswa', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap');
             $table->date('tanggal_lahir');
@@ -31,6 +31,7 @@ return new class extends Migration
             // $table->string('status_pendaftaran')->default('Menunggu')->nullable();
             // $table->string('status_pembayaran')->nullable();
             $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -40,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswas');
+        Schema::dropIfExists('siswa');
     }
 };

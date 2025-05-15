@@ -24,33 +24,6 @@ class LaporanHarianController extends Controller
 
     public function show($id)
     {
-        // $dummy = [
-        //     1 => (object)[
-        //         'id' => 1,
-        //         'judul' => 'Kegiatan Mewarnai',
-        //         'tanggal' => '2024-06-01',
-        //         'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-        //         'deskripsi' => 'Anak-anak belajar mengenal warna melalui kegiatan mewarnai bersama guru.',
-        //         'foto' => 'https://via.placeholder.com/150',
-        //     ],
-        //     2 => (object)[
-        //         'id' => 2,
-        //         'judul' => 'Senam Pagi',
-        //         'tanggal' => '2024-06-03',
-        //         'kelas' => (object)['id' => 2, 'nama' => 'TK B'],
-        //         'deskripsi' => 'Senam pagi bersama sebagai rutinitas sebelum belajar.',
-        //         'foto' => 'https://via.placeholder.com/150',
-        //     ],
-        //     3 => (object)[
-        //         'id' => 3,
-        //         'judul' => 'Menanam Sayur',
-        //         'tanggal' => '2024-06-04',
-        //         'kelas' => (object)['id' => 1, 'nama' => 'TK A'],
-        //         'deskripsi' => 'Mengenalkan konsep bercocok tanam kepada siswa melalui praktik langsung.',
-        //         'foto' => 'https://via.placeholder.com/150',
-        //     ],
-        // ];
-
         $laporan = LaporanHarian::with('kelas','siswa')->findOrFail($id);;
 
         return view('data.laporan_harian.show', compact('laporan'));

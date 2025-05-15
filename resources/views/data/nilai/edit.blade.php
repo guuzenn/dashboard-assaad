@@ -119,7 +119,7 @@
                     <form action="{{ route('data.nilai.update', $nilai->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                     <!-- Nama Murid -->
+                     {{-- <!-- Nama Murid -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Murid</label>
                         <select
@@ -155,7 +155,7 @@
                         @error('kelas_id')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
-                     </div>
+                     </div> --}}
 
                      <!-- Semester -->
                      <div>
@@ -169,6 +169,22 @@
                            <option value="genap" @selected($nilai->semester == 'genap')>Genap</option>
                         </select>
                         @error('semester')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
+
+                      <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Mata Pelajaran</label>
+                        <select
+                           name="mata_pelajaran_id"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                        >
+                           <option value="">Pilih Semester</option>
+                            @foreach ($mapel as $item)
+                                <option value="{{ $item->id }}"{{ old('mata_pelajaran_id', $nilai->mata_pelajaran_id) == $item->id ? 'selected' : '' }} >{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                        @error('mata_pelajaran_id')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>

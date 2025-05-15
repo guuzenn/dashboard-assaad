@@ -107,8 +107,8 @@
   <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Rekap Nilai Murid</h4>
-         
-         <form action="{{ route('data.nilai.store') }}" method="POST">
+
+         <form action="{{ route('data.nilai.store',$siswa->id) }}" method="POST">
          @csrf
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
             <div class="flex flex-col gap-9">
@@ -118,8 +118,8 @@
                   </div>
 
                   <div class="flex flex-col gap-5.5 p-6.5">
-                  
-                     <!-- Nama Murid -->
+
+                     {{-- <!-- Nama Murid -->
                      <div>
                         <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Murid</label>
                         <select
@@ -155,7 +155,7 @@
                         @error('kelas_id')
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
-                     </div>
+                     </div> --}}
 
                      <!-- Semester -->
                      <div>
@@ -172,10 +172,25 @@
                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                      </div>
+                     <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Mata Pelajaran</label>
+                        <select
+                           name="mata_pelajaran_id"
+                           class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
+                        >
+                           <option value="">Pilih Semester</option>
+                            @foreach ($mapel as $item)
+                                <option value="{{ $item->id }}" >{{ $item->nama }}</option>
+                            @endforeach
+                        </select>
+                        @error('mata_pelajaran_id')
+                           <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
+                     </div>
 
                      <!-- Nilai Rata-rata -->
                      <div>
-                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nilai Rata-rata</label>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nilai</label>
                         <input
                            type="number"
                            step="0.01"
@@ -217,3 +232,29 @@
    </main>
    <!-- ===== Main Content End ===== -->
 </x-layout>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#22c55e',
+                color: '#000000',
+                customClass: {
+                confirmButton: 'text-black'
+            }
+            });
+        @elseif(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                confirmButtonColor: '#d33',
+                 color: '#000000',
+                customClass: {
+                confirmButton: 'text-black'
+            }
+            });
+        @endif
+    </script>

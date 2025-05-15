@@ -121,6 +121,11 @@
                   <p class="text-sm text-slate-500 mb-1">Kelas</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $nilai->kelas->nama ?? '-' }}</p>
                </div>
+               <!-- Kelas -->
+               <div>
+                  <p class="text-sm text-slate-500 mb-1">Mata Pelajaran</p>
+                  <p class="text-base font-medium text-black dark:text-white">{{ $nilai->mata_pelajaran->nama ?? '-' }}</p>
+               </div>
                <!-- Semester -->
                <div>
                   <p class="text-sm text-slate-500 mb-1">Semester</p>
@@ -138,7 +143,7 @@
                </div>
                <!-- Back Button -->
                <div class="sm:col-span-2 flex justify-end mt-6">
-                  <a href="{{ route('data.nilai.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                  <a href="{{ route('data.nilai.list', $nilai->siswa_id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
                      Kembali
                   </a>
                </div>

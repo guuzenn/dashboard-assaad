@@ -134,38 +134,42 @@
                 <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Nama Siswa</p>
-                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['siswa'] }}</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $tagihan->siswa->nama_lengkap ?? "-" }}</p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Jenis Pembayaran</p>
-                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['judul'] }}</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $tagihan->judul }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500 mb-1">Keterangan</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $tagihan->deskripsi}}</p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Nominal Bayar</p>
                         <p class="text-base font-medium text-black dark:text-white mb-2">Rp
-                            {{ number_format($pembayaran['nominal'], 0, ',', '.') }}</p>
+                            {{ number_format($tagihan->nominal, 0, ',', '.') }}</p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Metode</p>
-                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['metode'] }}</p>
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $tagihan->metode}}</p>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500 mb-1">Tanggal Bayar</p>
-                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $pembayaran['tanggal'] }}
+                        <p class="text-base font-medium text-black dark:text-white mb-2">{{ $tagihan->tanggal_tempo}}
                         </p>
                     </div>
-                    <div>
+                    {{-- <div>
                         <p class="text-sm text-slate-500 mb-1">Status</p>
                         <p
                             class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                {{ $pembayaran['status'] == 'Lunas'
-                    ? 'bg-success bg-opacity-10 text-success'
-                    : ($pembayaran['status'] == 'Cicilan'
-                        ? 'bg-warning bg-opacity-10 text-warning'
-                        : 'bg-danger bg-opacity-10 text-danger') }}">
-                            {{ $pembayaran['status'] }}
-                        </p>
-                    </div>
+                            {{ $tagihan->status== 'Lunas'
+                            ? 'bg-success bg-opacity-10 text-success'
+                            : ($tagihan->status== 'Cicilan'
+                                ? 'bg-warning bg-opacity-10 text-warning'
+                                : 'bg-danger bg-opacity-10 text-danger') }}">
+                                    {{ $tagihan->status}}
+                                </p>
+                    </div> --}}
                 </div>
 
                 <!-- Tombol Kembali -->

@@ -2,150 +2,124 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guru;
 use App\Models\Kelas;
+use App\Models\MataPelajaran;
 use App\Models\Nilai;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
 {
     public function index()
     {
-        // $nilai = [
-        //     (object)[
-        //         'id' => 1,
-        //         'murid' => (object)['nama_lengkap' => 'Andi Saputra'],
-        //         'kelas' => (object)['nama' => 'TK A'],
-        //         'semester' => 'Ganjil',
-        //         'rata_rata' => 87.5,
-        //         'catatan' => 'Perkembangan sangat baik dan aktif di kelas.',
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'murid' => (object)['nama_lengkap' => 'Siti Aisyah'],
-        //         'kelas' => (object)['nama' => 'TK B'],
-        //         'semester' => 'Genap',
-        //         'rata_rata' => 90.0,
-        //         'catatan' => 'Sangat rajin dan cepat memahami materi.',
-        //     ],
-        // ];
+        // $nilai = Nilai::with('siswa')->get();
+        // return view('data.nilai.index', compact('nilai'));
+        $guru = Guru::where('user_id', Auth::id())->first();
+        $siswa = [];
+        if ($guru) {
+            $siswa = Siswa::whereHas('kelas', function ($q) use ($guru) {
+                $q->where('guru_id', $guru->id);
+            })->with('user')->get();
+        }
 
-        // $rataRataTK_A = 87.5;
-        // $rataRataTK_B = 90.0;
+        return view('data.nilai.index', compact('siswa'));
+    }
 
-        $nilai = Nilai::with('siswa')->get();
-        return view('data.nilai.index', compact('nilai'));
+    public function list($id){
+        $nilai = Nilai::with('mata_pelajaran')->where('siswa_id',$id)->get();
+        return view('data.nilai.list', compact('nilai','id'));
     }
 
     public function show($id)
     {
-        // $nilai = (object)[
-        //     'id' => $id,
-        //     'murid' => (object)['nama_lengkap' => 'Andi Saputra'],
-        //     'kelas' => (object)['nama' => 'TK A'],
-        //     'semester' => 'Ganjil',
-        //     'rata_rata' => 87.5,
-        //     'catatan' => 'Perkembangan sangat baik dan aktif di kelas.',
-        // ];
-
-        $nilai = Nilai::findOrFail($id);
-        $siswa = Siswa::all();
-        $kelas = Kelas::all();
-        return view('data.nilai.show', compact('nilai','siswa','kelas'));
+        $nilai = Nilai::with('mata_pelajaran','kelas','siswa')->findOrFail($id);
+        // $siswaId = $nilai->siswa_id;
+        return view('data.nilai.show', compact('nilai'));
     }
 
     public function edit($id)
     {
-        // $nilai = (object)[
-        //     'id' => $id,
-        //     'murid_id' => 1,
-        //     'kelas_id' => 1,
-        //     'murid' => (object)['nama_lengkap' => 'Andi Saputra'],
-        //     'kelas' => (object)['nama' => 'TK A'],
-        //     'semester' => 'Ganjil',
-        //     'rata_rata' => 87.5,
-        //     'catatan' => 'Perkembangan sangat baik dan aktif di kelas.',
-        // ];
-
-        // $murid = [
-        //     (object)['id' => 1, 'nama_lengkap' => 'Andi Saputra'],
-        //     (object)['id' => 2, 'nama_lengkap' => 'Siti Aisyah'],
-        // ];
-
-        // $kelas = [
-        //     (object)['id' => 1, 'nama' => 'TK A'],
-        //     (object)['id' => 2, 'nama' => 'TK B'],
-        // ];
         $nilai = Nilai::findOrFail($id);
-        $siswa = Siswa::all();
-        $kelas = Kelas::all();
-        return view('data.nilai.edit', compact('nilai', 'siswa', 'kelas'));
+        $mapel = MataPelajaran::all();
+        return view('data.nilai.edit', compact('nilai', 'mapel'));
     }
 
-    public function create()
+    public function create($id)
     {
-        // $murid = [
-        //     (object)['id' => 1, 'nama_lengkap' => 'Ayu Permata'],
-        //     (object)['id' => 2, 'nama_lengkap' => 'Budi Santoso'],
-        // ];
-
-
-        // $kelas = [
-        //     (object)['id' => 1, 'nama' => 'TK A'],
-        //     (object)['id' => 2, 'nama' => 'TK B'],
-        // ];
-        $murid = Siswa::all();
-        $kelas = Kelas::all();
-        return view('data.nilai.create', compact('murid', 'kelas'));
+        $siswa = Siswa::findOrFail($id);
+        $mapel = MataPelajaran::all();
+        return view('data.nilai.create', compact('siswa', 'mapel'));
     }
 
-    public function store(Request $request ){
+    public function store(Request $request, $id ){
         $request->validate([
-            'siswa_id' => 'required|string',
-            'kelas_id' => 'required|string',
+            'mata_pelajaran_id' => 'required|string',
             'deskripsi' => 'nullable|string',
             'semester' => 'required|string',
             'nilai' => 'required|numeric',
         ]);
+        $siswa = Siswa::findOrFail($id);
 
+        // Cek apakah sudah ada nilai dengan kombinasi ini
+        $cekNilai = Nilai::where('siswa_id', $id)
+            ->where('mata_pelajaran_id', $request->mata_pelajaran_id)
+            ->where('semester', $request->semester)
+            ->first();
+
+        if ($cekNilai) {
+            return redirect()->back()->with('error', 'Nilai untuk mata pelajaran dan semester ini sudah ada.');
+        }
         Nilai::create([
-            'siswa_id' => $request->siswa_id,
-            'kelas_id' => $request->kelas_id,
+            'siswa_id' => $id,
+            'kelas_id' => $siswa->kelas_id,
+            'mata_pelajaran_id' => $request->mata_pelajaran_id,
             'deskripsi' => $request->deskripsi,
             'semester' => $request->semester,
             'nilai' => $request->nilai,
         ]);
 
-        return redirect()->route('data.nilai.index')->with('success', 'Nilai berhasil ditambahkan');
+        return redirect()->route('data.nilai.list',$id)->with('success', 'Nilai berhasil ditambahkan');
 
     }
 
     public function update(Request $request, $id){
         $request->validate([
-            'siswa_id' => 'required|string',
-            'kelas_id' => 'required|string',
+            'mata_pelajaran_id' => 'required|string',
             'deskripsi' => 'nullable|string',
             'semester' => 'required|string',
             'nilai' => 'required|numeric',
         ]);
 
         $nilai = Nilai::findOrFail($id);
+        $cekNilai = Nilai::where('siswa_id', $id)
+            ->where('mata_pelajaran_id', $request->mata_pelajaran_id)
+            ->where('semester', $request->semester)
+            ->first();
+
+        if ($cekNilai) {
+            return redirect()->back()->with('error', 'Nilai untuk mata pelajaran dan semester ini sudah ada.');
+        }
         $nilai->update([
-            'siswa_id' => $request->siswa_id,
-            'kelas_id' => $request->kelas_id,
+            'siswa_id' => $nilai->siswa_id,
+            'kelas_id' => $nilai->kelas_id,
+            'mata_pelajaran_id' => $request->mata_pelajaran_id,
             'deskripsi' => $request->deskripsi,
             'semester' => $request->semester,
             'nilai' => $request->nilai,
         ]);
 
-        return redirect()->route('data.nilai.index')->with('success', 'Nilai berhasil diubah');
+        return redirect()->route('data.nilai.list',$nilai->siswa_id)->with('success', 'Nilai berhasil diubah');
 
     }
 
     public function destroy($id)
     {
-        Nilai::findOrFail($id)->delete();
-        return redirect()->route('data.nilai.index')->with('success', 'Nilai berhasil dihapus');
+        $nilai = Nilai::findOrFail($id);
+        $siswaId = $nilai ->siswa_id;
+        $nilai->delete();
+        return redirect()->route('data.nilai.list',$siswaId)->with('success', 'Nilai berhasil dihapus');
     }
 
 
