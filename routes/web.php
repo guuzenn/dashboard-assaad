@@ -59,6 +59,11 @@ Route::prefix('compro')->name('compro.')->group(function () {
     })->name('beranda');
 });
 
+// Route for student registration
+Route::get('/login-student', function () { return view('webppdb.auth.login'); })->name('login-student');
+Route::get('/register-student', function () { return view('webppdb.auth.daftar'); })->name('register-student');
+
+// Route for PPDB
 Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
 Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
