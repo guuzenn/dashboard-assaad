@@ -10,6 +10,7 @@
     <link rel="icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/bundle.js') }}" defer></script>
+    @yield('css')
 </head>
 
 <body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': true, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
