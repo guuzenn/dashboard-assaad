@@ -47,6 +47,11 @@ Route::middleware('auth')->group(function () {
     })->name('siswa.dashboard')->middleware('role:siswa');
 });
 
+Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
+Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+
 Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {
         Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
@@ -216,11 +221,6 @@ Route::prefix('student')->name('student.')->group(function () {
         Route::post('/cicilan', [StudentCicilanController::class, 'store'])->name('cicilan.store');
     });
 });
-Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
-Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
-Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
-Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
-
 
 Route::prefix('admin')->name('admin.')->group(function() {
     // Route Akun
