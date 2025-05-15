@@ -84,34 +84,34 @@
                <h3 class="font-medium text-black dark:text-white">Informasi Akun</h3>
             </div>
             <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
-               <!-- Nama -->
-               <div class='mb-4'>
-                  <p class="text-sm text-slate-500 mb-1">Nama</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $akun['nama'] }}</p>
-               </div>
-               <!-- Email -->
-                <div class='mb-4'>
-                  <p class="text-sm text-slate-500 mb-1">Email</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $akun['email'] }}</p>
-               </div>
-               <!-- No HP -->
-                <div class='mb-4'>
-                  <p class="text-sm text-slate-500 mb-1">No HP</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $akun['no_hp'] }}</p>
-               </div>
-               <!-- Role -->
-                <div class='mb-4'>
-                  <p class="text-sm text-slate-500 mb-1">Role</p>
-                  <p class="text-base font-medium text-black dark:text-white">{{ $akun['role'] }}</p>
-               </div>
-               <!-- Status -->
-                <div class='mb-4'>
-                  <p class="text-sm text-slate-500 mb-1">Status</p>
-                  <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                     {{ $akun['status'] == 'aktif' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">
-                     {{ ucfirst($akun['status']) }}
-                  </span>
-               </div>
+            <!-- Nama -->
+            <div class='mb-4'>
+                <p class="text-sm text-slate-500 mb-1">Nama</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ $akun->name }}</p>
+            </div>
+            <!-- Email -->
+            <div class='mb-4'>
+                <p class="text-sm text-slate-500 mb-1">Email</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ $akun->email }}</p>
+            </div>
+            <!-- No HP -->
+            <div class='mb-4'>
+                <p class="text-sm text-slate-500 mb-1">No HP</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ $akun->no_hp ?? 'Tidak tersedia' }}</p>
+            </div>
+            <!-- Role -->
+            <div class='mb-4'>
+                <p class="text-sm text-slate-500 mb-1">Role</p>
+                <p class="text-base font-medium text-black dark:text-white">{{ ucfirst($akun->role) }}</p>
+            </div>
+            <!-- Status -->
+            <div class='mb-4'>
+                <p class="text-sm text-slate-500 mb-1">Status</p>
+                <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                    {{ $akun->status == 'aktif' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">
+                    {{ ucfirst($akun->status ?? 'tidak aktif') }}
+                </span>
+            </div>
                <!-- Tombol Kembali -->
                <div class="sm:col-span-2 flex justify-end mt-6">
                   <a href="{{ route('admin.akun.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">

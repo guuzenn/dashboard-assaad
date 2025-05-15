@@ -7,30 +7,33 @@ use Illuminate\Http\Request;
 
 class AkunController extends Controller
 {
-    private $akunData = [
-        1 => [
-            'id' => 1,
-            'nama' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'role' => 'Admin',
-            'no_hp' => '081234567890',
-            'kelas' => 'Kelas A',
-            'status' => 'aktif',
-        ],
-        2 => [
-            'id' => 2,
-            'nama' => 'Jane Smith',
-            'email' => 'jane.smith@example.com',
-            'role' => 'Guru',
-            'no_hp' => '082345678901',
-            'kelas' => 'Kelas B',
-            'status' => 'nonaktif',
-        ],
-    ];
+    // private $akunData = [
+    //     1 => [
+    //         'id' => 1,
+    //         'nama' => 'John Doe',
+    //         'email' => 'john.doe@example.com',
+    //         'role' => 'Admin',
+    //         'no_hp' => '081234567890',
+    //         'kelas' => 'Kelas A',
+    //         'status' => 'aktif',
+    //     ],
+    //     2 => [
+    //         'id' => 2,
+    //         'nama' => 'Jane Smith',
+    //         'email' => 'jane.smith@example.com',
+    //         'role' => 'Guru',
+    //         'no_hp' => '082345678901',
+    //         'kelas' => 'Kelas B',
+    //         'status' => 'nonaktif',
+    //     ],
+    // ];
 
     public function index()
     {
-        $akun = $this->akunData;
+        // Ambil semua data user
+        $akun = User::all();
+
+        // Kirim data ke view
         return view('admin.akun.index', compact('akun'));
     }
 
@@ -55,10 +58,10 @@ class AkunController extends Controller
 
     public function show($id)
     {
-        $akun = $this->akunData[$id] ?? null;
-        if (!$akun) {
-            abort(404, 'Akun tidak ditemukan');
-        }
+        // Fetch the specific user by ID
+        $akun = User::findOrFail($id);
+
+        // Pass the user to the view
         return view('admin.akun.show', compact('akun'));
     }
 
@@ -73,19 +76,19 @@ class AkunController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!isset($this->akunData[$id])) {
-            abort(404, 'Akun tidak ditemukan');
-        }
+        // if (!isset($this->akunData[$id])) {
+        //     abort(404, 'Akun tidak ditemukan');
+        // }
 
-        $this->akunData[$id] = [
-            'id' => $id,
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'role' => $request->role,
-            'no_hp' => $request->no_hp,
-            'kelas' => $request->kelas,
-            'status' => $request->status ?? 'nonaktif'
-        ];
+        // $this->akunData[$id] = [
+        //     'id' => $id,
+        //     'nama' => $request->nama,
+        //     'email' => $request->email,
+        //     'role' => $request->role,
+        //     'no_hp' => $request->no_hp,
+        //     'kelas' => $request->kelas,
+        //     'status' => $request->status ?? 'nonaktif'
+        // ];
 
         return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil diupdate');
     }

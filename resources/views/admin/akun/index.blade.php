@@ -169,14 +169,14 @@
                      @foreach ($akun as $index => $item)
                      <tr>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item['nama'] }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['email'] }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->name }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->email }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                                {{ $item['status'] == 'aktif'
+                                {{ $item->status == 'aktif'
                                     ? 'bg-success bg-opacity-10 text-success'
                                     : 'bg-danger bg-opacity-10 text-danger' }}">
-                                {{ ucfirst($item['status']) }}
+                                {{ ucfirst($item->status ?? 'tidak aktif') }}
                             </p>
                         </td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -252,7 +252,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>
