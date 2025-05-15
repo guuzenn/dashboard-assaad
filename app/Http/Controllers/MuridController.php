@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GeocodeHelper;
 use App\Models\Kelas;
 use App\Models\Siswa;
 use Carbon\Carbon;
@@ -11,34 +12,7 @@ class MuridController extends Controller
 {
     public function index()
     {
-        // $murid = collect([
-        //     (object)[
-        //         'id' => 1,
-        //         'nama_lengkap' => 'Budi Santoso',
-        //         'tanggal_lahir' => '2015-04-02',
-        //         'jenis_kelamin' => 'Laki-laki',
-        //         'agama' => 'Islam',
-        //         'kelas' => 'TK A',
-        //         'status_pembayaran' => 'Lunas'
-        //     ],
-        //     (object)[
-        //         'id' => 2,
-        //         'nama_lengkap' => 'Siti Aminah',
-        //         'tanggal_lahir' => '2016-01-12',
-        //         'jenis_kelamin' => 'Perempuan',
-        //         'agama' => 'Kristen',
-        //         'kelas' => 'TK B',
-        //         'status_pembayaran' => 'Belum Lunas'
-        //     ],
-        // ]);
-
         $murid = Siswa::get();
-
-        // $murid->each(function($item) {
-        //     $item->tanggal_lahir = Carbon::parse($item->tanggal_lahir)->format('d/m/Y');
-        //     $item->status_pembayaran = 'Lunas';
-        // });
-
         return view('data.murid.index', compact('murid'));
     }
 
@@ -65,10 +39,10 @@ class MuridController extends Controller
             'nama_ibu'=> 'nullable',
             'pekerjaan_ibu'=> 'nullable',
             'hp_ibu'=> 'nullable',
-            'kelas_id'=>'nullable',
             'status_keluarga'=>'nullable',
-            'kelas_id'=>'nullable'
+            'kelas_id'=>'nullable',
         ]);
+
 
         Siswa::create([
             'nama_lengkap' => $request->nama_lengkap,
@@ -85,9 +59,11 @@ class MuridController extends Controller
             'nama_ibu' => $request->nama_ibu,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,
             'hp_ibu' => $request->hp_ibu,
-            'kelas_id]' => $request->kelas_id,
             'status_keluarga' => $request->status_keluarga,
             'kelas_id' => $request->kelas_id,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+
         ]);
 
         return redirect()->route('data.murid.index')->with('success', 'Murid berhasil ditambahkan');
@@ -152,6 +128,11 @@ class MuridController extends Controller
     {
         $murid = Siswa::findOrFail($id);
         return view('data.murid.show', compact('murid'));
+    }
+
+    public function destroy($id){
+        $murid = Siswa::findOrFail($id)->delete();
+        return redirect()->route('data.murid.index')->with('success', 'Murid berhasil dihapus');
     }
 
 

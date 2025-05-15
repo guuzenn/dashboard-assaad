@@ -28,7 +28,9 @@ class Siswa extends Model
         'pekerjaan_ibu',
         'hp_ibu',
         'kelas_id',
-        'user_id'
+        'user_id',
+        'latitude',
+        'longitude',
     ];
 
     public function nilai() {

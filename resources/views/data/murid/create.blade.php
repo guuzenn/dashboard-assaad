@@ -249,7 +249,7 @@
 
                         <!-- Alamat -->
                         <div>
-                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat</label>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat Rumah</label>
                             <textarea
                                 name="alamat"
                                 placeholder="Masukkan Alamat"
@@ -258,6 +258,18 @@
                             @error('alamat')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
+                        </div>
+
+                        <!-- Maps -->
+                        @section('css')
+                        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                        <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+                        @endsection
+                        <div>
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Lokasi Rumah Siswa</label>
+                            <div id="map" style="height: 400px;"></div>
+                            <input type="hidden" name="latitude" id="latitude">
+                            <input type="hidden" name="longitude" id="longitude">
                         </div>
 
                         <!-- Nama Ayah -->
@@ -384,4 +396,37 @@
       </form>
    </main>
    <!-- ===== Main Content End ===== -->
+   @section('script')
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+        <script>
+            var map = L.map('map').setView([-6.403, 106.999], 13); // Default: Cileungsi
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            var marker = L.marker([-6.403, 106.999], {draggable: true}).addTo(map);
+
+            // Update input value saat marker digeser
+            function updateInput(latlng) {
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            }
+
+            updateInput(marker.getLatLng());
+
+            marker.on('dragend', function(e) {
+                updateInput(marker.getLatLng());
+            });
+
+            // Tambahkan search lokasi
+            L.Control.geocoder({
+                defaultMarkGeocode: false
+            }).on('markgeocode', function(e) {
+                var center = e.geocode.center;
+                map.setView(center, 16);
+                marker.setLatLng(center);
+                updateInput(center);
+            }).addTo(map);
+        </script>
+    @endsection
 </x-layout>
+

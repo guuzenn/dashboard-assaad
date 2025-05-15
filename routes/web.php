@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MapsContoller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
@@ -160,6 +161,11 @@ Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(fu
     Route::get('/{id}/edit', [PivotMataPelajaranKelasController::class, 'edit'])->name('edit');
     Route::put('/{id}', [PivotMataPelajaranKelasController::class, 'update'])->name('update');
     Route::delete('/{id}', [PivotMataPelajaranKelasController::class, 'destroy'])->name('destroy');
+});
+
+// Pembagian Mapel
+Route::prefix('data/maps')->name('data.maps.')->group(function() {
+    Route::get('/', [MapsContoller::class, 'index'])->name('index');
 });
 
 // Konten
