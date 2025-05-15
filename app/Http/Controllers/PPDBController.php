@@ -72,7 +72,7 @@ class PPDBController extends Controller
 
     public function show($id)
     {
-        $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
+        // $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
 
         return view('ppdb.show', compact('ppdb'));
     }
