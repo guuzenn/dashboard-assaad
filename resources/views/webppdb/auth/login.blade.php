@@ -41,7 +41,7 @@
 
                 <p class="text-center text-sm text-gray-700 mt-4">
                     Belum punya akun?
-                    <a href="daftar.html" class="text-green-700 hover:underline font-semibold">Daftar</a>
+                    <a href="{{ route('daftarppdb') }}" class="text-green-700 hover:underline font-semibold">Daftar</a>
                 </p>
             </form>
         </div>

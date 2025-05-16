@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
     <style>
         .form-container {
             background-color: #fff;
@@ -68,10 +71,10 @@
                 </svg>
             </button>
             <ul id="menu" class="hidden md:flex flex-col md:flex-row gap-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 shadow md:shadow-none">
-                <li><a href="beranda.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
-                <li><a href="tentang.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
-                <li><a href="event.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
-                <li><a href="#" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
+                <li><a href="{{ route('compro.beranda') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
+                <li><a href="{{ route('compro.tentang') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
+                <li><a href="{{ route('compro.event') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
+                <li><a href="{{ route('compro.kontak') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
             </ul>
         </div>
     </nav>
@@ -221,10 +224,10 @@
             <div>
                 <h2 class="text-2xl font-bold mb-4">Quick Links</h2>
                 <ul class="space-y-2">
-                    <li><a href="beranda.html" class="hover:text-orange-500">Beranda</a></li>
-                    <li><a href="tentang.html" class="hover:text-orange-500">Tentang</a></li>
-                    <li><a href="event.html" class="hover:text-orange-500">Event</a></li>
-                    <li><a href="kontak.html" class="hover:text-orange-500">Kontak</a></li>
+                    <li><a href="{{ route('compro.beranda') }}" class="hover:text-orange-500">Beranda</a></li>
+                    <li><a href="{{ route('compro.tentang') }}" class="hover:text-orange-500">Tentang</a></li>
+                    <li><a href="{{ route('compro.event') }}" class="hover:text-orange-500">Event</a></li>
+                    <li><a href="{{ route('compro.kontak') }}" class="hover:text-orange-500">Kontak</a></li>
                 </ul>
             </div>
 

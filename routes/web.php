@@ -75,6 +75,10 @@ Route::prefix('compro')->name('compro.')->group(function () {
         return view('compro.school_visit');
     })->name('school_visit');
 });
+Route::get('/event', [ComproController::class, 'event'])->name('compro.event');
+Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event.detail');
+
+
 
 
 // Route for student registration
@@ -86,6 +90,16 @@ Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('b
 Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
 Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+Route::get('/loginppdb', function () { return view('webppdb.auth.login'); })->name('loginppdb');
+Route::get('/daftarppdb', function () { return view('webppdb.auth.daftar'); })->name('daftarppdb');
+Route::post('/logoutppdb', function () {
+    Auth::logout();
+    return redirect('/loginppdb');
+})->name('logoutppdb');
+Route::get('/get-kabupaten/{id}', [AlamatController::class, 'getKabupaten']);
+Route::get('/get-kecamatan/{id}', [AlamatController::class, 'getKecamatan']);
+Route::get('/get-desa/{id}', [AlamatController::class, 'getDesa']);
+
 
 Route::middleware(['auth', 'role:siswa'])->group(function () {
     Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {

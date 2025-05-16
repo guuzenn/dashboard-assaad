@@ -52,7 +52,7 @@
             id="email"
             name="email"
             placeholder="Email"
-            class="w-full px-4 py-3 border rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#99BC85]"
+            class="w-full px-4 py-3 border rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#388E3C]"
             required
           />
         </div>
@@ -65,7 +65,7 @@
             id="password"
             name="password"
             placeholder="Enter your password"
-            class="w-full px-4 py-3 border rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#99BC85]"
+            class="w-full px-4 py-3 border rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#388E3C]"
             required
           />
 
@@ -93,7 +93,7 @@
         <div>
           <button 
             type="submit"
-            class="w-full bg-[#99BC85] hover:bg-[#88AB75] text-white font-semibold py-3 rounded-xl transition"
+            class="w-full bg-[#388E3C] hover:bg-[#215c24] text-white font-semibold py-3 rounded-xl transition"
           >
             Login
           </button>
