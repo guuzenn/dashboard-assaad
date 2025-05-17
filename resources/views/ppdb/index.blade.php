@@ -106,7 +106,7 @@
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-         
+
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data PPDB</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
             <!-- Card Item Start -->
@@ -204,7 +204,6 @@
                      <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
                      <th class="min-w-[80px] px-4 py-4 font-medium text-black dark:text-white">Usia</th>
                      <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenjang</th>
-                     <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Telepon Ortu</th>
                      <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pendaftaran</th>
                      <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th>
                      <th class="min-w-[130px] px-4 py-4 font-medium text-black dark:text-white">Tanggal Daftar</th>
@@ -219,18 +218,17 @@
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->usia }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenjang_kelas }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->hp_ayah ?? $item->hp_ibu }}</td>
                      <!-- Status Pendaftaran -->
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           @if ($item->status_pendaftaran == 'Diterima')
+                           @if ($item->status == 'Diterima')
                               bg-success bg-opacity-10 text-success
-                           @elseif ($item->status_pendaftaran == 'Ditolak')
+                           @elseif ($item->status == 'Ditolak')
                               bg-danger bg-opacity-10 text-danger
                            @else
                               bg-warning bg-opacity-10 text-warning
                            @endif">
-                           {{ $item->status_pendaftaran }}
+                           {{ $item->status }}
                         </p>
                      </td>
                      <!-- Status Pembayaran -->
@@ -308,7 +306,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

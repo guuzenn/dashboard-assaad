@@ -28,7 +28,7 @@ class CalonSiswa extends Model
         'jenjang_kelas',
         'tempat_lahir',
         'tanggal_lahir',
-        'usia_per_juli_2024',
+        'usia',
         'jenis_kelamin',
         'agama',
         'anak_ke',
@@ -55,6 +55,7 @@ class CalonSiswa extends Model
         'no_hp_ayah',
         'pekerjaan_ayah',
         'status',
+        'status_pembayaran',
     ];
 
     /**

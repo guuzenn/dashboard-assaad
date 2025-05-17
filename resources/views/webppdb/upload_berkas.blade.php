@@ -55,7 +55,7 @@
             <header class="bg-white flex items-center justify-end p-4 shadow-md fixed top-0 left-64 right-0 z-10">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">👤</div>
-                    <span class="font-semibold">Nama Pendaftar</span>
+                    <span class="font-semibold">{{ auth()->user()->name }}</span>
                 </div>
             </header>
 

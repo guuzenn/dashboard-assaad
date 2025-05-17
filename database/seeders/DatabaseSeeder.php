@@ -40,9 +40,18 @@ class DatabaseSeeder extends Seeder
             'role' => 'siswa',
         ]);
 
+        User::factory()->create([
+            'name' => 'Aroneru',
+            'email' => 'yermi' . '@gmail.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'calon siswa',
+        ]);
+
         $this->call([KelasSeeder::class, GuruSeeder::class]);
 
         $this->call(SiswaSeeder::class);
+
+        $this->call(CalonSiswaSeeder::class);
 
 
     }

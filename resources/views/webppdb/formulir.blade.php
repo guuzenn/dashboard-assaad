@@ -69,7 +69,7 @@
             <header class="bg-white flex items-center justify-end p-4 shadow-md fixed top-0 left-64 right-0 z-10">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">👤</div>
-                    <span class="font-semibold">Nama Pendaftar</span>
+                    <span class="font-semibold">{{ auth()->user()->name }}</span>
                 </div>
             </header>
 
@@ -86,7 +86,7 @@
                         </div>
 
                         <!-- Isi Form -->
-                        <form id="pendaftaranForm" action="{{ route('ppdb.store') }}" method="POST" class="p-8 space-y-6">
+                        <form id="pendaftaranForm" action="{{ route('formulir.store') }}" method="POST" class="p-8 space-y-6" enctype="multipart/form-data">
                             @csrf
                             <!-- Data Siswa -->
                             <div class="pb-4 mb-6 border-b-2 border-gray-200">
@@ -180,7 +180,7 @@
 
                                 <div class="mb-4">
                                     <label class="block font-semibold mb-1">Kabupaten/Kota</label>
-                                    <select id="kabupaten" name="kabupaten" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                    <select id="kabupaten_kota" name="kabupaten_kota" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
                                         <option value="">Pilih Kabupaten/Kota</option>
                                     </select>
                                 </div>
@@ -194,7 +194,7 @@
 
                                 <div class="mb-4">
                                     <label class="block font-semibold mb-1">Desa/Kelurahan</label>
-                                    <select id="desa" name="desa" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                    <select id="desa_kelurahan" name="desa_kelurahan" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
                                         <option value="">Pilih Desa/Kelurahan</option>
                                     </select>
                                 </div>
@@ -327,14 +327,15 @@
                                     />
                                 </div>
                             </div>
+                            <!-- Tombol Submit -->
+                            <div class="flex justify-end p-6 border-t border-gray-200">
+                                <button id="btnSubmit" type="submit" form="pendaftaranForm" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+                                    Simpan & Kirim
+                                </button>
+                            </div>
                         </form>
 
-                        <!-- Tombol Submit -->
-                        <div class="flex justify-end p-6 border-t border-gray-200">
-                            <button id="btnSubmit" type="submit" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
-                                Simpan & Kirim
-                            </button>
-                        </div>
+
                     </div>
 
                 </div>
@@ -342,6 +343,9 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var map = L.map('map').setView([-6.403, 106.999], 13); // Default: Cileungsi
@@ -423,9 +427,9 @@
 
             document.addEventListener("DOMContentLoaded", () => {
                 const provinsiSelect = document.getElementById("provinsi");
-                const kabupatenSelect = document.getElementById("kabupaten");
+                const kabupatenSelect = document.getElementById("kabupaten_kota");
                 const kecamatanSelect = document.getElementById("kecamatan");
-                const desaSelect = document.getElementById("desa");
+                const desaSelect = document.getElementById("desa_kelurahan");
 
                 // Load provinsi
                 getWilayah("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json").then(data => {

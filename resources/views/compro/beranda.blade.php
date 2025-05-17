@@ -19,13 +19,13 @@
         .scrollbar-hide::-webkit-scrollbar {
             display: none;
         }
-        
+
         .scrollbar-hide {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
     </style>
-    
+
 
 </head>
 
@@ -64,7 +64,7 @@
         <div class="max-w-4xl mx-auto p-4" data-aos="fade-up">
             <h1 class="text-white font-bold text-5xl md:text-7xl leading-tight">Elevating Global Leadership Excellence</h1>
             <p class="text-white text-lg md:text-2xl mt-6">Taman kanak-kanak kami bukan hanya tempat belajar, tapi tempat yang penuh keajaiban.</p>
-            <a href="{{ route('loginppdb') }}" class="mt-8 inline-block bg-orange-500 hover:bg-orange-700 text-white py-3 px-6 rounded-full">Lihat Pendaftaran</a>
+            <a href="{{ route('login-student') }}" class="mt-8 inline-block bg-orange-500 hover:bg-orange-700 text-white py-3 px-6 rounded-full">Lihat Pendaftaran</a>
         </div>
     </section>
 

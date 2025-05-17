@@ -108,15 +108,15 @@ Route::get('/get-desa/{id}', [AlamatController::class, 'getDesa']);
 
 
 // Route for PPDB
-Route::middleware(['auth', 'role:calon siswa'])->group(function () {
-    Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {
-        Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
-        Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
-        Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
-        Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
-        Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
-    });
-});
+// Route::middleware(['auth', 'role:calon siswa'])->group(function () {
+//     Route::prefix('ppdbsiswa')->name('webppdb.')->group(function() {
+//         Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+//         Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
+//         Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
+//         Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+//         Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+//     });
+// });
 
 
 Route::prefix('auth')->group(function () {

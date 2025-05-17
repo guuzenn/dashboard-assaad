@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use illuminate\support\Facades\Auth;
 use App\Models\CalonSiswa;
 use Illuminate\Http\Request;
 
@@ -22,11 +23,6 @@ class SiswaPPDBController extends Controller
         return view('webppdb.pengumuman');
     }
 
-    public function uploadBerkas()
-    {
-        return view('webppdb.upload_berkas');
-    }
-
     public function store(Request $request)
     {
         // Validate the form data
@@ -37,7 +33,7 @@ class SiswaPPDBController extends Controller
             'jenjang_kelas' => 'required|string|max:255',
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'usia_per_juli_2024' => 'required|string|max:255',
+            'usia' => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'agama' => 'required|string|max:255',
             'anak_ke' => 'required|integer|min:1',
@@ -49,6 +45,9 @@ class SiswaPPDBController extends Controller
             'kecamatan' => 'required|string|max:255',
             'desa_kelurahan' => 'required|string|max:255',
             'alamat_lengkap' => 'required|string|max:255',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
+            // Berkas
             'kk' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'akta_lahir' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'ktp_ortu' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
@@ -69,12 +68,13 @@ class SiswaPPDBController extends Controller
         // Create a new CalonSiswa record
         CalonSiswa::create([
             // Data Pribadi
+            'user_id' => Auth::id(), // Assuming the user is authenticated
             'nama_lengkap' => $validated['nama_lengkap'],
             'nama_panggilan' => $validated['nama_panggilan'],
             'jenjang_kelas' => $validated['jenjang_kelas'],
             'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
-            'usia_per_juli_2024' => $validated['usia_per_juli_2024'],
+            'usia' => $validated['usia'],
             'jenis_kelamin' => $validated['jenis_kelamin'],
             'agama' => $validated['agama'],
             'anak_ke' => $validated['anak_ke'],
@@ -86,9 +86,12 @@ class SiswaPPDBController extends Controller
             'kecamatan' => $validated['kecamatan'],
             'desa_kelurahan' => $validated['desa_kelurahan'],
             'alamat_lengkap' => $validated['alamat_lengkap'],
-            'kk' => $request->file('kk') ? $request->file('kk')->store('berkas') : null,
-            'akta_lahir' => $request->file('akta_lahir') ? $request->file('akta_lahir')->store('berkas') : null,
-            'ktp_ortu' => $request->file('ktp_ortu') ? $request->file('ktp_ortu')->store('berkas') : null,
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+            // Berkas
+            'kk' => $request->file('kk') ? $request->file('kk')->store('images/berkas') : null,
+            'akta_lahir' => $request->file('akta_lahir') ? $request->file('akta_lahir')->store('images/berkas') : null,
+            'ktp_ortu' => $request->file('ktp_ortu') ? $request->file('ktp_ortu')->store('images/berkas') : null,
             // Data Kesehatan
             'penyakit_bawaan' => $validated['penyakit_bawaan'],
             'alergi' => $validated['alergi'],
@@ -105,6 +108,6 @@ class SiswaPPDBController extends Controller
         ]);
 
         // Redirect to a success page or back to the form
-        return redirect()->route('ppdb.beranda')->with('success', 'Formulir berhasil disimpan!');
+        return redirect()->route('webppdb.pengumuman')->with('success', 'Formulir berhasil disimpan!');
     }
 }
