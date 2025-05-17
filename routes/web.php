@@ -59,7 +59,28 @@ Route::prefix('compro')->name('compro.')->group(function () {
     Route::get('/beranda', function () {
         return view('compro.beranda');
     })->name('beranda');
+
+    Route::get('/tentang', function () {
+        return view('compro.tentang');
+    })->name('tentang');
+
+    Route::get('/event', function () {
+        return view('compro.event');
+    })->name('event');
+
+    Route::get('/kontak', function () {
+        return view('compro.kontak');
+    })->name('kontak');
+
+    Route::get('/school-visit', function () {
+        return view('compro.school_visit');
+    })->name('school_visit');
 });
+Route::get('/event', [ComproController::class, 'event'])->name('compro.event');
+Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event.detail');
+
+
+
 
 // Route for student registration and login
 Route::get('/login-student', function () {
@@ -76,6 +97,16 @@ Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name
 Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
 Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+Route::get('/loginppdb', function () { return view('webppdb.auth.login'); })->name('loginppdb');
+Route::get('/daftarppdb', function () { return view('webppdb.auth.daftar'); })->name('daftarppdb');
+Route::post('/logoutppdb', function () {
+    Auth::logout();
+    return redirect('/loginppdb');
+})->name('logoutppdb');
+Route::get('/get-kabupaten/{id}', [AlamatController::class, 'getKabupaten']);
+Route::get('/get-kecamatan/{id}', [AlamatController::class, 'getKecamatan']);
+Route::get('/get-desa/{id}', [AlamatController::class, 'getDesa']);
+
 
 // Route for PPDB
 Route::middleware(['auth', 'role:calon siswa'])->group(function () {
