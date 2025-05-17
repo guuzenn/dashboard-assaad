@@ -19,7 +19,7 @@
             transition: transform 0.3s ease;
             cursor: zoom-in;
         }
-        
+
         .image-link img:hover {
             transform: scale(1.05);
         }
@@ -50,7 +50,7 @@
     <section class="py-16 max-w-6xl mx-auto px-4 text-center mt-16">
         <h2 class="text-5xl font-bold text-green-700 mb-6">Tentang TK As Sa'ad Islamic Kindergarten</h2>
         <p class="text-xl text-gray-700 mb-12">Sekolah Islam berbasis Montessori adalah tempat di mana nilai-nilai Islami dipadukan dengan pendeka Montessori, memberi anak kebebasan belajar sesuai perkembangan mereka. Di sini, pendidikan agama dan pembentukan karakter Islami dikemas dalam
-            kegiatan sehari-hari yana kreatif membantu anak-anak tumbuh menjadi pribadi mandiri dan berakhlak baik sejak dini. Berikut beberapa program unggulan</p>
+            kegiatan sehari-hari yana kreatif membantu anak-anak tumbuh menjadi pribadi mandiri dan berakhlak baik sejak dini.</p>
         <h3 class="text-3xl font-semibold text-green-700 mb-6">Galeri Sekolah</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a href="/assets/images/compro/tkA.png" class="image-link">

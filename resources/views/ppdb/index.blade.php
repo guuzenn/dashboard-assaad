@@ -109,6 +109,12 @@
 
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data PPDB</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+
+            @php
+            $totalDiterima = $ppdb->where('status', 'Diterima')->count();
+            $totalDitolak = $ppdb->where('status', 'Ditolak')->count();
+            $totalMenunggu = $ppdb->whereNotIn('status', ['Diterima', 'Ditolak'])->count();
+        @endphp
             <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -121,7 +127,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        {{ $totalDiterima }}
                      </h4>
                      <span class="text-sm font-medium">Diterima</span>
                   </div>
@@ -140,9 +146,28 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
+                        {{ $totalDitolak }}
                      </h4>
                      <span class="text-sm font-medium">Ditolak</span>
+                  </div>
+               </div>
+            </div>
+            <!-- Card Item End -->
+
+                        <!-- Card Item Start -->
+            <div
+               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                  <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                  </svg>
+               </div>
+               <div class="mt-4 flex items-end justify-between">
+                  <div>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{ $totalMenunggu }}
+                     </h4>
+                     <span class="text-sm font-medium">Menunggu</span>
                   </div>
                </div>
             </div>
