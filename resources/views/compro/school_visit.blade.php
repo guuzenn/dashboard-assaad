@@ -22,35 +22,35 @@
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        
+
         .input-field {
             border: 2px solid #E0E0E0;
             border-radius: 12px;
             padding: 10px 16px;
             transition: all 0.3s;
         }
-        
+
         .input-field:focus {
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
             outline: none;
         }
-        
+
         .submit-btn {
             background: linear-gradient(45deg, #FF9800, #F57C00);
             transition: all 0.3s;
         }
-        
+
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(245, 124, 0, 0.3);
         }
-        
+
         .radio-custom {
             display: flex;
             align-items: center;
         }
-        
+
         .radio-custom input {
             width: 22px;
             height: 22px;
@@ -92,7 +92,8 @@
 
         <!-- Form Container -->
         <div class="form-container relative p-8 mx-auto bg-white my-16">
-            <form class="space-y-6 text-left">
+            <form class="space-y-6 text-left" method="POST" action="{{ route('school-visit.store') }}">
+                @csrf
                 <!-- Nama Calon Peserta Didik -->
                 <div class="mb-4">
                     <label for="namaCalonPeserta" class="block text-lg font-medium text-gray-800 mb-2">

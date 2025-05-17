@@ -73,6 +73,8 @@ Route::prefix('compro')->name('compro.')->group(function () {
         return view('compro.event');
     })->name('event');
 
+    Route::get('/compro/beranda', [ComproController::class, 'beranda'])->name('compro.beranda');
+
     Route::get('/kontak', function () {
         return view('compro.kontak');
     })->name('kontak');
@@ -82,6 +84,7 @@ Route::prefix('compro')->name('compro.')->group(function () {
     })->name('school_visit');
 });
 
+Route::post('/school-visit', [SchoolVisitController::class, 'store'])->name('school-visit.store');
 
 Route::get('/event', [ComproController::class, 'event'])->name('compro.event');
 Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event.detail');
@@ -214,12 +217,13 @@ Route::prefix('data/maps')->name('data.maps.')->group(function() {
 // Konten
 Route::prefix('konten')->name('konten.')->group(function () {
     // Visi Misi
-    Route::get('visi_misi', [VisiMisiController::class, 'index'])->name('visi_misi.index');
-    Route::get('visi_misi/create', [VisiMisiController::class, 'create'])->name('visi_misi.create');
-    Route::post('visi_misi', [VisiMisiController::class, 'store'])->name('visi_misi.store');
-    Route::get('visi_misi/{id}/edit', [VisiMisiController::class, 'edit'])->name('visi_misi.edit');
-    Route::put('visi_misi/{id}', [VisiMisiController::class, 'update'])->name('visi_misi.update');
-    Route::delete('visi_misi/{id}', [VisiMisiController::class, 'destroy'])->name('visi_misi.destroy');
+    Route::resource('visi_misi', VisiMisiController::class);
+    // Route::get('visi_misi', [VisiMisiController::class, 'index'])->name('visi_misi.index');
+    // Route::get('visi_misi/create', [VisiMisiController::class, 'create'])->name('visi_misi.create');
+    // Route::post('visi_misi', [VisiMisiController::class, 'store'])->name('visi_misi.store');
+    // Route::get('visi_misi/{id}/edit', [VisiMisiController::class, 'edit'])->name('visi_misi.edit');
+    // Route::put('visi_misi/{id}', [VisiMisiController::class, 'update'])->name('visi_misi.update');
+    // Route::delete('visi_misi/{id}', [VisiMisiController::class, 'destroy'])->name('visi_misi.destroy');
 
     // Kegiatan
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');

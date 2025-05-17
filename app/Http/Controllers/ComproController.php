@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kegiatan;
+use App\Models\VisiMisi;
 use Illuminate\Http\Request;
 
 class ComproController extends Controller
@@ -38,4 +39,11 @@ class ComproController extends Controller
         $otherEvents = \App\Models\Kegiatan::where('id', '!=', $id)->orderBy('tanggal', 'desc')->take(4)->get();
         return view('compro.event-detail', compact('event', 'otherEvents'));
     }
+
+    // public function beranda()
+    // {
+    //     $visi = VisiMisi::where('judul', 'Visi')->first();
+    //     $misi = VisiMisi::where('judul', 'Misi')->first();
+    //     return view('compro.beranda', compact('visi', 'misi'));
+    // }
 }
