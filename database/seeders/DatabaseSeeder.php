@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Siswa;
+use App\Models\CalonSiswa ;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -38,7 +39,6 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('siswapassword'),
             'role' => 'siswa',
         ]);
-
 
         $this->call([KelasSeeder::class, GuruSeeder::class]);
 

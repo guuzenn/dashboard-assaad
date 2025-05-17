@@ -34,6 +34,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567011',
                 'kelas_id' => 1,
+                'latitude' => '-6.361845140639322',
+                'longitude' => '106.96985586550002',
             ],
             [
                 'nama_lengkap' => 'Budi Santoso',
@@ -52,6 +54,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567012',
                 'kelas_id' => 1,
+                'latitude' => '-6.354619726723088',
+                'longitude' => '106.9599739397214',
             ],
             [
                 'nama_lengkap' => 'Chandra Wijaya',
@@ -70,6 +74,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Perawat',
                 'hp_ibu' => '081234567013',
                 'kelas_id' => 2,
+                'latitude' => '-6.363805226014001',
+                'longitude' => '106.99530487498268',
             ],
             [
                 'nama_lengkap' => 'Dina Maharani',
@@ -88,6 +94,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567014',
                 'kelas_id' => 2,
+                'latitude' => '-6.3589191126688975',
+                'longitude' => '106.96971673311526',
             ],
             [
                 'nama_lengkap' => 'Eka Pratiwi',
@@ -106,6 +114,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567015',
                 'kelas_id' => 1,
+                'latitude' => '-6.361238119123295',
+                'longitude' => '106.97345820936687',
             ],
             [
                 'nama_lengkap' => 'Fahri Alamsyah',
@@ -124,7 +134,10 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567016',
                 'kelas_id' => 3,
+                'latitude' => '-6.361821738198089',
+                'longitude' => '106.97075281585434',
             ],
+
             [
                 'nama_lengkap' => 'Gina Oktaviani',
                 'tanggal_lahir' => '2019-09-11',
@@ -142,6 +155,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Perawat',
                 'hp_ibu' => '081234567017',
                 'kelas_id' => 2,
+                'latitude' => '-6.385254351910688',
+                'longitude' => '106.99493899091823',
             ],
             [
                 'nama_lengkap' => 'Hadi Prasetyo',
@@ -160,6 +175,8 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567018',
                 'kelas_id' => 3,
+                'latitude' => '-6.3882206538004125',
+                'longitude' => '106.94964529932854',
             ],
             [
                 'nama_lengkap' => 'Indah Nuraini',
@@ -178,7 +195,29 @@ class SiswaSeeder extends Seeder
                 'pekerjaan_ibu' => 'Ibu Rumah Tangga',
                 'hp_ibu' => '081234567019',
                 'kelas_id' => 1,
-            ]
+                'latitude' => '-6.3886232620777665',
+                'longitude' => '106.98805787034087',
+            ],
+            [
+                'nama_lengkap' => 'Fauzan Fuad',
+                'tanggal_lahir' => '2018-08-22',
+                'tempat_lahir' => 'Bogor',
+                'usia' => 6,
+                'jenis_kelamin' => 'Laki-laki',
+                'agama' => 'Islam',
+                'status_keluarga' => 'Anak Kandung',
+                'alamat' => 'Cikarang Selatan, Jl. Raya Cikarang No. 45',
+                'riwayat_penyakit' => 'Tidak Ada',
+                'nama_ayah' => 'Sukardi',
+                'pekerjaan_ayah' => 'Karyawan Swasta',
+                'hp_ayah' => '081234567010',
+                'nama_ibu' => 'Sari',
+                'pekerjaan_ibu' => 'Ibu Rumah Tangga',
+                'hp_ibu' => '081234567020',
+                'kelas_id' => 2,
+                'latitude' => '-6.236396622861856',
+                'longitude' => '106.9754083335064',
+            ],
         ];
 
         foreach ($dataSiswa as $index => $siswa) {

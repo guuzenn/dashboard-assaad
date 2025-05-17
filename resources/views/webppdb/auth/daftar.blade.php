@@ -22,49 +22,41 @@
     <div class="w-full lg:w-1/2 bg-gradient-to-r from-[#C0CA9D] to-[#FCD19C] flex items-center justify-center py-10">
         <div class="w-full max-w-md px-8">
             <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-8 text-center">Daftar PPDB</h2>
-            <form onsubmit="registerUser(event)" class="space-y-6">
-                <div>
-                    <label for="nama" class="block text-lg font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                    <input type="text" id="nama" name="nama" placeholder="Nama Lengkap" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" required pattern="[A-Za-z\s]+" title="Nama hanya boleh mengandung huruf dan spasi">
-                </div>
-                <div>
-                    <label for="telp" class="block text-lg font-medium text-gray-700 mb-1">No. Telepon</label>
-                    <input type="tel" id="telp" name="telp" placeholder="08xxxxxxxx" pattern="08[0-9]{8,11}" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" title="Masukkan nomor telepon yang valid (08xxxxxxxx)">
-                </div>
-                <div>
-                    <label for="username" class="block text-lg font-medium text-gray-700 mb-1">ID Pengguna</label>
-                    <input type="text" id="username" name="username" placeholder="ID Pengguna" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm" required pattern="[A-Za-z0-9]+" title="ID Pengguna hanya boleh mengandung huruf dan angka">
-                </div>
-                <div>
-                    <label for="password" class="block text-lg font-medium text-gray-700 mb-1">Kata Sandi</label>
-                    <input type="password" id="password" name="password" placeholder="Kata Sandi" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
-                </div>
-
-                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded">Daftar</button>
-            </form>
+                <form action="{{ route('register-student.post') }}" method="POST" class="space-y-6">
+                    @csrf
+                    @if ($errors->any())
+                        <div class="mb-4 text-red-600">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div>
+                        <label for="name" class="block text-lg font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" required class="w-full p-3 rounded border border-gray-300">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-lg font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full p-3 rounded border border-gray-300">
+                    </div>
+                    <div>
+                        <label for="password" class="block text-lg font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="password" name="password" required class="w-full p-3 rounded border border-gray-300">
+                    </div>
+                    <div>
+                        <label for="password_confirmation" class="block text-lg font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation" required class="w-full p-3 rounded border border-gray-300">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded">Daftar</button>
+                </form>
+            <p class="text-center text-sm text-gray-700 mt-4">
+                Sudah punya akun?
+                <a href="{{ route('login-student') }}" class="text-green-700 hover:underline font-semibold">Masuk</a>
+            </p>
         </div>
     </div>
-
-    <script>
-        function registerUser(event) {
-            event.preventDefault();
-            const nama = document.getElementById('nama').value;
-            const telp = document.getElementById('telp').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            if (nama && telp && username && password) {
-                localStorage.setItem('user', JSON.stringify({
-                    username,
-                    password
-                }));
-                alert('Berhasil daftar! Silakan login.');
-                window.location.href = 'login.html';
-            } else {
-                alert('Semua field harus diisi!');
-            }
-        }
-    </script>
 
 </body>
 

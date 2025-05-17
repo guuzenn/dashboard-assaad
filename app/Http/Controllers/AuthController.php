@@ -14,22 +14,22 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function register(Request $request)
+    public function registerStudent(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => 'siswa',
+            'role' => 'calon siswa',
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil, silahkan login.');
+        return redirect()->route('login-student')->with('success', 'Registrasi berhasil, silahkan login.');
     }
 
     public function login(Request $request)
@@ -53,6 +53,23 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Invalid credentials.')->withInput();
         }
     }
+
+    public function loginStudent(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            // Only allow "calon siswa"
+            if ($user->role !== 'calon siswa') {
+                Auth::logout();
+                return back()->withErrors(['email' => 'Akun bukan siswa.']);
+            }
+            return redirect()->route('beranda');
+        }
+        return back()->withErrors(['email' => 'Email atau password salah.']);
+    }
+
 
     public function logout(Request $request)
     {

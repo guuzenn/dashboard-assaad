@@ -69,7 +69,8 @@
                         </div>
 
                         <!-- Isi Form -->
-                        <form id="pendaftaranForm" class="p-8 space-y-6">
+                        <form id="pendaftaranForm" action="{{ route('ppdb.store') }}" method="POST" class="p-8 space-y-6">
+                            @csrf
                             <!-- Data Siswa -->
                             <div class="pb-4 mb-6 border-b-2 border-gray-200">
                                 <h3 class="text-lg font-bold text-[#388E3C] mb-4">Data Calon Peserta Didik</h3>
@@ -155,30 +156,22 @@
 
                                 <div class="mb-4">
                                     <label for="provinsi" class="block font-semibold mb-1">Provinsi</label>
-                                    <select name="provinsi" id="provinsi" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required>
-                                        <option value="" disabled selected>Pilih Provinsi</option>
-                                    </select>
+                                    <input type="text" name="provinsi" id="provinsi" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600" placeholder="Masukkan Provinsi" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="kabupaten" class="block font-semibold mb-1">Kabupaten/Kota</label>
-                                    <select id="kabupaten" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Kabupaten/Kota</option>
-                                    </select>
+                                    <input type="text" name="kabupaten_kota" id="kabupaten" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600" placeholder="Masukkan Kabupaten/Kota" required>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="kecamatan" class="block font-semibold mb-1">Kecamatan</label>
-                                    <select name="kecamatan" id="kecamatan" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Kecamatan</option>
-                                        </select>
+                                    <input type="text" name="kecamatan" id="kecamatan" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600" placeholder="Masukkan Kecamatan" required>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="desa" class="block font-semibold mb-1">Desa/Kelurahan</label>
-                                    <select name="desa_kelurahan" id="desa_kelurahan" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Desa/Kelurahan</option>
-                                    </select>
+                                    <label for="desa_kelurahan" class="block font-semibold mb-1">Desa/Kelurahan</label>
+                                    <input type="text" name="desa_kelurahan" id="desa_kelurahan" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600" placeholder="Masukkan Desa/Kelurahan" required>
                                 </div>
 
                                 <div class="mt-4">
@@ -304,7 +297,7 @@
 
                         <!-- Tombol Submit -->
                         <div class="flex justify-end p-6 border-t border-gray-200">
-                            <button id="btnSubmit" onclick="submitForm()" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+                            <button id="btnSubmit" type="submit" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
                                 Simpan & Kirim
                             </button>
                         </div>
@@ -359,32 +352,32 @@
 
 
         // Isi provinsi
-        const provSelect = document.getElementById("provinsi");
-        const kabSelect = document.getElementById("kabupaten");
-        const kecSelect = document.getElementById("kecamatan");
-        const desaSelect = document.getElementById("desa");
+        // const provSelect = document.getElementById("provinsi");
+        // const kabSelect = document.getElementById("kabupaten");
+        // const kecSelect = document.getElementById("kecamatan");
+        // const desaSelect = document.getElementById("desa");
 
-        provSelect.innerHTML = `<option value="">Pilih Provinsi</option>`;
-        Object.keys(dataWilayah).forEach(prov => {
-            provSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
-        });
+        // provSelect.innerHTML = `<option value="">Pilih Provinsi</option>`;
+        // Object.keys(dataWilayah).forEach(prov => {
+        //     provSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
+        // });
 
-        provSelect.addEventListener("change", function() {
-            const selectedProv = this.value;
-            kabSelect.innerHTML = `<option value="">Pilih Kabupaten/Kota</option>`;
-            kecSelect.innerHTML = `<option value="">Pilih Kecamatan</option>`;
-            desaSelect.innerHTML = `<option value="">Pilih Desa</option>`;
-            kabSelect.disabled = true;
-            kecSelect.disabled = true;
-            desaSelect.disabled = true;
+        // provSelect.addEventListener("change", function() {
+        //     const selectedProv = this.value;
+        //     kabSelect.innerHTML = `<option value="">Pilih Kabupaten/Kota</option>`;
+        //     kecSelect.innerHTML = `<option value="">Pilih Kecamatan</option>`;
+        //     desaSelect.innerHTML = `<option value="">Pilih Desa</option>`;
+        //     kabSelect.disabled = true;
+        //     kecSelect.disabled = true;
+        //     desaSelect.disabled = true;
 
-            if (selectedProv) {
-                Object.keys(dataWilayah[selectedProv]).forEach(kab => {
-                    kabSelect.innerHTML += `<option value="${kab}">${kab}</option>`;
-                });
-                kabSelect.disabled = false;
-            }
-        });
+        //     if (selectedProv) {
+        //         Object.keys(dataWilayah[selectedProv]).forEach(kab => {
+        //             kabSelect.innerHTML += `<option value="${kab}">${kab}</option>`;
+        //         });
+        //         kabSelect.disabled = false;
+        //     }
+        // });
 
         kabSelect.addEventListener("change", function() {
             const selectedProv = provSelect.value;
