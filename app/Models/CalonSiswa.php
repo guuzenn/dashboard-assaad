@@ -39,6 +39,8 @@ class CalonSiswa extends Model
         'kecamatan',
         'desa_kelurahan',
         'alamat_lengkap',
+        'latitude',
+        'longitude',
         'kk',
         'akta_lahir',
         'ktp_ortu',

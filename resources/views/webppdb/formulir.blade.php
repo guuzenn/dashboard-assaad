@@ -48,7 +48,7 @@
                 </a>
             </nav>
             <div class="p-4 border-t">
-                <form method="POST" action="{{ route('logoutppdb') }}">
+                <form method="POST" action="{{ route('logoutCS') }}">
                     @csrf
                     <button type="submit" class="w-full flex items-center justify-start space-x-2 text-red-600 hover:bg-red-100 p-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
@@ -205,6 +205,14 @@
                                     <textarea name="alamat_lengkap" id="alamat_lengkap" required class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
                                 </div>
 
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Lokasi Rumah Siswa</label>
+                                    <div id="map" style="height: 400px;" class="rounded-lg mb-2"></div>
+                                    <input type="hidden" name="latitude" id="latitude">
+                                    <input type="hidden" name="longitude" id="longitude">
+                                    <small class="text-gray-500">Geser marker ke lokasi rumah siswa.</small>
+                                </div>
+
                                 <div class="mt-4">
                                     <label class="block font-semibold mb-1">Upload Kartu Keluarga (KK)</label>
                                     <input name="kk" id="kk" type="file" name="kk" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#388E3C] file:text-white file:font-semibold hover:file:bg-green-700"
@@ -335,6 +343,35 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var map = L.map('map').setView([-6.403, 106.999], 13); // Default: Cileungsi
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            var marker = L.marker([-6.403, 106.999], {draggable: true}).addTo(map);
+
+            function updateInput(latlng) {
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            }
+
+            updateInput(marker.getLatLng());
+
+            marker.on('dragend', function(e) {
+                updateInput(marker.getLatLng());
+            });
+
+            // Search lokasi
+            L.Control.geocoder({
+                defaultMarkGeocode: false
+            }).on('markgeocode', function(e) {
+                var center = e.geocode.center;
+                map.setView(center, 16);
+                marker.setLatLng(center);
+                updateInput(center);
+            }).addTo(map);
+        });
+
+
         function validateForm() {
             const form = document.getElementById('pendaftaranForm');
             const requiredInputs = form.querySelectorAll('[required]');

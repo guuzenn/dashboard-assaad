@@ -77,6 +77,12 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success', 'Logged out successfully.');
     }
 
+    public function logoutCS(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('login-student')->with('success', 'Logged out successfully.');
+    }
+
     // Tambahkan method dashboard
     public function dashboard()
     {

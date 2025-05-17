@@ -33,6 +33,8 @@ return new class extends Migration
             $table->string('kecamatan');
             $table->string('desa_kelurahan');
             $table->text('alamat_lengkap');
+            $table->string("latitude");
+            $table->string("longitude");
 
             // Data Kesehatan
             $table->text('penyakit_bawaan')->nullable();

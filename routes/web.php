@@ -16,6 +16,8 @@ use App\Http\Controllers\SiswaPPDBController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\LaporanHarianController;
 use App\Http\Controllers\MataPelajaranController;
+use App\Http\Controllers\ComproController;
+use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\StudentCicilanController;
 use App\Http\Controllers\StudentProfileController;
@@ -76,10 +78,10 @@ Route::prefix('compro')->name('compro.')->group(function () {
         return view('compro.school_visit');
     })->name('school_visit');
 });
+
+
 Route::get('/event', [ComproController::class, 'event'])->name('compro.event');
 Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event.detail');
-
-
 
 
 // Route for student registration and login
@@ -97,12 +99,9 @@ Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name
 Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
 Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
-Route::get('/loginppdb', function () { return view('webppdb.auth.login'); })->name('loginppdb');
-Route::get('/daftarppdb', function () { return view('webppdb.auth.daftar'); })->name('daftarppdb');
-Route::post('/logoutppdb', function () {
-    Auth::logout();
-    return redirect('/loginppdb');
-})->name('logoutppdb');
+
+Route::post( 'logoutCS', [AuthController::class, 'logoutCS'])->name('logoutCS');
+
 Route::get('/get-kabupaten/{id}', [AlamatController::class, 'getKabupaten']);
 Route::get('/get-kecamatan/{id}', [AlamatController::class, 'getKecamatan']);
 Route::get('/get-desa/{id}', [AlamatController::class, 'getDesa']);
