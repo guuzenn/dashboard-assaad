@@ -42,16 +42,17 @@
             <h2 class="text-5xl font-bold text-green-800 mb-6">Kegiatan Seru</h2>
             <p class="text-xl text-gray-700 mb-12">Bermain sambil belajar dalam berbagai kegiatan penuh warna!</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @foreach ($events as $event)
-                    <a href="{{ route('event.detail', ['id' => $event['id']]) }}" class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 transition
-                        {{ $event['color'] == 'orange' ? 'border-orange-200' : 'border-green-200' }}">
-                        <div class="max-w-xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-                            <img src="{{ $event['img'] }}" class="rounded mb-4" alt="Gambar event">
-                            <h1 class="text-3xl font-bold text-{{ $event['color'] }}-700 mb-2">{{ $event['title'] }}</h1>
-                            <p class="text-gray-700">{{ $event['desc'] }}</p>
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-green-200 transition">
+                        <div class="max-w-xl mx-auto p-4 bg-white rounded-lg shadow-md">
+                            @if($event->gambar)
+                                <img src="{{ asset('storage/' . $event->gambar) }}" class="rounded mb-4 w-full h-56 object-cover" alt="Gambar event">
+                            @endif
+                            <h1 class="text-3xl font-bold text-green-700 mb-2">{{ $event->judul }}</h1>
+                            <div class="text-gray-500 text-sm mb-2">{{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</div>
+                            <p class="text-gray-700">{{ $event->deskripsi }}</p>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
 

@@ -112,7 +112,7 @@
                                        {{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}
                                  </td>
                                  <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                       <img src="{{ asset($item->gambar) }}" alt="Foto Kegiatan" class="w-20 h-20 object-cover rounded" />
+                                       <img src="{{ asset('storage/' . $item->gambar) }}" alt="Foto Kegiatan" class="w-20 h-20 object-cover rounded" />
                                  </td>
                                  <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                        <div class="flex items-center space-x-3.5">
