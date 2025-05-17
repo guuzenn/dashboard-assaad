@@ -35,6 +35,7 @@ class ComproController extends Controller
     public function eventDetail($id)
     {
         $event = \App\Models\Kegiatan::findOrFail($id);
-        return view('compro.event-detail', compact('event'));
+        $otherEvents = \App\Models\Kegiatan::where('id', '!=', $id)->orderBy('tanggal', 'desc')->take(4)->get();
+        return view('compro.event-detail', compact('event', 'otherEvents'));
     }
 }

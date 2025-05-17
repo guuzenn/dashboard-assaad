@@ -24,8 +24,6 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
             <div class="flex items-center">
                 <img src="/assets/images/compro/logos.png" alt="Logo TK As Sa'ad" class="w-16 h-16 object-cover rounded-full">
-                <circle cx="41" cy="41" r="41" fill="#D9D9D9" />
-                </svg>
             </div>
             <button id="menu-button" class="block md:hidden text-gray-900 focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,15 +40,32 @@
     </nav>
 
     <!-- Konten Event -->
-    @section('content')
     <div class="max-w-4xl mx-auto mt-32 p-6 bg-white rounded-lg shadow-md">
-        <img src="{{ $event['img'] }}" class="rounded mb-4 w-full">
-        <h1 class="text-4xl font-bold text-{{ $event['color'] }}-700 mb-4">
-            {{ $event['title'] }}
+        @if($event->gambar)
+            <img src="{{ asset('storage/' . $event->gambar) }}" class="rounded mb-4 w-full max-h-96 object-cover" alt="Gambar event">
+        @endif
+        <h1 class="text-4xl font-bold text-green-700 mb-4">
+            {{ $event->judul }}
         </h1>
-        <p class="text-gray-700 text-lg">{{ $event['desc'] }}</p>
+        <div class="text-gray-500 mb-4">{{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</div>
+        <div class="text-gray-700 text-lg leading-relaxed">{{ $event->deskripsi }}</div>
     </div>
-    @endsection
+
+    <!-- Event Lainnya -->
+    <div class="max-w-4xl mx-auto mt-12">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Event Lainnya</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="other-events">
+            @foreach($otherEvents as $ev)
+                <a href="{{ route('compro.event-detail', $ev->id) }}" class="bg-white p-4 rounded shadow hover:shadow-lg transition block">
+                    @if($ev->gambar)
+                        <img src="{{ asset('storage/' . $ev->gambar) }}" alt="{{ $ev->judul }}" class="rounded mb-2 h-40 w-full object-cover">
+                    @endif
+                    <h3 class="text-lg font-semibold text-green-700">{{ $ev->judul }}</h3>
+                    <div class="text-gray-500 text-sm mb-1">{{ \Carbon\Carbon::parse($ev->tanggal)->format('d M Y') }}</div>
+                </a>
+            @endforeach
+        </div>
+    </div>
 
 
     <!-- Footer -->

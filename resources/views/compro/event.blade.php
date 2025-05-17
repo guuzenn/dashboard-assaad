@@ -21,8 +21,6 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
             <div class="flex items-center">
                 <img src="/assets/images/compro/logos.png" alt="Logo TK As Sa'ad" class="w-16 h-16 object-cover rounded-full">
-                <circle cx="41" cy="41" r="41" fill="#D9D9D9" />
-                </svg>
             </div>
             <button id="menu-button" class="block md:hidden text-gray-900 focus:outline-none">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,19 +41,18 @@
             <p class="text-xl text-gray-700 mb-12">Bermain sambil belajar dalam berbagai kegiatan penuh warna!</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 @foreach ($events as $event)
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-green-200 transition">
-                        <div class="max-w-xl mx-auto p-4 bg-white rounded-lg shadow-md">
+                    <a href="{{ route('event.detail', $event->id) }}" class="block hover:scale-105 transition-transform">
+                        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-green-200 transition h-full flex flex-col">
                             @if($event->gambar)
                                 <img src="{{ asset('storage/' . $event->gambar) }}" class="rounded mb-4 w-full h-56 object-cover" alt="Gambar event">
                             @endif
                             <h1 class="text-3xl font-bold text-green-700 mb-2">{{ $event->judul }}</h1>
                             <div class="text-gray-500 text-sm mb-2">{{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</div>
-                            <p class="text-gray-700">{{ $event->deskripsi }}</p>
+                            <p class="text-gray-700 line-clamp-3">{{ Str::limit($event->deskripsi, 120) }}</p>
+                            <span class="mt-4 text-green-600 font-semibold">Lihat Detail &rarr;</span>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
-            </div>
-
             </div>
         </section>
     </main>

@@ -66,6 +66,9 @@ Route::prefix('compro')->name('compro.')->group(function () {
         return view('compro.tentang');
     })->name('tentang');
 
+    Route::get('/event', [ComproController::class, 'event'])->name('event');
+    Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event-detail');
+
     Route::get('/event', function () {
         return view('compro.event');
     })->name('event');
