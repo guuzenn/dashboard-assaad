@@ -126,17 +126,17 @@ class PPDBController extends Controller
 
         // Update file hanya jika file baru diupload
         if ($request->hasFile('kk')) {
-            if ($ppdb->kk) Storage::disk('public')->delete($ppdb->kk);
+            if ($ppdb->kk) Storage::disk('public')->delete("storage". $ppdb->kk);
             $validated['kk'] = $request->file('kk')->store('images/berkas', 'public');
         }
 
         if ($request->hasFile('akta_lahir')) {
-            if ($ppdb->akta_lahir) Storage::disk('public')->delete($ppdb->akta_lahir);
+            if ($ppdb->akta_lahir) Storage::disk('public')->delete("storage" . $ppdb->akta_lahir);
             $validated['akta_lahir'] = $request->file('akta_lahir')->store('images/berkas', 'public');
         }
 
         if ($request->hasFile('ktp_ortu')) {
-            if ($ppdb->ktp_ortu) Storage::disk('public')->delete($ppdb->ktp_ortu);
+            if ($ppdb->ktp_ortu) Storage::disk('public')->delete("storage" . $ppdb->ktp_ortu);
             $validated['ktp_ortu'] = $request->file('ktp_ortu')->store('images/berkas', 'public');
         }
 

@@ -102,6 +102,11 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
+
+    @php
+    $totalKelas = $kelas->count();
+    @endphp
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -120,7 +125,7 @@
                </div>
                <div class="mt-4 flex items-end justify-between">
                   <div>
-                     <h4 class="text-title-md font-bold text-black dark:text-white">3</h4>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">{{$totalKelas}}</h4>
                      <span class="text-sm font-medium">Total Kelas</span>
                   </div>
                </div>
@@ -290,7 +295,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

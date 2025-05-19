@@ -226,33 +226,53 @@
                 </p>
                 </div>
 
-                <!-- Berkas (opsional ditampilkan jika file ada) -->
-                <div class="sm:col-span-2">
-                <p class="text-sm text-slate-500 mb-1">Berkas: Kartu Keluarga</p>
-                @if($ppdb->kk)
-                    <a href="{{ asset('storage/' . $ppdb->kk) }}" target="_blank" class="text-blue-500 underline">Lihat KK</a>
-                @else
-                    <p class="text-black dark:text-white">Tidak ada berkas</p>
-                @endif
+                <div class="sm:col-span-2 mt-4">
+                    <p class="text-sm text-slate-500 mb-1">Preview Berkas (Jika Gambar/Link PDF)</p>
+                    <div class="flex flex-wrap gap-6">
+                        {{-- KK --}}
+                        @if($ppdb->kk)
+                            @if(Str::endsWith(strtolower($ppdb->kk), ['jpg','jpeg','png']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $ppdb->kk) }}" alt="Kartu Keluarga" class="object-contain w-full h-full" />
+                                </div>
+                            @elseif(Str::endsWith(strtolower($ppdb->kk), ['pdf']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <a href="{{ asset('storage/' . $ppdb->kk) }}" target="_blank" class="text-blue-600 underline text-center">
+                                        Lihat KK (PDF)
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                        {{-- Akta Lahir --}}
+                        @if($ppdb->akta_lahir)
+                            @if(Str::endsWith(strtolower($ppdb->akta_lahir), ['jpg','jpeg','png']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $ppdb->akta_lahir) }}" alt="Akta Lahir" class="object-contain w-full h-full" />
+                                </div>
+                            @elseif(Str::endsWith(strtolower($ppdb->akta_lahir), ['pdf']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <a href="{{ asset('storage/' . $ppdb->akta_lahir) }}" target="_blank" class="text-blue-600 underline text-center">
+                                        Lihat Akta Lahir (PDF)
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                        {{-- KTP Ortu --}}
+                        @if($ppdb->ktp_ortu)
+                            @if(Str::endsWith(strtolower($ppdb->ktp_ortu), ['jpg','jpeg','png']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <img src="{{ asset('storage/' . $ppdb->ktp_ortu) }}" alt="KTP Orang Tua" class="object-contain w-full h-full" />
+                                </div>
+                            @elseif(Str::endsWith(strtolower($ppdb->ktp_ortu), ['pdf']))
+                                <div class="w-48 h-64 border rounded flex items-center justify-center bg-gray-50 overflow-hidden">
+                                    <a href="{{ asset('storage/' . $ppdb->ktp_ortu) }}" target="_blank" class="text-blue-600 underline text-center">
+                                        Lihat KTP Ortu (PDF)
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                    </div>
                 </div>
-                <div class="sm:col-span-2">
-                <p class="text-sm text-slate-500 mb-1">Berkas: Akta Lahir</p>
-                @if($ppdb->akta_lahir)
-                    <a href="{{ asset('storage/' . $ppdb->akta_lahir) }}" target="_blank" class="text-blue-500 underline">Lihat Akta</a>
-                @else
-                    <p class="text-black dark:text-white">Tidak ada berkas</p>
-                @endif
-                </div>
-                <div class="sm:col-span-2">
-                <p class="text-sm text-slate-500 mb-1">Berkas: KTP Orang Tua</p>
-                @if($ppdb->ktp_ortu)
-                    <a href="{{ asset('storage/' . $ppdb->ktp_ortu) }}" target="_blank" class="text-blue-500 underline">Lihat KTP</a>
-                @else
-                    <p class="text-black dark:text-white">Tidak ada berkas</p>
-                @endif
-                </div>
-
-
                <!-- Tombol Kembali -->
                <div class="sm:col-span-2 flex justify-end mt-6">
                   <a href="{{ route('ppdb.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">

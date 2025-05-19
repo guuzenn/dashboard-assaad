@@ -246,9 +246,9 @@
                      <!-- Status Pendaftaran -->
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           @if ($item->status == 'Diterima')
+                           @if ($item->status == 'diterima')
                               bg-success bg-opacity-10 text-success
-                           @elseif ($item->status == 'Ditolak')
+                           @elseif ($item->status == 'ditolak')
                               bg-danger bg-opacity-10 text-danger
                            @else
                               bg-warning bg-opacity-10 text-warning
@@ -259,13 +259,15 @@
                      <!-- Status Pembayaran -->
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           {{ $item->status_pembayaran == 'Lunas'
+                           {{ $item->status_pembayaran == 'lunas'
                            ? 'bg-success bg-opacity-10 text-success'
                            : 'bg-warning bg-opacity-10 text-warning' }}">
                            {{ $item->status_pembayaran }}
                         </p>
                      </td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tanggal_daftar }}</td>
+                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        {{ \Carbon\Carbon::parse($item->created_at)->format('d-m-Y H:i') }}
+                    </td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <div class="flex items-center space-x-3.5">
                            <!-- Show -->
