@@ -11,12 +11,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
     <style>
         .image-link img {
             transition: transform 0.3s ease;
             cursor: zoom-in;
         }
-        
+
         .image-link img:hover {
             transform: scale(1.05);
         }
@@ -32,22 +35,22 @@
                 </svg>
             </div>
             <button id="menu-button" class="block md:hidden text-gray-900 focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
-            <ul id="menu" class="hidden md:flex flex-col md:flex-row gap-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 shadow md:shadow-none">
-                <li><a href="beranda.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
-                <li><a href="#" class="text-base text-green-700 font-semibold hover:font-semibold hover:text-green-700">Tentang</a></li>
-                <li><a href="event.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
-                <li><a href="kontak.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+           <ul id="menu" class="hidden md:flex flex-col md:flex-row gap-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 shadow md:shadow-none">
+                <li><a href="{{ route('compro.beranda') }}" class="text-base text-gray-900  hover:font-semibold hover:text-green-700">Beranda</a></li>
+                <li><a href="{{ route('compro.tentang') }}" class="text-base text-green-700 font-semibold hover:font-semibold hover:text-green-700">Tentang</a></li>
+                <li><a href="{{ route('compro.event') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
+                <li><a href="{{ route('compro.kontak') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
             </ul>
         </div>
     </nav>
     <section class="py-16 max-w-6xl mx-auto px-4 text-center mt-16">
         <h2 class="text-5xl font-bold text-green-700 mb-6">Tentang TK As Sa'ad Islamic Kindergarten</h2>
         <p class="text-xl text-gray-700 mb-12">Sekolah Islam berbasis Montessori adalah tempat di mana nilai-nilai Islami dipadukan dengan pendeka Montessori, memberi anak kebebasan belajar sesuai perkembangan mereka. Di sini, pendidikan agama dan pembentukan karakter Islami dikemas dalam
-            kegiatan sehari-hari yana kreatif membantu anak-anak tumbuh menjadi pribadi mandiri dan berakhlak baik sejak dini. Berikut beberapa program unggulan</p>
+            kegiatan sehari-hari yana kreatif membantu anak-anak tumbuh menjadi pribadi mandiri dan berakhlak baik sejak dini.</p>
         <h3 class="text-3xl font-semibold text-green-700 mb-6">Galeri Sekolah</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <a href="/assets/images/compro/tkA.png" class="image-link">
@@ -138,10 +141,10 @@
             <div>
                 <h2 class="text-2xl font-bold mb-4">Quick Links</h2>
                 <ul class="space-y-2">
-                    <li><a href="beranda.html" class="hover:text-orange-500">Beranda</a></li>
-                    <li><a href="tentang.html" class="hover:text-orange-500">Tentang</a></li>
-                    <li><a href="event.html" class="hover:text-orange-500">Event</a></li>
-                    <li><a href="kontak.html" class="hover:text-orange-500">Kontak</a></li>
+                    <li><a href="{{ route('compro.beranda') }}" class="hover:text-orange-500">Beranda</a></li>
+                    <li><a href="{{ route('compro.tentang') }}" class="hover:text-orange-500">Tentang</a></li>
+                    <li><a href="{{ route('compro.event') }}" class="hover:text-orange-500">Event</a></li>
+                    <li><a href="{{ route('compro.kontak') }}" class="hover:text-orange-500">Kontak</a></li>
                 </ul>
             </div>
 

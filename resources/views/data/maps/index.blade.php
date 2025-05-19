@@ -236,7 +236,7 @@
                         }).addTo(map);
                     }
 
-                    // 🔍 Pencarian
+                    // Pencarian
                     // const searchInput = L.control({position: 'topright'});
                     // searchInput.onAdd = function () {
                     //     const div = L.DomUtil.create('div', 'search-box');
@@ -251,7 +251,7 @@
                         }
                     });
 
-                    // 🎯 Filter Radius
+                    // Filter Radius
                     // const radiusControl = L.control({position: 'topright'});
                     // radiusControl.onAdd = function () {
                     //     const div = L.DomUtil.create('div', 'radius-box');

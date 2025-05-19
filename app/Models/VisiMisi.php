@@ -15,3 +15,4 @@ class VisiMisi extends Model
     // Kolom yang boleh diisi melalui mass assignment
     protected $fillable = ['judul', 'konten'];
 }
+

@@ -106,9 +106,15 @@
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-         
+
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data PPDB</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+
+            @php
+            $totalDiterima = $ppdb->where('status', 'Diterima')->count();
+            $totalDitolak = $ppdb->where('status', 'Ditolak')->count();
+            $totalMenunggu = $ppdb->whereNotIn('status', ['Diterima', 'Ditolak'])->count();
+        @endphp
             <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
@@ -121,7 +127,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        {{ $totalDiterima }}
                      </h4>
                      <span class="text-sm font-medium">Diterima</span>
                   </div>
@@ -140,9 +146,28 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
+                        {{ $totalDitolak }}
                      </h4>
                      <span class="text-sm font-medium">Ditolak</span>
+                  </div>
+               </div>
+            </div>
+            <!-- Card Item End -->
+
+                        <!-- Card Item Start -->
+            <div
+               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                  <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
+                  </svg>
+               </div>
+               <div class="mt-4 flex items-end justify-between">
+                  <div>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{ $totalMenunggu }}
+                     </h4>
+                     <span class="text-sm font-medium">Menunggu</span>
                   </div>
                </div>
             </div>
@@ -204,7 +229,6 @@
                      <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
                      <th class="min-w-[80px] px-4 py-4 font-medium text-black dark:text-white">Usia</th>
                      <th class="min-w-[100px] px-4 py-4 font-medium text-black dark:text-white">Jenjang</th>
-                     <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Telepon Ortu</th>
                      <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pendaftaran</th>
                      <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th>
                      <th class="min-w-[130px] px-4 py-4 font-medium text-black dark:text-white">Tanggal Daftar</th>
@@ -219,18 +243,17 @@
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->usia }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenjang_kelas }}</td>
-                     <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->hp_ayah ?? $item->hp_ibu }}</td>
                      <!-- Status Pendaftaran -->
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                         <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                           @if ($item->status_pendaftaran == 'Diterima')
+                           @if ($item->status == 'Diterima')
                               bg-success bg-opacity-10 text-success
-                           @elseif ($item->status_pendaftaran == 'Ditolak')
+                           @elseif ($item->status == 'Ditolak')
                               bg-danger bg-opacity-10 text-danger
                            @else
                               bg-warning bg-opacity-10 text-warning
                            @endif">
-                           {{ $item->status_pendaftaran }}
+                           {{ $item->status }}
                         </p>
                      </td>
                      <!-- Status Pembayaran -->
@@ -308,7 +331,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

@@ -20,14 +20,14 @@ class KegiatanController extends Controller
                     'judul' => 'Field Trip ke Peternakan Kelinci',
                     'deskripsi' => 'Anak-anak belajar mengenal hewan dan memberi makan kelinci.',
                     'tanggal' => '2025-03-25',
-                    'gambar' => null,
+                    'gambar' => 'app/public/images/berkas/test.jpg',
                 ],
                 (object)[
                     'id' => 2,
                     'judul' => 'Lomba Hafalan Surat Pendek',
                     'deskripsi' => 'Lomba antar kelas untuk menghafal surat-surat pendek Al-Qur\'an',
                     'tanggal' => '2025-04-12',
-                    'gambar' => null,
+                    'gambar' => 'app/publicimages/berkas/test.jpg',
                 ]
             ]);
         }

@@ -3,77 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CalonSiswa;
 
 class PPDBController extends Controller
 {
     public function index()
     {
-        $ppdb = [
-            (object)[
-                'id' => 1,
-                'nama_lengkap' => 'Aisyah Putri',
-                'nama_panggilan' => 'Aisyah',
-                'jenjang_kelas' => 'TK A',
-                'tempat_lahir' => 'Jakarta',
-                'tanggal_lahir' => '2018-03-15',
-                'usia' => '6 tahun 4 bulan',
-                'jenis_kelamin' => 'Perempuan',
-                'agama' => 'Islam',
-                'anak_ke' => 1,
-                'status_keluarga' => 'Anak Kandung',
-                'jumlah_saudara' => 2,
-                'alamat' => 'Jl. Melati No. 12, Jakarta',
-                'penyakit_bawaan' => null,
-                'alergi' => 'Susu sapi',
-                'pengawasan_medis' => null,
-                'cedera_serius' => 'Pernah jatuh dari sepeda, 2023',
-                'nama_ayah' => 'Ahmad Fauzi',
-                'pekerjaan_ayah' => 'Karyawan Swasta',
-                'hp_ayah' => '081234567890',
-                'nama_ibu' => 'Siti Rahma',
-                'pekerjaan_ibu' => 'Ibu Rumah Tangga',
-                'hp_ibu' => '081234567891',
-                'status_pendaftaran' => 'Diterima',
-                'status_pembayaran' => 'Lunas',
-                'tanggal_daftar' => '2024-05-01',
-            ],
-            (object)[
-                'id' => 2,
-                'nama_lengkap' => 'Budi Santoso',
-                'nama_panggilan' => 'Budi',
-                'jenjang_kelas' => 'TK B',
-                'tempat_lahir' => 'Bandung',
-                'tanggal_lahir' => '2017-10-20',
-                'usia' => '7 tahun',
-                'jenis_kelamin' => 'Laki-laki',
-                'agama' => 'Kristen',
-                'anak_ke' => 2,
-                'status_keluarga' => 'Anak Angkat',
-                'jumlah_saudara' => 1,
-                'alamat' => 'Jl. Kenanga No. 45, Bandung',
-                'penyakit_bawaan' => 'Asma',
-                'alergi' => null,
-                'pengawasan_medis' => 'Mengonsumsi obat asma rutin',
-                'cedera_serius' => null,
-                'nama_ayah' => 'Slamet Riyadi',
-                'pekerjaan_ayah' => 'Pedagang',
-                'hp_ayah' => '081298765432',
-                'nama_ibu' => 'Maya Sari',
-                'pekerjaan_ibu' => 'Guru',
-                'hp_ibu' => '081298765431',
-                'status_pendaftaran' => 'Menunggu',
-                'status_pembayaran' => 'Belum Lunas',
-                'tanggal_daftar' => '2024-05-10',
-            ]
-        ];
-
+        $ppdb = CalonSiswa::all();
         return view('ppdb.index', compact('ppdb'));
     }
 
     public function show($id)
     {
-        // $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
-
+        $ppdb = CalonSiswa::findOrFail($id);
         return view('ppdb.show', compact('ppdb'));
     }
 
@@ -82,15 +24,101 @@ class PPDBController extends Controller
         return view('ppdb.create');
     }
 
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'required|string|max:255',
+            'jenjang_kelas' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'usia' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:255',
+            'anak_ke' => 'required|integer|min:1',
+            'status_dalam_keluarga' => 'required|string|max:255',
+            'jumlah_saudara' => 'required|integer|min:0',
+            'provinsi' => 'required|string|max:255',
+            'kabupaten_kota' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
+            'desa_kelurahan' => 'required|string|max:255',
+            'alamat_lengkap' => 'required|string|max:255',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
+            'kk' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'akta_lahir' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'ktp_ortu' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'penyakit_bawaan' => 'nullable|string',
+            'alergi' => 'nullable|string',
+            'pengawasan_medis' => 'nullable|string',
+            'cedera_serius' => 'nullable|string',
+            'nama_ibu' => 'required|string|max:255',
+            'no_hp_ibu' => 'required|string|max:255',
+            'pekerjaan_ibu' => 'required|string|max:255',
+            'nama_ayah' => 'required|string|max:255',
+            'no_hp_ayah' => 'required|string|max:255',
+            'pekerjaan_ayah' => 'required|string|max:255',
+            'status' => 'in:menunggu,diterima,ditolak',
+            'status_pembayaran' => 'in:belum_bayar,lunas',
+
+        ]);
+        CalonSiswa::create($validated);
+        return redirect()->route('ppdb.index')->with('success', 'Data pendaftaran berhasil disimpan!');
+    }
+
     public function edit($id)
     {
-        $ppdb = $this->index()->getData()['ppdb'][$id - 1] ?? abort(404);
-
+        $ppdb = CalonSiswa::findOrFail($id);
         return view('ppdb.edit', compact('ppdb'));
     }
 
-    public function store(Request $request)
+    public function update(Request $request, $id)
     {
-        return redirect()->route('ppdb.index')->with('success', 'Data pendaftaran berhasil disimpan!');
+        $validated = $request->validate([
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'required|string|max:255',
+            'jenjang_kelas' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'usia' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'agama' => 'required|string|max:255',
+            'anak_ke' => 'required|integer|min:1',
+            'status_dalam_keluarga' => 'required|string|max:255',
+            'jumlah_saudara' => 'required|integer|min:0',
+            'provinsi' => 'required|string|max:255',
+            'kabupaten_kota' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
+            'desa_kelurahan' => 'required|string|max:255',
+            'alamat_lengkap' => 'required|string|max:255',
+            'latitude' => 'required|string|max:255',
+            'longitude' => 'required|string|max:255',
+            'kk' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'akta_lahir' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'ktp_ortu' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'penyakit_bawaan' => 'nullable|string',
+            'alergi' => 'nullable|string',
+            'pengawasan_medis' => 'nullable|string',
+            'cedera_serius' => 'nullable|string',
+            'nama_ibu' => 'required|string|max:255',
+            'no_hp_ibu' => 'required|string|max:255',
+            'pekerjaan_ibu' => 'required|string|max:255',
+            'nama_ayah' => 'required|string|max:255',
+            'no_hp_ayah' => 'required|string|max:255',
+            'pekerjaan_ayah' => 'required|string|max:255',
+            'status' => 'in:menunggu,diterima,ditolak',
+            'status_pembayaran' => 'in:belum_bayar,lunas',
+
+        ]);
+        $ppdb = CalonSiswa::findOrFail($id);
+        $ppdb->update($validated);
+        return redirect()->route('ppdb.index')->with('success', 'Data berhasil diupdate!');
+    }
+
+    public function destroy($id)
+    {
+        $ppdb = CalonSiswa::findOrFail($id);
+        $ppdb->delete();
+        return redirect()->route('ppdb.index')->with('success', 'Data berhasil dihapus!');
     }
 }

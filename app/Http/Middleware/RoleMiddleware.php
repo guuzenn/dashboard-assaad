@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    public function handle($request, Closure $next, $role)
+    public function handle($request, Closure $next, ...$roles)
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
-            return redirect('/login')->with('error', 'You do not have access to this page.');
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
+        $user = Auth::user();
+        if (!in_array($user->role, $roles)) {
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Akses tidak diizinkan.']);
         }
 
         return $next($request);

@@ -11,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
 </head>
 
 <body class="bg-green-50 font-['Fredoka'] min-h-screen flex flex-col">
@@ -19,21 +21,17 @@
         <div class="max-w-6xl mx-auto flex justify-between items-center px-4 py-3">
             <div class="flex items-center">
                 <img src="/assets/images/compro/logos.png" alt="Logo TK As Sa'ad" class="w-16 h-16 object-cover rounded-full">
-                <circle cx="41" cy="41" r="41" fill="#D9D9D9" />
-                </svg>
             </div>
             <button id="menu-button" class="block md:hidden text-gray-900 focus:outline-none">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
             <ul id="menu" class="hidden md:flex flex-col md:flex-row gap-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 shadow md:shadow-none">
-                <li><a href="beranda.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
-                <li><a href="tentang.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
-                <li>
-                    <a href="#" class="text-base text-green-700 font-semibold hover:font-semibold hover:text-green-700">Kegiatan</a>
-                </li>
-                <li><a href="kontak.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
+                <li><a href="{{ route('compro.beranda') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
+                <li><a href="{{ route('compro.tentang') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
+                <li><a href="{{ route('compro.event') }}" class="text-base text-green-700 font-semibold hover:font-semibold hover:text-green-700">Event</a></li>
+                <li><a href="{{ route('compro.kontak') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
             </ul>
         </div>
     </nav>
@@ -42,16 +40,19 @@
             <h2 class="text-5xl font-bold text-green-800 mb-6">Kegiatan Seru</h2>
             <p class="text-xl text-gray-700 mb-12">Bermain sambil belajar dalam berbagai kegiatan penuh warna!</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <a href="event-detail.html?id=1" class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-orange-200 transition">
-                    <img src="/assets/images/compro/tkA.png" class="rounded-md mb-4" />
-                    <h3 class="text-2xl font-bold text-green-700">Field Trip</h3>
-                    <p class="text-gray-600 mt-2">Petualangan kecil mengenal dunia luar!</p>
-                </a>
-                <a href="event-detail.html?id=2" class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-green-200 transition">
-                    <img src="/assets/images/compro/tkA.png" class="rounded-md mb-4" />
-                    <h3 class="text-2xl font-bold text-orange-700">Market Day</h3>
-                    <p class="text-gray-600 mt-2">Belajar jual beli sambil bermain peran!</p>
-                </a>
+                @foreach ($events as $event)
+                    <a href="{{ route('event.detail', $event->id) }}" class="block hover:scale-105 transition-transform">
+                        <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl border-4 border-green-200 transition h-full flex flex-col">
+                            @if($event->gambar)
+                                <img src="{{ asset('storage/' . $event->gambar) }}" class="rounded mb-4 w-full h-56 object-cover" alt="Gambar event">
+                            @endif
+                            <h1 class="text-3xl font-bold text-green-700 mb-2">{{ $event->judul }}</h1>
+                            <div class="text-gray-500 text-sm mb-2">{{ \Carbon\Carbon::parse($event->tanggal)->format('d M Y') }}</div>
+                            <p class="text-gray-700 line-clamp-3">{{ Str::limit($event->deskripsi, 120) }}</p>
+                            <span class="mt-4 text-green-600 font-semibold">Lihat Detail &rarr;</span>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </section>
     </main>
@@ -90,12 +91,10 @@
             <div>
                 <h2 class="text-2xl font-bold mb-4">Quick Links</h2>
                 <ul class="space-y-2">
-                    <li><a href="beranda.html" class="hover:text-orange-500">Beranda</a></li>
-                    <li><a href="tentang.html" class="hover:text-orange-500">Tentang</a></li>
-                    <li>
-                        <a href="event.html" class="hover:text-orange-500">Kegiatan</a>
-                    </li>
-                    <li><a href="kontak.html" class="hover:text-orange-500">Kontak</a></li>
+                    <li><a href="{{ route('compro.beranda') }}" class="hover:text-orange-500">Beranda</a></li>
+                    <li><a href="{{ route('compro.tentang') }}" class="hover:text-orange-500">Tentang</a></li>
+                    <li><a href="{{ route('compro.event') }}" class="hover:text-orange-500">Event</a></li>
+                    <li><a href="{{ route('compro.kontak') }}" class="hover:text-orange-500">Kontak</a></li>
                 </ul>
             </div>
 

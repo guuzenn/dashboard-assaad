@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
     <style>
         .form-container {
             background-color: #fff;
@@ -19,35 +22,35 @@
             border-radius: 16px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-        
+
         .input-field {
             border: 2px solid #E0E0E0;
             border-radius: 12px;
             padding: 10px 16px;
             transition: all 0.3s;
         }
-        
+
         .input-field:focus {
             border-color: #4CAF50;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.3);
             outline: none;
         }
-        
+
         .submit-btn {
             background: linear-gradient(45deg, #FF9800, #F57C00);
             transition: all 0.3s;
         }
-        
+
         .submit-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 15px rgba(245, 124, 0, 0.3);
         }
-        
+
         .radio-custom {
             display: flex;
             align-items: center;
         }
-        
+
         .radio-custom input {
             width: 22px;
             height: 22px;
@@ -68,10 +71,10 @@
                 </svg>
             </button>
             <ul id="menu" class="hidden md:flex flex-col md:flex-row gap-6 absolute md:static top-20 left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 shadow md:shadow-none">
-                <li><a href="beranda.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
-                <li><a href="tentang.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
-                <li><a href="event.html" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
-                <li><a href="#" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
+                <li><a href="{{ route('compro.beranda') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Beranda</a></li>
+                <li><a href="{{ route('compro.tentang') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Tentang</a></li>
+                <li><a href="{{ route('compro.event') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Event</a></li>
+                <li><a href="{{ route('compro.kontak') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
             </ul>
         </div>
     </nav>
@@ -89,7 +92,8 @@
 
         <!-- Form Container -->
         <div class="form-container relative p-8 mx-auto bg-white my-16">
-            <form class="space-y-6 text-left">
+            <form class="space-y-6 text-left" method="POST" action="{{ route('school-visit.store') }}">
+                @csrf
                 <!-- Nama Calon Peserta Didik -->
                 <div class="mb-4">
                     <label for="namaCalonPeserta" class="block text-lg font-medium text-gray-800 mb-2">
@@ -221,10 +225,10 @@
             <div>
                 <h2 class="text-2xl font-bold mb-4">Quick Links</h2>
                 <ul class="space-y-2">
-                    <li><a href="beranda.html" class="hover:text-orange-500">Beranda</a></li>
-                    <li><a href="tentang.html" class="hover:text-orange-500">Tentang</a></li>
-                    <li><a href="event.html" class="hover:text-orange-500">Event</a></li>
-                    <li><a href="kontak.html" class="hover:text-orange-500">Kontak</a></li>
+                    <li><a href="{{ route('compro.beranda') }}" class="hover:text-orange-500">Beranda</a></li>
+                    <li><a href="{{ route('compro.tentang') }}" class="hover:text-orange-500">Tentang</a></li>
+                    <li><a href="{{ route('compro.event') }}" class="hover:text-orange-500">Event</a></li>
+                    <li><a href="{{ route('compro.kontak') }}" class="hover:text-orange-500">Kontak</a></li>
                 </ul>
             </div>
 

@@ -102,14 +102,14 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <!-- ===== Main Content Start ===== -->
   <main>
    <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
       <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Data PPDB</h4>
 
-      <form action="{{ route('ppdb.store') }}" method="POST">
+      <form action="{{ route('ppdb.store') }}" method="POST" enctype="multipart/form-data">
          @csrf
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
          <div class="flex flex-col gap-9">
@@ -118,7 +118,7 @@
                <h3 class="font-medium text-black dark:text-white">Form Tambah PPDB</h3>
                </div>
                <div class="flex flex-col gap-5.5 p-6.5">
-               
+
                <!-- Nama Lengkap -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
@@ -134,10 +134,14 @@
                </div>
 
                <!-- Jenjang -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenjang Kelas</label>
-                  <input type="text" name="jenjang" value="{{ old('jenjang') }}" placeholder="Contoh: TK A"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+                <div>
+                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenjang Kelas</label>
+                <select name="jenjang_kelas"
+                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                    <option value="">Pilih Jenjang</option>
+                    <option value="KIDDY A" @selected(old('jenjang_kelas') == 'KIDDY A')>KIDDY A</option>
+                    <option value="TODDLER B" @selected(old('jenjang_kelas') == 'TODDLER B')>TODDLER B</option>
+                </select>
                </div>
 
                <!-- Tempat Lahir -->
@@ -194,6 +198,13 @@
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
                </div>
 
+               <!-- Status dalam keluarga -->
+               <div>
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status dalam keluarga</label>
+                  <input type="text" name="status_dalam_keluarga" value="{{ old('status_dalam_keluarga') }}" placeholder="Anak Angkat, Anak Kandung, dll"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
                <!-- Jumlah Saudara -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jumlah Saudara</label>
@@ -201,12 +212,52 @@
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
                </div>
 
-               <!-- Alamat -->
+               <!-- Provinsi -->
                <div class="sm:col-span-2">
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat</label>
-                  <textarea name="alamat" placeholder="Masukkan Alamat Lengkap"
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Provinsi</label>
+                  <input type="text" name="provinsi" value="{{ old('provinsi') }}" placeholder="Masukkan Provinsi"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Kabupaten/Kota -->
+               <div class="sm:col-span-2">
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kabupaten/Kota</label>
+                  <input type="text" name="kabupaten_kota" value="{{ old('kabupaten_kota') }}" placeholder="Masukkan Kabupaten/Kota"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Kecamatan -->
+               <div class="sm:col-span-2">
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kecamatan</label>
+                  <input type="text" name="kecamatan" value="{{ old('kecamatan') }}" placeholder="Masukkan Kecamatan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Desa/Kelurahan -->
+               <div class="sm:col-span-2">
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Desa/Kelurahan</label>
+                  <input type="text" name="desa_kelurahan" value="{{ old('desa_kelurahan') }}" placeholder="Masukkan Desa/Kelurahan"
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
+               </div>
+
+               <!-- Alamat Lengkap -->
+               <div class="sm:col-span-2">
+                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat Lengkap</label>
+                  <textarea name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alamat') }}</textarea>
                </div>
+
+               <!-- Maps Lokasi Rumah Siswa -->
+                @section('css')
+                <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+                @endsection
+                <div>
+                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Lokasi Rumah Siswa</label>
+                    <div id="map" style="height: 400px;"></div>
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
+                </div>
 
                <!-- Alergi -->
                <div>
@@ -253,7 +304,7 @@
                <!-- Nomor HP Ayah -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ayah</label>
-                  <input type="text" name="hp_ayah" value="{{ old('hp_ayah') }}" placeholder="Nomor HP Ayah"
+                  <input type="text" name="no_hp_ayah" value="{{ old('no_hp_ayah') }}" placeholder="Nomor HP Ayah"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
                </div>
 
@@ -274,19 +325,40 @@
                <!-- Nomor HP Ibu -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ibu</label>
-                  <input type="text" name="hp_ibu" value="{{ old('hp_ibu') }}" placeholder="Nomor HP Ibu"
+                  <input type="text" name="no_hp_ibu" value="{{ old('no_hp_ibu') }}" placeholder="Nomor HP Ibu"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
                </div>
+
+               <!-- KK -->
+                <div>
+                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kartu Keluarga (KK)</label>
+                <input type="file" name="kk"
+                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
+                </div>
+
+                <!-- Akta Lahir -->
+                <div>
+                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Akta Lahir</label>
+                <input type="file" name="akta_lahir"
+                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
+                </div>
+
+                <!-- KTP Orang Tua -->
+                <div>
+                <label class="mb-3 block text-sm font-medium text-black dark:text-white">KTP Orang Tua</label>
+                <input type="file" name="ktp_ortu"
+                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
+                </div>
 
                <!-- Status Pendaftaran -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>
-                  <select name="status_pendaftaran"
+                  <select name="status"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                      <option value="">Pilih Status</option>
-                     <option value="Diterima" @selected(old('status_pendaftaran') == 'Diterima')>Diterima</option>
-                     <option value="Ditolak" @selected(old('status_pendaftaran') == 'Ditolak')>Ditolak</option>
-                     <option value="Menunggu" @selected(old('status_pendaftaran') == 'Menunggu')>Menunggu</option>
+                     <option value="diterima" @selected(old('status') == 'diterima')>Diterima</option>
+                     <option value="ditolak" @selected(old('status') == 'ditolak')>Ditolak</option>
+                     <option value="menunggu" @selected(old('status') == 'menunggu')>Menunggu</option>
                   </select>
                </div>
 
@@ -296,8 +368,8 @@
                   <select name="status_pembayaran"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                      <option value="">Pilih Status</option>
-                     <option value="Lunas" @selected(old('status_pembayaran') == 'Lunas')>Lunas</option>
-                     <option value="Belum Lunas" @selected(old('status_pembayaran') == 'Belum Lunas')>Belum Lunas</option>
+                     <option value="lunas" @selected(old('status_pembayaran') == 'lunas')>Lunas</option>
+                     <option value="belum lunas" @selected(old('status_pembayaran') == 'belum lunas')>Belum Lunas</option>
                   </select>
                </div>
 
@@ -315,4 +387,36 @@
       </form>
    </div>
    </main>
+   @section('script')
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+        <script>
+            var map = L.map('map').setView([-6.403, 106.999], 13); // Default: Cileungsi
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            var marker = L.marker([-6.403, 106.999], {draggable: true}).addTo(map);
+
+            // Update input value saat marker digeser
+            function updateInput(latlng) {
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            }
+
+            updateInput(marker.getLatLng());
+
+            marker.on('dragend', function(e) {
+                updateInput(marker.getLatLng());
+            });
+
+            // Tambahkan search lokasi
+            L.Control.geocoder({
+                defaultMarkGeocode: false
+            }).on('markgeocode', function(e) {
+                var center = e.geocode.center;
+                map.setView(center, 16);
+                marker.setLatLng(center);
+                updateInput(center);
+            }).addTo(map);
+        </script>
+    @endsection
 </x-layout>

@@ -17,46 +17,48 @@ return new class extends Migration
 
             // Data Pribadi
             $table->string('nama_lengkap');
+            $table->string('nama_panggilan');
+            $table->string('jenjang_kelas');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('nama_panggilan');
+            $table->string('usia');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->string('kewarganegaraan')->default('Indonesia');
-            $table->string('golongan_darah')->nullable();
             $table->string('agama');
             $table->integer('anak_ke');
+            $table->string('status_dalam_keluarga');
+            $table->integer('jumlah_saudara');
             // Data Alamat
             $table->string('provinsi');
             $table->string('kabupaten_kota');
             $table->string('kecamatan');
             $table->string('desa_kelurahan');
             $table->text('alamat_lengkap');
+            $table->string("latitude");
+            $table->string("longitude");
 
-            // Data orang tua
-            // Data Ayah
-            $table->string('nama_ayah');
-            $table->string('tempat_lahir_ayah');
-            $table->date('tanggal_lahir_ayah');
-            $table->string('agama_ayah');
-            $table->string('pekerjaan_ayah');
+            // Data Kesehatan
+            $table->text('penyakit_bawaan')->nullable();
+            $table->text('alergi')->nullable();
+            $table->text('pengawasan_medis')->nullable();
+            $table->text('cedera_serius')->nullable();
+
+            // Data Orang Tua
             // Data Ibu
             $table->string('nama_ibu');
-            $table->string('tempat_lahir_ibu');
-            $table->date('tanggal_lahir_ibu');
-            $table->string('agama_ibu');
+            $table->string('no_hp_ibu');
             $table->string('pekerjaan_ibu');
-            // Data Alamat
-            $table->string('p_provinsi');
-            $table->string('p_kabupaten_kota');
-            $table->string('p_kecamatan');
-            $table->string('p_desa_kelurahan');
-            $table->text('p_alamat_lengkap');
+            // Data Ayah
+            $table->string('nama_ayah');
+            $table->string('no_hp_ayah');
+            $table->string('pekerjaan_ayah');
 
-            // Data tambahan
-            $table->text('alergi')->nullable();
-            $table->text('riwayat_penyakit')->nullable();
+            // Berkas
+            $table->string('kk')->nullable();
+            $table->string('akta_lahir')->nullable();
+            $table->string('ktp_ortu')->nullable();
 
             $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
+            $table->string('status_pembayaran')->default('belum lunas');
             $table->timestamps();
         });
     }

@@ -7,6 +7,9 @@
     <title>Pengumuman PPDB ASSIK</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
 </head>
 
 <body class="bg-gray-100 font-['Fredoka']">
@@ -42,6 +45,20 @@
                     <span>Pengumuman</span>
                 </a>
             </nav>
+            <div class="p-4 border-t">
+                <form method="POST" action="{{ route('logoutCS') }}">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-start space-x-2 text-red-600 hover:bg-red-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2
+                                2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                        </svg>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -49,7 +66,7 @@
             <header class="bg-white flex items-center justify-end p-4 shadow-md fixed top-0 left-64 right-0 z-10">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">👤</div>
-                    <span class="font-semibold">Nama Pendaftar</span>
+                    <span class="font-semibold">{{ auth()->user()->name }}</span>
                 </div>
             </header>
 

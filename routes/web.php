@@ -1,31 +1,35 @@
 <?php
 
-use App\Http\Controllers\MapsContoller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\GuruController;
-use App\Http\Controllers\MuridController;
-use App\Http\Controllers\KelasController;
-use App\Http\Controllers\MataPelajaranController;
-use App\Http\Controllers\NilaiController;
-use App\Http\Controllers\PivotMataPelajaranKelasController;
-use App\Http\Controllers\PPDBController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Konten\VisiMisiController;
-use App\Http\Controllers\Konten\KegiatanController;
-use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\CicilanController;
-use App\Http\Controllers\LaporanHarianController;
-use App\Http\Controllers\StudentDashboardController;
-use App\Http\Controllers\StudentProfileController;
-use App\Http\Controllers\StudentLaporanHarianController;
-use App\Http\Controllers\StudentPembayaranController;
-use App\Http\Controllers\StudentCicilanController;
+use App\Http\Controllers\MapsContoller;
 use App\Http\Controllers\AkunController;
-use App\Http\Controllers\Auth\ForgotPasswordController as AuthForgotPasswordController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\PPDBController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MuridController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\ComproController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\CicilanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SiswaPPDBController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\SchoolVisitController;
+use App\Http\Controllers\LaporanHarianController;
+use App\Http\Controllers\MataPelajaranController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\StudentCicilanController;
+use App\Http\Controllers\StudentProfileController;
+use App\Http\Controllers\Konten\KegiatanController;
+use App\Http\Controllers\Konten\VisiMisiController;
+use App\Http\Controllers\StudentDashboardController;
+use App\Http\Controllers\StudentPembayaranController;
 use App\Http\Controllers\StudentRekapNilaiController;
+use App\Http\Controllers\StudentLaporanHarianController;
+use App\Http\Controllers\PivotMataPelajaranKelasController;
+use App\Http\Controllers\Auth\ForgotPasswordController as AuthForgotPasswordController;
 
 // Route Prefix Landing Page
 Route::get('/', function () {
@@ -58,26 +62,69 @@ Route::prefix('compro')->name('compro.')->group(function () {
     Route::get('/beranda', function () {
         return view('compro.beranda');
     })->name('beranda');
+
+    Route::get('/tentang', function () {
+        return view('compro.tentang');
+    })->name('tentang');
+
+    Route::get('/event', [ComproController::class, 'event'])->name('event');
+    Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event-detail');
+
+    Route::get('/event', function () {
+        return view('compro.event');
+    })->name('event');
+
+    Route::get('/compro/beranda', [ComproController::class, 'beranda'])->name('compro.beranda');
+
+    Route::get('/kontak', function () {
+        return view('compro.kontak');
+    })->name('kontak');
+
+    Route::get('/school-visit', function () {
+        return view('compro.school_visit');
+    })->name('school_visit');
 });
 
-// Route for student registration
-Route::get('/login-student', function () { return view('webppdb.auth.login'); })->name('login-student');
-Route::get('/register-student', function () { return view('webppdb.auth.daftar'); })->name('register-student');
+Route::post('/school-visit', [SchoolVisitController::class, 'store'])->name('school-visit.store');
 
-// Route for PPDB
+Route::get('/event', [ComproController::class, 'event'])->name('compro.event');
+Route::get('/event/{id}', [ComproController::class, 'eventDetail'])->name('event.detail');
+
+
+// Route for student registration and login
+Route::get('/login-student', function () {
+    return view('webppdb.auth.login');
+})->name('login-student');
+Route::post('/login-student', [AuthController::class, 'loginStudent'])->name('login-student.post');
+Route::get('/register-student', function () {
+    return view('webppdb.auth.daftar');
+})->name('register-student');
+Route::post('/register-student', [AuthController::class, 'registerStudent'])->name('register-student.post');
+
 Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
 Route::get('/formulir', function () { return view('webppdb.formulir'); }) ->name('formulir');
+Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
 Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
 Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
 
-Route::middleware(['auth', 'role:siswa'])->group(function () {
-    Route::prefix('ppdbsiswa')->name('ppdb.')->group(function() {
-        Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
-        Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
-        Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
-        Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
-    });
-});
+Route::post( 'logoutCS', [AuthController::class, 'logoutCS'])->name('logoutCS');
+
+Route::get('/get-kabupaten/{id}', [AlamatController::class, 'getKabupaten']);
+Route::get('/get-kecamatan/{id}', [AlamatController::class, 'getKecamatan']);
+Route::get('/get-desa/{id}', [AlamatController::class, 'getDesa']);
+
+
+// Route for PPDB
+// Route::middleware(['auth', 'role:calon siswa'])->group(function () {
+//     Route::prefix('ppdbsiswa')->name('webppdb.')->group(function() {
+//         Route::get('/beranda', function () { return view('webppdb.beranda'); })->name('beranda');
+//         Route::get('/formulir', function () { return view('webppdb.formulir'); })->name('formulir');
+//         Route::post('/formulir', [SiswaPPDBController::class, 'store'])->name('formulir.store');
+//         Route::get('/pengumuman', function () { return view('webppdb.pengumuman'); })->name('pengumuman');
+//         Route::get('/upload_berkas', function () { return view('webppdb.upload_berkas'); })->name('upload_berkas');
+//     });
+// });
+
 
 Route::prefix('auth')->group(function () {
     Route::get('forgot-password', [AuthForgotPasswordController::class, 'index'])->name('auth.forgot-password');
@@ -163,7 +210,7 @@ Route::prefix('data/pembagian_mapel')->name('data.pivot_mapel_kelas.')->group(fu
     Route::delete('/{id}', [PivotMataPelajaranKelasController::class, 'destroy'])->name('destroy');
 });
 
-// Pembagian Mapel
+// Pembagian Maps
 Route::prefix('data/maps')->name('data.maps.')->group(function() {
     Route::get('/', [MapsContoller::class, 'index'])->name('index');
 });
@@ -171,12 +218,13 @@ Route::prefix('data/maps')->name('data.maps.')->group(function() {
 // Konten
 Route::prefix('konten')->name('konten.')->group(function () {
     // Visi Misi
-    Route::get('visi_misi', [VisiMisiController::class, 'index'])->name('visi_misi.index');
-    Route::get('visi_misi/create', [VisiMisiController::class, 'create'])->name('visi_misi.create');
-    Route::post('visi_misi', [VisiMisiController::class, 'store'])->name('visi_misi.store');
-    Route::get('visi_misi/{id}/edit', [VisiMisiController::class, 'edit'])->name('visi_misi.edit');
-    Route::put('visi_misi/{id}', [VisiMisiController::class, 'update'])->name('visi_misi.update');
-    Route::delete('visi_misi/{id}', [VisiMisiController::class, 'destroy'])->name('visi_misi.destroy');
+    Route::resource('visi_misi', VisiMisiController::class);
+    // Route::get('visi_misi', [VisiMisiController::class, 'index'])->name('visi_misi.index');
+    // Route::get('visi_misi/create', [VisiMisiController::class, 'create'])->name('visi_misi.create');
+    // Route::post('visi_misi', [VisiMisiController::class, 'store'])->name('visi_misi.store');
+    // Route::get('visi_misi/{id}/edit', [VisiMisiController::class, 'edit'])->name('visi_misi.edit');
+    // Route::put('visi_misi/{id}', [VisiMisiController::class, 'update'])->name('visi_misi.update');
+    // Route::delete('visi_misi/{id}', [VisiMisiController::class, 'destroy'])->name('visi_misi.destroy');
 
     // Kegiatan
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');

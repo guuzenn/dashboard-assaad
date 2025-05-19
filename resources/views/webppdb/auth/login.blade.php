@@ -22,26 +22,22 @@
     <div class="w-full lg:w-1/2 bg-gradient-to-r from-[#C0CA9D] to-[#FCD19C] flex items-center justify-center py-10">
         <div class="w-full max-w-md px-8">
             <h2 class="text-2xl md:text-3xl font-bold text-green-800 mb-8 text-center">Login PPDB</h2>
-            <form onsubmit="loginUser(event)" class="space-y-6">
+            <form action="{{ route('login-student.post') }}" method="POST" class="space-y-6">
+                @csrf
                 <div>
-                    <label for="username" class="block text-lg font-medium text-gray-700 mb-1">ID Pengguna</label>
-                    <input type="text" id="username" name="username" placeholder="ID Pengguna" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
+                    <label for="email" class="block text-lg font-medium text-gray-700 mb-1">Email Pengguna</label>
+                    <input type="email" id="email" name="email" required class="w-full p-3 rounded border border-gray-300">
                 </div>
                 <div>
                     <label for="password" class="block text-lg font-medium text-gray-700 mb-1">Kata Sandi</label>
-                    <div class="relative">
-                        <input type="password" id="password" name="password" placeholder="Kata Sandi" class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 pr-10">
-                        <button type="button" onclick="togglePassword()" class="absolute right-1 top-1/2 transform -translate-y-1/2 text-gray-500"></button>
-                    </div>
-                </div>
-                <div class="flex justify-end">
-                    <a href="#" class="text-sm text-gray-500 hover:underline">Lupa kata sandi?</a>
+                    <input type="password" id="password" name="password" required class="w-full p-3 rounded border border-gray-300">
                 </div>
                 <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded">Masuk</button>
+            </form>
 
                 <p class="text-center text-sm text-gray-700 mt-4">
                     Belum punya akun?
-                    <a href="daftar.html" class="text-green-700 hover:underline font-semibold">Daftar</a>
+                    <a href="{{ route('register-student') }}" class="text-green-700 hover:underline font-semibold">Daftar</a>
                 </p>
             </form>
         </div>

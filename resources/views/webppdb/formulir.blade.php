@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Kumbh+Sans:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo/as-saad.png') }}">
 </head>
 
 <body class="bg-gray-100 font-['Fredoka']">
@@ -44,6 +47,20 @@
                     <span>Pengumuman</span>
                 </a>
             </nav>
+            <div class="p-4 border-t">
+                <form method="POST" action="{{ route('logoutCS') }}">
+                    @csrf
+                    <button type="submit" class="w-full flex items-center justify-start space-x-2 text-red-600 hover:bg-red-100 p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2
+                                2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                        </svg>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -52,7 +69,7 @@
             <header class="bg-white flex items-center justify-end p-4 shadow-md fixed top-0 left-64 right-0 z-10">
                 <div class="flex items-center space-x-2">
                     <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">👤</div>
-                    <span class="font-semibold">Nama Pendaftar</span>
+                    <span class="font-semibold">{{ auth()->user()->name }}</span>
                 </div>
             </header>
 
@@ -69,7 +86,8 @@
                         </div>
 
                         <!-- Isi Form -->
-                        <form id="pendaftaranForm" class="p-8 space-y-6">
+                        <form id="pendaftaranForm" action="{{ route('formulir.store') }}" method="POST" class="p-8 space-y-6" enctype="multipart/form-data">
+                            @csrf
                             <!-- Data Siswa -->
                             <div class="pb-4 mb-6 border-b-2 border-gray-200">
                                 <h3 class="text-lg font-bold text-[#388E3C] mb-4">Data Calon Peserta Didik</h3>
@@ -154,47 +172,56 @@
 
 
                                 <div class="mb-4">
-                                    <label for="provinsi" class="block font-semibold mb-1">Provinsi</label>
-                                    <select name="provinsi" id="provinsi" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required>
-                                        <option value="" disabled selected>Pilih Provinsi</option>
+                                    <label class="block font-semibold mb-1">Provinsi</label>
+                                    <select id="provinsi" name="provinsi" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                        <option value="">Pilih Provinsi</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="kabupaten" class="block font-semibold mb-1">Kabupaten/Kota</label>
-                                    <select id="kabupaten" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Kabupaten/Kota</option>
+                                    <label class="block font-semibold mb-1">Kabupaten/Kota</label>
+                                    <select id="kabupaten_kota" name="kabupaten_kota" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                        <option value="">Pilih Kabupaten/Kota</option>
                                     </select>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="kecamatan" class="block font-semibold mb-1">Kecamatan</label>
-                                    <select name="kecamatan" id="kecamatan" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Kecamatan</option>
-                                        </select>
+                                    <label class="block font-semibold mb-1">Kecamatan</label>
+                                    <select id="kecamatan" name="kecamatan" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                        <option value="">Pilih Kecamatan</option>
+                                    </select>
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="desa" class="block font-semibold mb-1">Desa/Kelurahan</label>
-                                    <select name="desa_kelurahan" id="desa_kelurahan" class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" required disabled>
-                                        <option value="" disabled selected>Pilih Desa/Kelurahan</option>
+                                    <label class="block font-semibold mb-1">Desa/Kelurahan</label>
+                                    <select id="desa_kelurahan" name="desa_kelurahan" class="w-full px-4 py-2 border shadow-sm rounded-lg focus:outline-none focus:border-green-600">
+                                        <option value="">Pilih Desa/Kelurahan</option>
                                     </select>
                                 </div>
+
 
                                 <div class="mt-4">
                                     <label class="block font-semibold mb-1">Alamat Lengkap Calon Peserta Didik</label>
                                     <textarea name="alamat_lengkap" id="alamat_lengkap" required class="w-full px-4 py-2 border shadow-sm rounded-lg  focus:outline-none focus:border-green-600" rows="3" placeholder="Masukkan alamat lengkap"></textarea>
                                 </div>
 
+                                <div class="mb-4">
+                                    <label class="block font-semibold mb-1">Lokasi Rumah Siswa</label>
+                                    <div id="map" style="height: 400px;" class="rounded-lg mb-2"></div>
+                                    <input type="hidden" name="latitude" id="latitude">
+                                    <input type="hidden" name="longitude" id="longitude">
+                                    <small class="text-gray-500">Geser marker ke lokasi rumah siswa.</small>
+                                </div>
+
                                 <div class="mt-4">
                                     <label class="block font-semibold mb-1">Upload Kartu Keluarga (KK)</label>
-                                    <input name="kk" id="kk" type="file" name="kk" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-green-600 file:text-white file:font-semibold hover:file:bg-green-700"
+                                    <input name="kk" id="kk" type="file" name="kk" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#388E3C] file:text-white file:font-semibold hover:file:bg-green-700"
                                     />
                                 </div>
 
                                 <div class="mt-4">
                                     <label class="block font-semibold mb-1">Upload Akta Kelahiran</label>
-                                    <input name="akta_lahir" id="akta_lahir" type="file" name="akta" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-green-600 file:text-white file:font-semibold hover:file:bg-green-700"
+                                    <input name="akta_lahir" id="akta_lahir" type="file" name="akta" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#388E3C] file:text-white file:font-semibold hover:file:bg-green-700"
                                     />
                                 </div>
                             </div>
@@ -296,18 +323,19 @@
 
                                 <div class="mb-4">
                                     <label class="block font-semibold mb-1">Upload KTP Orang Tua</label>
-                                    <input name="ktp_ortu" id="ktp_ortu" type="file" name="ktp_ortu" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-green-600 file:text-white file:font-semibold hover:file:bg-green-700"
+                                    <input name="ktp_ortu" id="ktp_ortu" type="file" name="ktp_ortu" accept=".pdf,.jpg,.jpeg,.png" required class="w-full border rounded px-4 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-[#388E3C] file:text-white file:font-semibold hover:file:bg-green-700"
                                     />
                                 </div>
                             </div>
+                            <!-- Tombol Submit -->
+                            <div class="flex justify-end p-6 border-t border-gray-200">
+                                <button id="btnSubmit" type="submit" form="pendaftaranForm" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
+                                    Simpan & Kirim
+                                </button>
+                            </div>
                         </form>
 
-                        <!-- Tombol Submit -->
-                        <div class="flex justify-end p-6 border-t border-gray-200">
-                            <button id="btnSubmit" onclick="submitForm()" class="bg-[#388E3C] hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition-colors">
-                                Simpan & Kirim
-                            </button>
-                        </div>
+
                     </div>
 
                 </div>
@@ -315,7 +343,39 @@
         </div>
     </div>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var map = L.map('map').setView([-6.403, 106.999], 13); // Default: Cileungsi
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            var marker = L.marker([-6.403, 106.999], {draggable: true}).addTo(map);
+
+            function updateInput(latlng) {
+                document.getElementById('latitude').value = latlng.lat;
+                document.getElementById('longitude').value = latlng.lng;
+            }
+
+            updateInput(marker.getLatLng());
+
+            marker.on('dragend', function(e) {
+                updateInput(marker.getLatLng());
+            });
+
+            // Search lokasi
+            L.Control.geocoder({
+                defaultMarkGeocode: false
+            }).on('markgeocode', function(e) {
+                var center = e.geocode.center;
+                map.setView(center, 16);
+                marker.setLatLng(center);
+                updateInput(center);
+            }).addTo(map);
+        });
+
+
         function validateForm() {
             const form = document.getElementById('pendaftaranForm');
             const requiredInputs = form.querySelectorAll('[required]');
@@ -359,64 +419,61 @@
 
 
         // Isi provinsi
-        const provSelect = document.getElementById("provinsi");
-        const kabSelect = document.getElementById("kabupaten");
-        const kecSelect = document.getElementById("kecamatan");
-        const desaSelect = document.getElementById("desa");
 
-        provSelect.innerHTML = `<option value="">Pilih Provinsi</option>`;
-        Object.keys(dataWilayah).forEach(prov => {
-            provSelect.innerHTML += `<option value="${prov}">${prov}</option>`;
-        });
-
-        provSelect.addEventListener("change", function() {
-            const selectedProv = this.value;
-            kabSelect.innerHTML = `<option value="">Pilih Kabupaten/Kota</option>`;
-            kecSelect.innerHTML = `<option value="">Pilih Kecamatan</option>`;
-            desaSelect.innerHTML = `<option value="">Pilih Desa</option>`;
-            kabSelect.disabled = true;
-            kecSelect.disabled = true;
-            desaSelect.disabled = true;
-
-            if (selectedProv) {
-                Object.keys(dataWilayah[selectedProv]).forEach(kab => {
-                    kabSelect.innerHTML += `<option value="${kab}">${kab}</option>`;
-                });
-                kabSelect.disabled = false;
+            async function getWilayah(url) {
+                const response = await fetch(url);
+                return await response.json();
             }
-        });
 
-        kabSelect.addEventListener("change", function() {
-            const selectedProv = provSelect.value;
-            const selectedKab = this.value;
-            kecSelect.innerHTML = `<option value="">Pilih Kecamatan</option>`;
-            desaSelect.innerHTML = `<option value="">Pilih Desa</option>`;
-            kecSelect.disabled = true;
-            desaSelect.disabled = true;
+            document.addEventListener("DOMContentLoaded", () => {
+                const provinsiSelect = document.getElementById("provinsi");
+                const kabupatenSelect = document.getElementById("kabupaten_kota");
+                const kecamatanSelect = document.getElementById("kecamatan");
+                const desaSelect = document.getElementById("desa_kelurahan");
 
-            if (selectedKab) {
-                Object.keys(dataWilayah[selectedProv][selectedKab]).forEach(kec => {
-                    kecSelect.innerHTML += `<option value="${kec}">${kec}</option>`;
+                // Load provinsi
+                getWilayah("https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json").then(data => {
+                    data.forEach(prov => {
+                        provinsiSelect.innerHTML += `<option value="${prov.id}">${prov.name}</option>`;
+                    });
                 });
-                kecSelect.disabled = false;
-            }
-        });
 
-        kecSelect.addEventListener("change", function() {
-            const selectedProv = provSelect.value;
-            const selectedKab = kabSelect.value;
-            const selectedKec = this.value;
-            desaSelect.innerHTML = `<option value="">Pilih Desa</option>`;
-            desaSelect.disabled = true;
-
-            if (selectedKec) {
-                dataWilayah[selectedProv][selectedKab][selectedKec].forEach(desa => {
-                    desaSelect.innerHTML += `<option value="${desa}">${desa}</option>`;
+                // Load kabupaten/kota
+                provinsiSelect.addEventListener("change", () => {
+                    kabupatenSelect.innerHTML = `<option value="">Memuat...</option>`;
+                    getWilayah(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsiSelect.value}.json`).then(data => {
+                        kabupatenSelect.innerHTML = `<option value="">Pilih Kabupaten/Kota</option>`;
+                        data.forEach(kab => {
+                            kabupatenSelect.innerHTML += `<option value="${kab.id}">${kab.name}</option>`;
+                        });
+                    });
                 });
-                desaSelect.disabled = false;
-            }
-        });
-    </script>
+
+                // Load kecamatan
+                kabupatenSelect.addEventListener("change", () => {
+                    kecamatanSelect.innerHTML = `<option value="">Memuat...</option>`;
+                    getWilayah(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${kabupatenSelect.value}.json`).then(data => {
+                        kecamatanSelect.innerHTML = `<option value="">Pilih Kecamatan</option>`;
+                        data.forEach(kec => {
+                            kecamatanSelect.innerHTML += `<option value="${kec.id}">${kec.name}</option>`;
+                        });
+                    });
+                });
+
+                // Load desa
+                kecamatanSelect.addEventListener("change", () => {
+                    desaSelect.innerHTML = `<option value="">Memuat...</option>`;
+                    getWilayah(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${kecamatanSelect.value}.json`).then(data => {
+                        desaSelect.innerHTML = `<option value="">Pilih Desa/Kelurahan</option>`;
+                        data.forEach(des => {
+                            desaSelect.innerHTML += `<option value="${des.id}">${des.name}</option>`;
+                        });
+                    });
+                });
+            });
+        </script>
+
+
 
 </body>
 
