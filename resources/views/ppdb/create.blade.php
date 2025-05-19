@@ -244,7 +244,7 @@
                <div class="sm:col-span-2">
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat Lengkap</label>
                   <textarea name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alamat') }}</textarea>
+                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alamat_lengkap') }}</textarea>
                </div>
 
                <!-- Maps Lokasi Rumah Siswa -->
@@ -269,7 +269,7 @@
                <!-- Penyakit Bawaan -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Penyakit Bawaan</label>
-                  <input type="text" name="riwayat_penyakit" value="{{ old('riwayat_penyakit') }}" placeholder="Jika ada, tuliskan"
+                  <input type="text" name="penyakit_bawaan" value="{{ old('penyakit_bawaan') }}" placeholder="Jika ada, tuliskan"
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" />
                </div>
 
@@ -350,7 +350,7 @@
                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
                 </div>
 
-               <!-- Status Pendaftaran -->
+               {{-- <!-- Status Pendaftaran -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>
                   <select name="status"
@@ -369,9 +369,9 @@
                      class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                      <option value="">Pilih Status</option>
                      <option value="lunas" @selected(old('status_pembayaran') == 'lunas')>Lunas</option>
-                     <option value="belum lunas" @selected(old('status_pembayaran') == 'belum lunas')>Belum Lunas</option>
+                     <option value="belum_bayar" @selected(old('status_pembayaran') == 'belum_bayar')>Belum Lunas</option>
                   </select>
-               </div>
+               </div> --}}
 
                <!-- Submit -->
                <div class="flex items-center justify-end gap-4">
