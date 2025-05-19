@@ -94,11 +94,6 @@
                 <p class="text-sm text-slate-500 mb-1">Email</p>
                 <p class="text-base font-medium text-black dark:text-white">{{ $akun->email }}</p>
             </div>
-            <!-- No HP -->
-            <div class='mb-4'>
-                <p class="text-sm text-slate-500 mb-1">No HP</p>
-                <p class="text-base font-medium text-black dark:text-white">{{ $akun->no_hp ?? 'Tidak tersedia' }}</p>
-            </div>
             <!-- Role -->
             <div class='mb-4'>
                 <p class="text-sm text-slate-500 mb-1">Role</p>
