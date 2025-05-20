@@ -103,6 +103,11 @@
    </header>
    <!-- ===== Header End ===== -->
 
+   @php
+    $totalKiddy = $murid->where('kelas.nama', 'KIDDY A')->count();
+    $totalToddler = $murid->where('kelas.nama', 'TODDLER B')->count();
+    @endphp
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -121,9 +126,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        {{ $totalKiddy }}
                      </h4>
-                     <span class="text-sm font-medium">TK A</span>
+                     <span class="text-sm font-medium">Kiddy A</span>
                   </div>
                </div>
             </div>
@@ -141,9 +146,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
+                        {{ $totalToddler }}
                      </h4>
-                     <span class="text-sm font-medium">TK B</span>
+                     <span class="text-sm font-medium">Toddler B</span>
                   </div>
                </div>
             </div>

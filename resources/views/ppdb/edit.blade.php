@@ -102,206 +102,322 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
-   
+
   <!-- ===== Main Content Start ===== -->
   <main>
     <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
       <h4 class="text-lg font-bold text-black dark:text-white mb-4">Edit PPDB</h4>
 
-      <form action="{{ route('ppdb.update', $ppdb->id) }}" method="POST">
-        @csrf
-        @method('PUT')
+        <form action="{{ route('ppdb.update', $ppdb->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+                <div class="flex flex-col gap-9">
+                    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">Form Edit PPDB</h3>
+                        </div>
+                        <div class="flex flex-col gap-5.5 p-6.5">
 
-         <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
-         <div class="flex flex-col gap-9">
-            <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-               <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
-               <h3 class="font-medium text-black dark:text-white">Form Edit PPDB</h3>
-               </div>
-               <div class="flex flex-col gap-5.5 p-6.5">
-               
-               <!-- Nama Lengkap -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
-                  <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $ppdb->nama_lengkap) }}" placeholder="Masukkan Nama Lengkap"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Nama Lengkap -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $ppdb->nama_lengkap) }}" placeholder="Masukkan Nama Lengkap"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Nama Panggilan -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Panggilan</label>
-                  <input type="text" name="nama_panggilan" value="{{ old('nama_panggilan', $ppdb->nama_panggilan) }}" placeholder="Masukkan Nama Panggilan"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Jenjang Kelas -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenjang Kelas</label>
+                                <select name="jenjang_kelas"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
+                                    <option value="">Pilih Jenjang</option>
+                                    <option value="KIDDY A" @selected(old('jenjang_kelas', $ppdb->jenjang_kelas) == 'KIDDY A')>KIDDY A</option>
+                                    <option value="TODDLER B" @selected(old('jenjang_kelas', $ppdb->jenjang_kelas) == 'TODDLER B')>TODDLER B</option>
+                                </select>
+                            </div>
 
-               <!-- Jenjang Kelas -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenjang Kelas</label>
-                  <input type="text" name="jenjang_kelas" value="{{ old('jenjang_kelas', $ppdb->jenjang_kelas) }}" placeholder="Contoh: TK A / TK B"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Tempat Lahir -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tempat Lahir</label>
+                                <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir', $ppdb->tempat_lahir) }}" placeholder="Masukkan Tempat Lahir"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Tempat Lahir -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tempat Lahir</label>
-                  <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir', $ppdb->tempat_lahir) }}" placeholder="Masukkan Tempat Lahir"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Tanggal Lahir -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Lahir</label>
+                                <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $ppdb->tanggal_lahir) }}"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Tanggal Lahir -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Tanggal Lahir</label>
-                  <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir', $ppdb->tanggal_lahir) }}"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Usia -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Usia</label>
+                                <input type="text" name="usia" value="{{ old('usia', $ppdb->usia) }}" placeholder="Contoh: 6 tahun 3 bulan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Usia -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Usia (Tahun)</label>
-                  <input type="number" name="usia" value="{{ old('usia', $ppdb->usia) }}" placeholder="Masukkan Usia"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Jenis Kelamin -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenis Kelamin</label>
+                                <select name="jenis_kelamin"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki-laki" @selected(old('jenis_kelamin', $ppdb->jenis_kelamin) == 'Laki-laki')>Laki-laki</option>
+                                    <option value="Perempuan" @selected(old('jenis_kelamin', $ppdb->jenis_kelamin) == 'Perempuan')>Perempuan</option>
+                                </select>
+                            </div>
 
-               <!-- Jenis Kelamin -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jenis Kelamin</label>
-                  <select name="jenis_kelamin" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
-                     <option value="">Pilih Jenis Kelamin</option>
-                     <option value="Laki-laki" @selected(old('jenis_kelamin', $ppdb->jenis_kelamin) == 'Laki-laki')>Laki-laki</option>
-                     <option value="Perempuan" @selected(old('jenis_kelamin', $ppdb->jenis_kelamin) == 'Perempuan')>Perempuan</option>
-                  </select>
-               </div>
+                            <!-- Agama -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Agama</label>
+                                <select name="agama"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
+                                    <option value="">Pilih Agama</option>
+                                    <option value="Islam" @selected(old('agama', $ppdb->agama) == 'Islam')>Islam</option>
+                                    <option value="Kristen" @selected(old('agama', $ppdb->agama) == 'Kristen')>Kristen</option>
+                                    <option value="Katolik" @selected(old('agama', $ppdb->agama) == 'Katolik')>Katolik</option>
+                                    <option value="Hindu" @selected(old('agama', $ppdb->agama) == 'Hindu')>Hindu</option>
+                                    <option value="Buddha" @selected(old('agama', $ppdb->agama) == 'Buddha')>Buddha</option>
+                                    <option value="Konghucu" @selected(old('agama', $ppdb->agama) == 'Konghucu')>Konghucu</option>
+                                </select>
+                            </div>
 
-               <!-- Agama -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Agama</label>
-                  <select name="agama" class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
-                     <option value="">Pilih Agama</option>
-                     <option value="Islam" @selected(old('agama', $ppdb->agama) == 'Islam')>Islam</option>
-                     <option value="Kristen" @selected(old('agama', $ppdb->agama) == 'Kristen')>Kristen</option>
-                     <option value="Katolik" @selected(old('agama', $ppdb->agama) == 'Katolik')>Katolik</option>
-                     <option value="Hindu" @selected(old('agama', $ppdb->agama) == 'Hindu')>Hindu</option>
-                     <option value="Buddha" @selected(old('agama', $ppdb->agama) == 'Buddha')>Buddha</option>
-                     <option value="Konghucu" @selected(old('agama', $ppdb->agama) == 'Konghucu')>Konghucu</option>
-                  </select>
-               </div>
+                            <!-- Anak Ke -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Anak Ke</label>
+                                <input type="number" name="anak_ke" value="{{ old('anak_ke', $ppdb->anak_ke) }}" placeholder="Anak ke-berapa"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Anak Ke- -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Anak Ke-</label>
-                  <input type="number" name="anak_ke" value="{{ old('anak_ke', $ppdb->anak_ke) }}" placeholder="Anak ke berapa"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Status dalam keluarga -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status dalam keluarga</label>
+                                <input type="text" name="status_dalam_keluarga" value="{{ old('status_dalam_keluarga', $ppdb->status_dalam_keluarga) }}" placeholder="Anak Angkat, Anak Kandung, dll"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Jumlah Saudara -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jumlah Saudara</label>
-                  <input type="number" name="jumlah_saudara" value="{{ old('jumlah_saudara', $ppdb->jumlah_saudara) }}" placeholder="Total Saudara"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Jumlah Saudara -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jumlah Saudara</label>
+                                <input type="number" name="jumlah_saudara" value="{{ old('jumlah_saudara', $ppdb->jumlah_saudara) }}" placeholder="Masukkan Jumlah Saudara"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Alamat -->
-               <div class="sm:col-span-2">
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat</label>
-                  <textarea name="alamat" placeholder="Alamat Lengkap"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">{{ old('alamat', $ppdb->alamat) }}</textarea>
-               </div>
+                            <!-- Provinsi -->
+                            <div class="sm:col-span-2">
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Provinsi</label>
+                                <input type="text" name="provinsi" value="{{ old('provinsi', $ppdb->provinsi) }}" placeholder="Masukkan Provinsi"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Penyakit Bawaan -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Penyakit Bawaan</label>
-                  <input type="text" name="penyakit_bawaan" value="{{ old('penyakit_bawaan', $ppdb->penyakit_bawaan) }}" placeholder="Jika ada"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Kabupaten/Kota -->
+                            <div class="sm:col-span-2">
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kabupaten/Kota</label>
+                                <input type="text" name="kabupaten_kota" value="{{ old('kabupaten_kota', $ppdb->kabupaten_kota) }}" placeholder="Masukkan Kabupaten/Kota"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Alergi -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alergi</label>
-                  <input type="text" name="alergi" value="{{ old('alergi', $ppdb->alergi) }}" placeholder="Jika ada"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Kecamatan -->
+                            <div class="sm:col-span-2">
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kecamatan</label>
+                                <input type="text" name="kecamatan" value="{{ old('kecamatan', $ppdb->kecamatan) }}" placeholder="Masukkan Kecamatan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Pengawasan Medis -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pengawasan Medis / Obat Rutin</label>
-                  <input type="text" name="pengawasan_medis" value="{{ old('pengawasan_medis', $ppdb->pengawasan_medis) }}" placeholder="Jika ada"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Desa/Kelurahan -->
+                            <div class="sm:col-span-2">
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Desa/Kelurahan</label>
+                                <input type="text" name="desa_kelurahan" value="{{ old('desa_kelurahan', $ppdb->desa_kelurahan) }}" placeholder="Masukkan Desa/Kelurahan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Cedera Serius -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Cedera Serius</label>
-                  <input type="text" name="cedera_serius" value="{{ old('cedera_serius', $ppdb->cedera_serius) }}" placeholder="Jika ada"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Alamat Lengkap -->
+                            <div class="sm:col-span-2">
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alamat Lengkap</label>
+                                <textarea name="alamat_lengkap" placeholder="Masukkan Alamat Lengkap"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">{{ old('alamat_lengkap', $ppdb->alamat_lengkap) }}</textarea>
+                            </div>
 
-               <!-- Informasi Orang Tua -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ayah</label>
-                  <input type="text" name="nama_ayah" value="{{ old('nama_ayah', $ppdb->nama_ayah) }}" placeholder="Nama Ayah"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ayah</label>
-                  <input type="text" name="pekerjaan_ayah" value="{{ old('pekerjaan_ayah', $ppdb->pekerjaan_ayah) }}" placeholder="Pekerjaan Ayah"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">No HP Ayah</label>
-                  <input type="text" name="hp_ayah" value="{{ old('hp_ayah', $ppdb->hp_ayah) }}" placeholder="No HP Ayah"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ibu</label>
-                  <input type="text" name="nama_ibu" value="{{ old('nama_ibu', $ppdb->nama_ibu) }}" placeholder="Nama Ibu"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ibu</label>
-                  <input type="text" name="pekerjaan_ibu" value="{{ old('pekerjaan_ibu', $ppdb->pekerjaan_ibu) }}" placeholder="Pekerjaan Ibu"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">No HP Ibu</label>
-                  <input type="text" name="hp_ibu" value="{{ old('hp_ibu', $ppdb->hp_ibu) }}" placeholder="No HP Ibu"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
-               </div>
+                            <!-- Maps Lokasi Rumah Siswa -->
+                            @section('css')
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+                            <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+                            @endsection
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Lokasi Rumah Siswa</label>
+                                <div id="map" style="height: 400px;"></div>
+                                <input type="hidden" name="latitude" id="latitude" value="{{ old('latitude', $ppdb->latitude) }}">
+                                <input type="hidden" name="longitude" id="longitude" value="{{ old('longitude', $ppdb->longitude) }}">
+                            </div>
 
-               <!-- Status -->
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>
-                  <select name="status_pendaftaran"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
-                     <option value="">Pilih Status</option>
-                     <option value="Diterima" @selected(old('status_pendaftaran', $ppdb->status_pendaftaran) == 'Diterima')>Diterima</option>
-                     <option value="Ditolak" @selected(old('status_pendaftaran', $ppdb->status_pendaftaran) == 'Ditolak')>Ditolak</option>
-                     <option value="Menunggu" @selected(old('status_pendaftaran', $ppdb->status_pendaftaran) == 'Menunggu')>Menunggu</option>
-                  </select>
-               </div>
+                            <!-- Alergi -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alergi</label>
+                                <input type="text" name="alergi" value="{{ old('alergi', $ppdb->alergi) }}" placeholder="Jika ada, tuliskan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <div>
-                  <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pembayaran</label>
-                  <select name="status_pembayaran"
-                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
-                     <option value="">Pilih Status</option>
-                     <option value="Lunas" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'Lunas')>Lunas</option>
-                     <option value="Belum Lunas" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'Belum Lunas')>Belum Lunas</option>
-                  </select>
-               </div>
+                            <!-- Penyakit Bawaan -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Penyakit Bawaan</label>
+                                <input type="text" name="penyakit_bawaan" value="{{ old('penyakit_bawaan', $ppdb->penyakit_bawaan) }}" placeholder="Jika ada, tuliskan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               <!-- Submit -->
-               <div class="flex justify-end">
-                  <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
-                     Simpan
-                  </button>
-               </div>
+                            <!-- Pengawasan Medis -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pengawasan Medis / Obat Rutin</label>
+                                <input type="text" name="pengawasan_medis" value="{{ old('pengawasan_medis', $ppdb->pengawasan_medis) }}" placeholder="Jika ada, tuliskan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
-               </div>
+                            <!-- Cedera Serius -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Cedera Serius</label>
+                                <input type="text" name="cedera_serius" value="{{ old('cedera_serius', $ppdb->cedera_serius) }}" placeholder="Jika ada, tuliskan"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Nama Ayah -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ayah</label>
+                                <input type="text" name="nama_ayah" value="{{ old('nama_ayah', $ppdb->nama_ayah) }}" placeholder="Nama Lengkap Ayah"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Pekerjaan Ayah -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ayah</label>
+                                <input type="text" name="pekerjaan_ayah" value="{{ old('pekerjaan_ayah', $ppdb->pekerjaan_ayah) }}" placeholder="Pekerjaan Ayah"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Nomor HP Ayah -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ayah</label>
+                                <input type="text" name="no_hp_ayah" value="{{ old('no_hp_ayah', $ppdb->no_hp_ayah) }}" placeholder="Nomor HP Ayah"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Nama Ibu -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Ibu</label>
+                                <input type="text" name="nama_ibu" value="{{ old('nama_ibu', $ppdb->nama_ibu) }}" placeholder="Nama Lengkap Ibu"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Pekerjaan Ibu -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Pekerjaan Ibu</label>
+                                <input type="text" name="pekerjaan_ibu" value="{{ old('pekerjaan_ibu', $ppdb->pekerjaan_ibu) }}" placeholder="Pekerjaan Ibu"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- Nomor HP Ibu -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nomor HP Ibu</label>
+                                <input type="text" name="no_hp_ibu" value="{{ old('no_hp_ibu', $ppdb->no_hp_ibu) }}" placeholder="Nomor HP Ibu"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
+
+                            <!-- KK -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kartu Keluarga (KK)</label>
+                                @if($ppdb->kk)
+                                    <a href="{{ asset('storage/'.$ppdb->kk) }}" target="_blank" class="text-blue-500 underline block mb-2">Lihat KK</a>
+                                @endif
+                                <input type="file" name="kk"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" accept="image/*,.pdf" />
+                            </div>
+
+                            <!-- Akta Lahir -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Akta Lahir</label>
+                                @if($ppdb->akta_lahir)
+                                    <a href="{{ asset('storage/'.$ppdb->akta_lahir) }}" target="_blank" class="text-blue-500 underline block mb-2">Lihat Akta</a>
+                                @endif
+                                <input type="file" name="akta_lahir"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" accept="image/*,.pdf" />
+                            </div>
+
+                            <!-- KTP Orang Tua -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">KTP Orang Tua</label>
+                                @if($ppdb->ktp_ortu)
+                                    <a href="{{ asset('storage/'.$ppdb->ktp_ortu) }}" target="_blank" class="text-blue-500 underline block mb-2">Lihat KTP</a>
+                                @endif
+                                <input type="file" name="ktp_ortu"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" accept="image/*,.pdf" />
+                            </div>
+
+                            <!-- Status Pendaftaran -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>
+                                <select name="status"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
+                                    <option value="">Pilih Status</option>
+                                    <option value="diterima" @selected(old('status', $ppdb->status) == 'diterima')>Diterima</option>
+                                    <option value="ditolak" @selected(old('status', $ppdb->status) == 'ditolak')>Ditolak</option>
+                                    <option value="menunggu" @selected(old('status', $ppdb->status) == 'menunggu')>Menunggu</option>
+                                </select>
+                            </div>
+
+                            <!-- Status Pembayaran -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pembayaran</label>
+                                <select name="status_pembayaran"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
+                                    <option value="">Pilih Status</option>
+                                    <option value="lunas" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'lunas')>Lunas</option>
+                                    <option value="belum_bayar" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'belum_bayar')>Belum Lunas</option>
+                                </select>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="flex items-center justify-end gap-4">
+                                <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                    Simpan
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-         </div>
-         </form>
+        </form>
       </div>
    </main>
+    @section('script')
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script>
+        var lat = {{ old('latitude', $ppdb->latitude ?? -6.403) }};
+        var lng = {{ old('longitude', $ppdb->longitude ?? 106.999) }};
+        var map = L.map('map').setView([lat, lng], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
+        var marker = L.marker([lat, lng], {draggable: true}).addTo(map);
+
+        function updateInput(latlng) {
+            document.getElementById('latitude').value = latlng.lat;
+            document.getElementById('longitude').value = latlng.lng;
+        }
+        updateInput(marker.getLatLng());
+
+        marker.on('dragend', function(e) {
+            updateInput(marker.getLatLng());
+        });
+
+        L.Control.geocoder({
+            defaultMarkGeocode: false
+        }).on('markgeocode', function(e) {
+            var center = e.geocode.center;
+            map.setView(center, 16);
+            marker.setLatLng(center);
+            updateInput(center);
+        }).addTo(map);
+    </script>
+    @endsection
 </x-layout>
