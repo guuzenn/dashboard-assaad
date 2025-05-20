@@ -34,9 +34,6 @@
     <!-- Right Login Section -->
     <div class="w-full md:w-1/2 flex flex-col items-center justify-center px-6 sm:px-10 py-10 relative">
 
-      <!-- Close Button -->
-      <div class="absolute top-4 right-4 text-xl text-gray-700 cursor-pointer hover:text-black md:block hidden">&times;</div>
-
       <!-- Form -->
       <form method="POST" action="{{ route('login') }}" class="space-y-4 w-full max-w-sm">
         @csrf
