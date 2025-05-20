@@ -87,7 +87,7 @@ class PPDBController extends Controller
 
     public function update(Request $request, $id)
     {
-        $ppdb = CalonSiswa::findOrFail($id);
+
         // $ppdb->user = User::findOrFail($ppdb->user_id);
 
         $validated = $request->validate([
@@ -125,7 +125,7 @@ class PPDBController extends Controller
             'status' => 'nullable|in:menunggu,diterima,ditolak',
             'status_pembayaran' => 'nullable|in:belum_lunas,lunas',
         ]);
-
+ $ppdb = CalonSiswa::findOrFail($id);
         // Update file hanya jika file baru diupload
         if ($request->hasFile('kk')) {
             if ($ppdb->kk) Storage::disk('public')->delete($ppdb->kk);
@@ -142,7 +142,43 @@ class PPDBController extends Controller
             $validated['ktp_ortu'] = $request->file('ktp_ortu')->store('images/berkas', 'public');
         }
 
-        $ppdb->update($validated);
+        // $ppdb->update($validated);
+
+        $ppdb->update([
+            'nama_lengkap' => $validated['nama_lengkap'],
+            'nama_panggilan' => $validated['nama_panggilan'],
+            'jenjang_kelas' => $validated['jenjang_kelas'],
+            'tempat_lahir' => $validated['tempat_lahir'],
+            'tanggal_lahir' => $validated['tanggal_lahir'],
+            'usia' => $validated['usia'],
+            'jenis_kelamin' => $validated['jenis_kelamin'],
+            'agama' => $validated['agama'],
+            'anak_ke' => $validated['anak_ke'],
+            'status_dalam_keluarga' => $validated['status_dalam_keluarga'],
+            'jumlah_saudara' => $validated['jumlah_saudara'],
+            'provinsi' => $validated['provinsi'],
+            'kabupaten_kota' => $validated['kabupaten_kota'],
+            'kecamatan' => $validated['kecamatan'],
+            'desa_kelurahan' => $validated['desa_kelurahan'],
+            'alamat_lengkap' => $validated['alamat_lengkap'],
+            'latitude' => $validated['latitude'],
+            'longitude' => $validated['longitude'],
+            'kk' => $validated['kk'] ?? $ppdb->kk,
+            'akta_lahir' => $validated['akta_lahir'] ?? $ppdb->akta_lahir,
+            'ktp_ortu' => $validated['ktp_ortu'] ?? $ppdb->ktp_ortu,
+            'penyakit_bawaan' => $validated['penyakit_bawaan'] ?? null,
+            'alergi' => $validated['alergi'] ?? null,
+            'pengawasan_medis' => $validated['pengawasan_medis'] ?? null,
+            'cedera_serius' => $validated['cedera_serius'] ?? null,
+            'nama_ibu' => $validated['nama_ibu'],
+            'no_hp_ibu' => $validated['no_hp_ibu'],
+            'pekerjaan_ibu' => $validated['pekerjaan_ibu'],
+            'nama_ayah' => $validated['nama_ayah'],
+            'no_hp_ayah' => $validated['no_hp_ayah'],
+            'pekerjaan_ayah' => $validated['pekerjaan_ayah'],
+            'status' => $validated['status'] ?? $ppdb->status,
+            'status_pembayaran' => $validated['status_pembayaran'] ?? $ppdb->status_pembayaran,
+        ]);
 
         // $ppdb->refresh();
 

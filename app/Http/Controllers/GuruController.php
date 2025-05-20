@@ -13,7 +13,8 @@ class GuruController extends Controller
     public function index()
     {
         // Dummy data
-        $guru = Guru::get();
+
+        $guru = Guru::with('kelas')->get();
         $guru1 = collect([
             (object)[
                 'id' => 1,
