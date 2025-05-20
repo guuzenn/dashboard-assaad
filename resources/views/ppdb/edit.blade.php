@@ -371,7 +371,7 @@
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none">
                                     <option value="">Pilih Status</option>
                                     <option value="lunas" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'lunas')>Lunas</option>
-                                    <option value="belum_bayar" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'belum_bayar')>Belum Lunas</option>
+                                    <option value="belum lunas" @selected(old('status_pembayaran', $ppdb->status_pembayaran) == 'belum lunas')>Belum Lunas</option>
                                 </select>
                             </div>
 

@@ -121,6 +121,7 @@ class SiswaPPDBController extends Controller
 
             // Status
             'status' => 'menunggu',
+            'status_pembayaran' => 'belum_lunas',
         ]);
 
         return redirect()->route('pengumuman')->with('success', 'Formulir berhasil disimpan!');
