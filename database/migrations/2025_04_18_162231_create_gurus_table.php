@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('alamat');
             $table->bigInteger('no_hp');
+            $table->string('foto')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

@@ -108,7 +108,7 @@
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Tambah Guru</h4>
 
          <!-- Form Elements Section Start -->
-         <form action="{{ route('data.guru.store') }}" method="POST">
+         <form action="{{ route('data.guru.store') }}" method="POST" enctype="multipart/form-data">
          @csrf
          <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
             <div class="flex flex-col gap-9">
@@ -235,6 +235,12 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <!-- Foto -->
+                        <div>
+                        <label class="mb-3 block text-sm font-medium text-black dark:text-white">Foto Guru</label>
+                        <input type="file" name="foto" value="{{ old('foto') }}"
+                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
 
                         <!-- Submit Button -->
                         <div class="flex items-center justify-end gap-4">

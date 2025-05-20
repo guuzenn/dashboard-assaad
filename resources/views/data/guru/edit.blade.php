@@ -116,7 +116,7 @@
                         <h3 class="font-medium text-black dark:text-white">Form Edit Guru</h3>
                     </div>
                     <div class="flex flex-col gap-5.5 p-6.5">
-                        <form action="{{ route('data.guru.update', $guru->id) }}" method="POST">
+                        <form action="{{ route('data.guru.update', $guru->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                         <!-- Nama -->
@@ -239,6 +239,17 @@
                             @error('no_hp')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
+                        </div>
+
+
+                        <!-- Foto -->
+                        <div class="pt-4">
+                            <label class="mb-3 block text-sm font-medium text-black dark:text-white">Foto Guru</label>
+                            @if($guru->foto)
+                                <a href="{{ asset('storage/'.$guru->foto) }}" target="_blank" class="text-blue-500 underline block mb-2">Foto</a>
+                            @endif
+                            <input type="file" name="foto"
+                                class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" accept="image/*,.pdf" />
                         </div>
 
                         <!-- Submit Button -->

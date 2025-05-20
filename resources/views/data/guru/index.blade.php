@@ -144,7 +144,7 @@
                         <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
                         <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
-                        <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th>
+                        {{-- <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th> --}}
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">No. HP</th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                      </tr>
@@ -155,7 +155,7 @@
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama}}</td>
+                        {{-- <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas}}</td> --}}
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->no_hp }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <form action="{{ route('data.guru.destroy', $item->id) }}" method="POST">

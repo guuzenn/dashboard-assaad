@@ -38,6 +38,7 @@ class GuruSeeder extends Seeder
                 'alamat' => "Jl. Pendidikan No.". ($index+1),
                 'no_hp' => "08123456700".($index+1),
                 'user_id' => $user->id,
+                'foto' => null, // atau path ke foto default
             ]);
 
             // 3. Update guru_id pada kelas tersebut
