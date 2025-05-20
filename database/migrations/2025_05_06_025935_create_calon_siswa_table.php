@@ -58,7 +58,7 @@ return new class extends Migration
             $table->string('ktp_ortu')->nullable();
 
             $table->enum('status', ['menunggu', 'diterima', 'ditolak'])->default('menunggu');
-            $table->string('status_pembayaran')->default('belum lunas');
+            $table->string('status_pembayaran')->default('belum_lunas');
             $table->timestamps();
         });
     }

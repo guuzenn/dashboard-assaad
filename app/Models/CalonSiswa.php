@@ -64,7 +64,7 @@ class CalonSiswa extends Model
      * @var array
      */
     protected $casts = [
-        'tanggal_lahir' => 'date',
+
     ];
 
     /**
