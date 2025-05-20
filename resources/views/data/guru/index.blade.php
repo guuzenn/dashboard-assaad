@@ -155,8 +155,7 @@
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas}}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas}}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama}}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->no_hp }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <form action="{{ route('data.guru.destroy', $item->id) }}" method="POST">

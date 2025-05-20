@@ -4,34 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AkunController extends Controller
 {
-    // private $akunData = [
-    //     1 => [
-    //         'id' => 1,
-    //         'nama' => 'John Doe',
-    //         'email' => 'john.doe@example.com',
-    //         'role' => 'Admin',
-    //         'no_hp' => '081234567890',
-    //         'kelas' => 'Kelas A',
-    //         'status' => 'aktif',
-    //     ],
-    //     2 => [
-    //         'id' => 2,
-    //         'nama' => 'Jane Smith',
-    //         'email' => 'jane.smith@example.com',
-    //         'role' => 'Guru',
-    //         'no_hp' => '082345678901',
-    //         'kelas' => 'Kelas B',
-    //         'status' => 'nonaktif',
-    //     ],
-    // ];
-
     public function index()
     {
         // Ambil semua data user
-        $akun = User::all();
+        $akun = User::whereNotIn('role', ['admin'])->get();
 
         // Kirim data ke view
         return view('admin.akun.index', compact('akun'));
@@ -46,12 +26,15 @@ class AkunController extends Controller
     {
         // Mendapatkan ID baru untuk akun
 
-        User::created([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => $request->role,
-            'status' => $request->status ?? 'nonaktif',
-        ]);
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'role' => 'required|in:admin,guru,siswa,public',
+         ]);
+
+        $validated['password'] = Hash::make($validated['password']);
+        User::create($validated);
 
         return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil ditambahkan');
     }
@@ -76,19 +59,19 @@ class AkunController extends Controller
 
     public function update(Request $request, $id)
     {
-        // if (!isset($this->akunData[$id])) {
-        //     abort(404, 'Akun tidak ditemukan');
-        // }
+         $validated = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'role' => 'required|in:admin,guru,siswa,public',
+            // 'is_active' => 'required|boolean',
+        ]);
 
-        // $this->akunData[$id] = [
-        //     'id' => $id,
-        //     'nama' => $request->nama,
-        //     'email' => $request->email,
-        //     'role' => $request->role,
-        //     'no_hp' => $request->no_hp,
-        //     'kelas' => $request->kelas,
-        //     'status' => $request->status ?? 'nonaktif'
-        // ];
+        if ($request->filled('password')) {
+            $validated['password'] = Hash::make($request->password);
+        }
+
+        $user = User::findOrFail($id);
+        $user->update($validated);
 
         return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil diupdate');
     }
@@ -110,11 +93,7 @@ class AkunController extends Controller
 
     public function destroy($id)
     {
-        if (isset($this->akunData[$id])) {
-            unset($this->akunData[$id]);
-            return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil dihapus');
-        }
-
-        return redirect()->route('admin.akun.index')->with('error', 'Akun tidak ditemukan');
+        User::findOrFail($id)->delete();
+        return redirect()->route('admin.akun.index')->with('success', 'Akun berhasil dihapus');
     }
 }

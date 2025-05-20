@@ -226,7 +226,7 @@
                               {{ $item->status_pembayaran }}
                            </p>
                         </td> --}}
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->kelas->nama ?? "-"}}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <form action="{{route('data.murid.destroy', $item->id)}}" method="POST">
                                 @csrf
