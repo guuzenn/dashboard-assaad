@@ -125,6 +125,12 @@
                                 <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $ppdb->nama_lengkap) }}" placeholder="Masukkan Nama Lengkap"
                                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
                             </div>
+                            <!-- Nama Panggilan -->
+                            <div>
+                                <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nama Panggilan</label>
+                                <input type="text" name="nama_panggilan" value="{{ old('nama_panggilan', $ppdb->nama_panggilan) }}" placeholder="Masukkan Nama Lengkap"
+                                    class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none" />
+                            </div>
 
                             <!-- Jenjang Kelas -->
                             <div>
