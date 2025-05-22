@@ -13,6 +13,7 @@ class cicilan extends Model
     protected $fillable =[
         'riwayat_id',
         'pengajuan_id',
+        'midtrans_order_id',
         'tanggal_tempo',
         'tanggal_bayar',
         'metode',

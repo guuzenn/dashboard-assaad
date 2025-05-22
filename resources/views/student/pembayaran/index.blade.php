@@ -164,7 +164,7 @@
                             @endforeach --}}
                             @php $no = 1; @endphp
                             @foreach ($tagihan as $index => $item)
-                                @if ($item->status === 'cicilan' && $item->cicilan->count())
+                                @if ($item->status === 'cicilan' || 'Cicilan' && $item->cicilan->count())
                                     @foreach ($item->cicilan as $i => $cicilan)
                                         <tr>
                                              <td class="border-b px-4 py-5">{{ $no++ }}</td>
@@ -179,7 +179,7 @@
                                             </td>
                                             <td class="border-b px-4 py-5">
                                                 @if($cicilan->status != 'Lunas')
-                                                    <a href="{{ route('student.pembayaran.bayar', $cicilan->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                                    <a href="{{ route('student.pembayaran.bayar.cicilan',  $cicilan->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
                                                         Bayar
                                                     </a>
                                                 @else
@@ -201,7 +201,7 @@
                                             </p>
                                         </td>
                                         <td class="border-b px-4 py-5">
-                                            <a href="{{ route('student.pembayaran.bayar', $item->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                            <a href="{{ route('student.pembayaran.bayar.penuh', $item->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
                                                 Bayar
                                             </a>
                                         </td>

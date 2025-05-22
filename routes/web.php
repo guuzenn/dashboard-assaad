@@ -280,7 +280,8 @@ Route::prefix('student')->name('student.')->group(function () {
 
     Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
         Route::get('/', [StudentPembayaranController::class, 'index'])->name('index');
-        Route::get('/{id}', [StudentPembayaranController::class, 'bayar'])->name('bayar');
+        Route::get('/bayar/{id}', [StudentPembayaranController::class, 'bayarPenuh'])->name('bayar.penuh');
+        Route::get('/bayar-cicilan/{id}', [StudentPembayaranController::class, 'bayarCicilan'])->name('bayar.cicilan');
         Route::post('/midtrans/callback', [StudentPembayaranController::class, 'callback'])
         ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
         Route::get('/cicilan/list', action: [StudentCicilanController::class,'index'])->name('cicilan.index');

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_tempo')->nullable();
             $table->date('tanggal_bayar')->nullable();
             $table->string('metode')->nullable();
+            $table->string('midtrans_order_id')->nullable();
             $table->integer('nominal');
             $table->string('status')->default('belum lunas'); // menunggu, disetujui, ditolak
             $table->timestamps();
