@@ -57,6 +57,8 @@ Route::middleware('auth')->group(function () {
     })->name('siswa.dashboard')->middleware('role:siswa');
 });
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 // Route Prefix Compro
 Route::prefix('compro')->name('compro.')->group(function () {
     Route::get('/beranda', function () {

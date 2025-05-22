@@ -138,7 +138,7 @@
                                 <ul class="list-disc list-inside ml-4 mt-1 space-y-0.5">
                                     <li>Scan Akta Kelahiran</li>
                                     <li>Scan Kartu Keluarga</li>
-                                    <li>Foto anak ukuran 3x4 (Pastikan file dalam format JPG, PNG, atau PDF dan ukuran tidak melebihi 2MB)</li>
+                                    <li>Foto salah satu KTP Orangtua (Pastikan file dalam format JPG, PNG, atau PDF dan ukuran tidak melebihi 2MB)</li>
                                 </ul>
                             </div>
                         </div>

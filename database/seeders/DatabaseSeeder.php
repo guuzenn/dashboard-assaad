@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SiswaSeeder::class);
 
-        $this->call(CalonSiswaSeeder::class);
+        // $this->call(CalonSiswaSeeder::class);
 
 
     }

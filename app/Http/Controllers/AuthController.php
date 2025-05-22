@@ -47,7 +47,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'guru') {
                 return redirect()->route('data.murid.index');
             } else {
-                return redirect()->route('beranda'); // Default for siswa. Redirect to the PPFB prefix
+                return redirect()->route('student.dashboard'); // Default for siswa. Redirect to the PPFB prefix
             }
         } else {
             return redirect()->back()->with('error', 'Invalid credentials.')->withInput();
@@ -55,20 +55,20 @@ class AuthController extends Controller
     }
 
     public function loginStudent(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+{
+    $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            // Only allow "calon siswa"
-            if ($user->role !== 'calon siswa') {
-                Auth::logout();
-                return back()->withErrors(['email' => 'Akun bukan siswa.']);
-            }
-            return redirect()->route('beranda');
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        // Hanya izinkan siswa dan calon siswa
+        if (!in_array($user->role, ['siswa', 'calon siswa'])) {
+            Auth::logout();
+            return back()->withErrors(['email' => 'Akun bukan siswa atau calon siswa.']);
         }
-        return back()->withErrors(['email' => 'Email atau password salah.']);
+        return redirect()->route('beranda');
     }
+    return back()->withErrors(['email' => 'Email atau password salah.']);
+}
 
 
     public function logout(Request $request)

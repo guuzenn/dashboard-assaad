@@ -79,6 +79,14 @@
                     <h1 class="text-2xl font-bold text-[#388E3C]">Formulir Pendaftaran</h1>
                     <p class="text-gray-500 mt-2">Isilah formulir dengan data yang benar dan pastikan semua terisi.</p>
 
+                    {{-- Pesan error jika sudah pernah daftar --}}
+                    <p class="text-gray-500 mt-2">Jika ada kesalahan dalam pengisian formulir, silakan hubungi admin.</p>
+                    @if (session('error'))
+                        <div class="bg-red-100 text-red-700 p-3 rounded mb-4">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <!-- Form Card -->
                     <div class="bg-white mt-6 rounded-2xl shadow-md">
                         <div class="bg-[#388E3C] text-white py-3 px-6 rounded-t-2xl">

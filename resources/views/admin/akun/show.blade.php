@@ -99,12 +99,11 @@
                 <p class="text-sm text-slate-500 mb-1">Role</p>
                 <p class="text-base font-medium text-black dark:text-white">{{ ucfirst($akun->role) }}</p>
             </div>
-            <!-- Status -->
+            <!-- Tanggal Dibuat -->
             <div class='mb-4'>
-                <p class="text-sm text-slate-500 mb-1">Status</p>
-                <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                    {{ $akun->status == 'aktif' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">
-                    {{ ucfirst($akun->status ?? 'tidak aktif') }}
+                <p class="text-sm text-slate-500 mb-1">Tanggal Dibuat</p>
+                <span class="inline-flex rounded-full px-3 py-1 text-sm font-medium bg-info bg-opacity-10 text-info">
+                    {{ $akun->created_at ? $akun->created_at->format('d-m-Y H:i') : '-' }}
                 </span>
             </div>
                <!-- Tombol Kembali -->

@@ -203,7 +203,19 @@ class PPDBController extends Controller
                 'longitude' => $ppdb->longitude,
                 'user_id' => $ppdb->user_id,
             ]);
+        } else {
+            // Jika status bukan diterima, ubah role user ke 'calon siswa'
+            $ppdb->user->update(['role' => 'calon siswa']);
         }
+        // Hapus data dari tabel siswa jika status ditolak
+        if ($request['status'] === 'ditolak') {
+            $siswa = Siswa::where('user_id', $ppdb->user_id)->first();
+            if ($siswa) {
+                // Hapus data siswa
+                $siswa->delete();
+            }
+        }
+
 
         return redirect()->route('ppdb.index')->with('success', 'Data berhasil diupdate!');
     }
