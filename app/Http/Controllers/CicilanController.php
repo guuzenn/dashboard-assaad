@@ -2,78 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cicilan;
+use App\Models\PengajuanCicilan;
 use Illuminate\Http\Request;
 
 class CicilanController extends Controller
 {
     public function index()
     {
-        $cicilan = [
-            [
-                'id' => 1,
-                'siswa' => 'Alya Zahra',
-                'jenis_tagihan' => 'SPP Juli',
-                'nominal' => 150000,
-                'jumlah_termin' => 3,
-                'catatan' => 'Orang tua sedang ada kebutuhan mendesak.',
-                'status' => 'Pending',
-            ],
-            [
-                'id' => 2,
-                'siswa' => 'Rafi Maulana',
-                'jenis_tagihan' => 'Daftar Ulang',
-                'nominal' => 250000,
-                'jumlah_termin' => 2,
-                'catatan' => 'Meminta keringanan karena baru pindah.',
-                'status' => 'Disetujui',
-            ],
-            [
-                'id' => 3,
-                'siswa' => 'Nabila Aisyah',
-                'jenis_tagihan' => 'Seragam',
-                'nominal' => 200000,
-                'jumlah_termin' => 4,
-                'catatan' => 'Penghasilan orang tua tidak tetap.',
-                'status' => 'Ditolak',
-            ],
-        ];
 
+        $cicilan = PengajuanCicilan::get();
         return view('pembayaran.cicilan.index', compact('cicilan'));
     }
 
     public function show($id)
     {
 
-        $cicilan = [
-            'id' => $id,
-            'siswa' => 'Rafi Maulana',
-            'jenis_tagihan' => 'Daftar Ulang',
-            'total_tagihan' => 250000,
-            'jumlah_termin' => 2,
-            'status' => 'Disetujui',
-        ];
+        // $cicilan = [
+        //     'id' => $id,
+        //     'siswa' => 'Rafi Maulana',
+        //     'jenis_tagihan' => 'Daftar Ulang',
+        //     'total_tagihan' => 250000,
+        //     'jumlah_termin' => 2,
+        //     'status' => 'Disetujui',
+        // ];
 
         // Dummy termin cicilan
-        $termin = [
-            [
-                'termin_ke' => 1,
-                'nominal' => 125000,
-                'jatuh_tempo' => '2024-07-15',
-                'status' => 'Lunas',
-                'tanggal_bayar' => '2024-07-10',
-                'metode' => 'Cash',
-            ],
-            [
-                'termin_ke' => 2,
-                'nominal' => 125000,
-                'jatuh_tempo' => '2024-08-15',
-                'status' => 'Belum Bayar',
-                'tanggal_bayar' => null,
-                'metode' => null,
-            ],
-        ];
+        $cicilan = Cicilan::with('pengajuan')->where('pengajuan_id',$id)->get();
+        $pengajuan = PengajuanCicilan::findOrFail($id);
+        return view('pembayaran.cicilan.show', compact('cicilan', 'pengajuan'));
+    }
 
-        return view('pembayaran.cicilan.show', compact('cicilan', 'termin'));
+    public function create($id)
+    {
+        $cicilan = PengajuanCicilan::findOrFail($id);
+        return view('pembayaran.cicilan.create', compact('cicilan'));
+    }
+
+    public function tolak($id)
+    {
+        $pengajuan = PengajuanCicilan::findOrFail($id);
+        $pengajuan->status = 'Ditolak';
+        $pengajuan->save();
+
+        return back()->with('error', 'Pengajuan cicilan ditolak.');
+    }
+
+   public function setujui(Request $request, $pengajuanId)
+    {
+        $request->validate([
+            'cicilan' => 'required|array',
+            'cicilan.*.nominal' => 'required|numeric',
+            'cicilan.*.tanggal_tempo' => 'required|date',
+        ]);
+
+        $pengajuan = PengajuanCicilan::with('riwayat')->findOrFail($pengajuanId);
+
+        // Tandai pengajuan disetujui
+        $pengajuan->status = 'Disetujui';
+        $pengajuan->save();
+
+        // Tandai riwayat sebagai memakai cicilan
+        $riwayat = $pengajuan->riwayat;
+        $riwayat-> status = 'cicilan';
+        $riwayat->save();
+
+        // Buat termin cicilan berdasarkan input admin
+        foreach ($request->cicilan as $c) {
+            Cicilan::create([
+                'riwayat_id' => $riwayat->id,
+                'pengajuan_id' => $pengajuan->id,
+                'nominal' => $c['nominal'],
+                'tanggal_tempo' => $c['tanggal_tempo'],
+                'status' => 'belum lunas'
+            ]);
+        }
+
+        return redirect()->route('pembayaran.cicilan.index')->with('success', 'Cicilan berhasil dibuat dan pengajuan disetujui.');
     }
 
 }

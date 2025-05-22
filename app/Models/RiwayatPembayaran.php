@@ -18,4 +18,10 @@ class RiwayatPembayaran extends Model
     public function tagihan() {
         return $this->belongsTo(TagihanPembayaran::class);
     }
+    public function pengajuan_cicilan(){
+        return $this->hasMany(PengajuanCicilan::class);
+    }
+    public function cicilan(){
+        return $this->hasMany(Cicilan::class, 'riwayat_id');
+    }
 }

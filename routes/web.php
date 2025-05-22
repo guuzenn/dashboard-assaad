@@ -219,13 +219,6 @@ Route::prefix('data/maps')->name('data.maps.')->group(function() {
 Route::prefix('konten')->name('konten.')->group(function () {
     // Visi Misi
     Route::resource('visi_misi', VisiMisiController::class);
-    // Route::get('visi_misi', [VisiMisiController::class, 'index'])->name('visi_misi.index');
-    // Route::get('visi_misi/create', [VisiMisiController::class, 'create'])->name('visi_misi.create');
-    // Route::post('visi_misi', [VisiMisiController::class, 'store'])->name('visi_misi.store');
-    // Route::get('visi_misi/{id}/edit', [VisiMisiController::class, 'edit'])->name('visi_misi.edit');
-    // Route::put('visi_misi/{id}', [VisiMisiController::class, 'update'])->name('visi_misi.update');
-    // Route::delete('visi_misi/{id}', [VisiMisiController::class, 'destroy'])->name('visi_misi.destroy');
-
     // Kegiatan
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan.index');
     Route::get('kegiatan/create', [KegiatanController::class, 'create'])->name('kegiatan.create');
@@ -248,8 +241,9 @@ Route::prefix('admin/pembayaran')->name('pembayaran.')->group(function () {
     Route::prefix('cicilan')->name('cicilan.')->group(function () {
         Route::get('/', [CicilanController::class, 'index'])->name('index');
         Route::get('/{id}', [CicilanController::class, 'show'])->name('show');
-        Route::post('/{id}/approve', [CicilanController::class, 'approve'])->name('approve');
-        Route::post('/{id}/reject', [CicilanController::class, 'reject'])->name('reject');
+        Route::post('/{id}/setujui', [CicilanController::class, 'setujui'])->name('setujui');
+        Route::post('/{id}/tolak', [CicilanController::class, 'tolak'])->name('tolak');
+        Route::get('/{id}/buat-cicilan', [CicilanController::class, 'create'])->name('create');
     });
 
     Route::get('/{tagihan}', [PembayaranController::class, 'show'])
@@ -285,9 +279,9 @@ Route::prefix('student')->name('student.')->group(function () {
     Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
         Route::get('/', [StudentPembayaranController::class, 'index'])->name('index');
         Route::get('/{id}', [StudentPembayaranController::class, 'bayar'])->name('bayar');
-        Route::post('/midtrans/callback', [StudentPembayaranController::class, 'callback'])->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
-
-        Route::get('/cicilan', [StudentCicilanController::class, 'index'])->name('cicilan.index');
+        Route::post('/midtrans/callback', [StudentPembayaranController::class, 'callback'])
+        ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+        Route::get('/cicilan/list', action: [StudentCicilanController::class,'index'])->name('cicilan.index');
         Route::get('/cicilan/create', [StudentCicilanController::class, 'create'])->name('cicilan.create');
         Route::post('/cicilan', [StudentCicilanController::class, 'store'])->name('cicilan.store');
     });

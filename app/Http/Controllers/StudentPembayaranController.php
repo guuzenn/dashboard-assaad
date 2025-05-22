@@ -10,12 +10,24 @@ use Illuminate\Support\Facades\Log;
 
 class StudentPembayaranController extends Controller
 {
+    // public function index()
+    // {
+    //     $siswa = Auth::user()->siswa;
+    //     $tagihan = RiwayatPembayaran::with('tagihan')->where('siswa_id', $siswa->id)->get();
+    //     return view('student.pembayaran.index', compact('tagihan'));
+    // }
+
     public function index()
-    {
-        $siswa = Auth::user()->siswa;
-        $tagihan = RiwayatPembayaran::with('tagihan')->where('siswa_id', $siswa->id)->get();
-        return view('student.pembayaran.index', compact('tagihan'));
-    }
+{
+    $siswa = Auth::user()->siswa;
+
+    $tagihan = RiwayatPembayaran::with(['tagihan', 'cicilan']) // tambahkan relasi cicilan
+        ->where('siswa_id', $siswa->id)
+        ->get();
+
+    return view('student.pembayaran.index', compact('tagihan'));
+}
+
 
     public function bayar($id)
     {
@@ -54,18 +66,19 @@ class StudentPembayaranController extends Controller
 
     public function callback(Request $request)
     {
-        Log::info('Callback masuk:', $request->all());
-    $serverKey = config('midtrans.serverKey');
-    $signature = hash('sha512',
-        $request->order_id .
-        $request->status_code .
-        $request->gross_amount .
-        $serverKey
+
+        $serverKey = config('midtrans.serverKey');
+        $signature = hash('sha512',
+            $request->order_id .
+            $request->status_code .
+            $request->gross_amount .
+            $serverKey
     );
 
     if ($signature !== $request->signature_key) {
         return response(['message' => 'Invalid signature'], 403);
     }
+
 
     $pembayaran = RiwayatPembayaran::where('midtrans_order_id', $request->order_id)->first();
 

@@ -106,14 +106,14 @@
                                 <!-- Jenis Tagihan -->
                                 <div class="mb-4">
                                     <label class="mb-2 block text-sm font-medium text-black dark:text-white">Jenis Tagihan</label>
-                                    <select name="jenis_tagihan"
+                                    <select name="riwayat_id"
                                         class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
                                         <option value="">Pilih Jenis</option>
                                         @foreach ($jenisTagihan as $jenis)
-                                            <option value="{{ $jenis }}">{{ $jenis }}</option>
+                                            <option value="{{ $jenis->id }}">{{ $jenis->tagihan->judul }} - {{ $jenis->tagihan->deskripsi}}</option>
                                         @endforeach
                                     </select>
-                                    @error('jenis_tagihan')
+                                    @error('riwayat_id')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -144,11 +144,11 @@
 
                                 <!-- Catatan -->
                                 <div class="mb-4">
-                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Catatan</label>
-                                    <textarea name="catatan"
-                                        placeholder="Tambahkan catatan jika perlu"
-                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('catatan') }}</textarea>
-                                    @error('catatan')
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alasan Pengajuan Cicilan</label>
+                                    <textarea name="alasan"
+                                        placeholder="Tambahkan alasan jika perlu"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alasan') }}</textarea>
+                                    @error('alasan')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>

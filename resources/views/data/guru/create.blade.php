@@ -192,7 +192,7 @@
                         </div>
 
                         <!-- Kelas yang Diajarkan -->
-                        <div>
+                        {{-- <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Kelas yang Diajarkan</label>
                             <select
                                 name="kelas_id"
@@ -206,7 +206,7 @@
                             @error('kelas')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
-                        </div>
+                        </div> --}}
 
                         <!-- Alamat -->
                         <div>

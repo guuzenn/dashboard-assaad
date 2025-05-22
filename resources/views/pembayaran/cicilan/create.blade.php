@@ -1,4 +1,4 @@
-<x-student-layout>
+<x-layout>
 <header class="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div class="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
          <div class="flex items-center gap-2 sm:gap-4 lg:hidden">
@@ -89,82 +89,94 @@
          </div>
       </div>
    </header>
-   <main>
-      <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-        <h4 class="text-lg font-bold text-black dark:text-white mb-4">Pengajuan Cicilan Saya</h4>
+    <main>
+        <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <h4 class="text-lg font-bold text-black dark:text-white mb-4">Ajukan Cicilan Baru</h4>
 
-         <!-- Table Cicilan -->
-         <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
-                <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-lg font-bold text-black dark:text-white">Daftar Cicilan Saya</h4>
-                    <div class="flex items-center gap-4">
-                        <div class="relative">
-                            <select class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary">
-                                <option value="">Jenis Pembayaran</option>
-                                <option value="SPP">SPP</option>
-                                <option value="Daftar Ulang">Daftar Ulang</option>
-                            </select>
-                            <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                                <svg width="14" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.47 1.09c0-.06 0-.13.07-.17.1-.1.26-.1.35 0L4.85 4.6c.07.08.2.08.3 0l3.94-3.7c.1-.1.26-.1.35 0 .1.1.1.26 0 .35l-3.94 3.7c-.28.25-.72.25-1 0L0.54 1.26c-.07-.06-.07-.11-.07-.17Z" fill="#637381"/>
-                                </svg>
-                            </span>
+            <div class="grid grid-cols-1 gap-9 sm:grid-cols-2">
+                <div class="flex flex-col gap-9">
+                    <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+                        <div class="border-b border-stroke px-6.5 py-4 dark:border-strokedark">
+                            <h3 class="font-medium text-black dark:text-white">Form Pengajuan Cicilan</h3>
                         </div>
-                        <div class="relative">
-                            <select class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary">
-                                <option value="">Semua Status</option>
-                                <option value="Lunas">Lunas</option>
-                                <option value="Belum Bayar">Belum Bayar</option>
-                                <option value="Cicilan">Cicilan</option>
-                            </select>
-                            <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                                <svg width="14" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0.47 1.09c0-.06 0-.13.07-.17.1-.1.26-.1.35 0L4.85 4.6c.07.08.2.08.3 0l3.94-3.7c.1-.1.26-.1.35 0 .1.1.1.26 0 .35l-3.94 3.7c-.28.25-.72.25-1 0L0.54 1.26c-.07-.06-.07-.11-.07-.17Z" fill="#637381"/>
-                                </svg>
-                            </span>
+                        <div class="flex flex-col gap-5.5 p-6.5">
+                            {{-- <form action="{{ route('student.pembayaran.cicilan.store') }}" method="POST">
+                                @csrf
+
+                                <!-- Jenis Tagihan -->
+                                <div class="mb-4">
+                                    <label class="mb-2 block text-sm font-medium text-black dark:text-white">Jenis Tagihan</label>
+                                    <select name="riwayat_id"
+                                        class="w-full appearance-none rounded-lg border-[1.5px] border-stroke bg-transparent px-5 pr-12 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">
+                                        <option value="">Pilih Jenis</option>
+                                        @foreach ($jenisTagihan as $jenis)
+                                            <option value="{{ $jenis->id }}">{{ $jenis->tagihan->judul }} - {{ $jenis->tagihan->deskripsi}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('riwayat_id')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Nominal Cicilan -->
+                                <div class="mb-4">
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Nominal Cicilan</label>
+                                    <input type="number" name="nominal"
+                                        placeholder="Masukkan nominal pengajuan"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                                        value="{{ old('nominal') }}">
+                                    @error('nominal')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Jumlah Termin -->
+                                <div class="mb-4">
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Jumlah Termin</label>
+                                    <input type="number" name="jumlah_termin"
+                                        placeholder="Berapa kali cicilan?"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary"
+                                        value="{{ old('jumlah_termin') }}">
+                                    @error('jumlah_termin')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Catatan -->
+                                <div class="mb-4">
+                                    <label class="mb-3 block text-sm font-medium text-black dark:text-white">Alasan Pengajuan Cicilan</label>
+                                    <textarea name="alasan"
+                                        placeholder="Tambahkan alasan jika perlu"
+                                        class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary">{{ old('alasan') }}</textarea>
+                                    @error('alasan')
+                                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <!-- Submit -->
+                                <div class="flex items-center justify-end gap-4 pt-4">
+                                    <button type="submit" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                        Ajukan Cicilan
+                                    </button>
+                                </div>
+                            </form> --}}
+                            <form action="{{ route('pembayaran.cicilan.setujui', $cicilan->id) }}" method="POST">
+                                @csrf
+                                @foreach(range(1, $cicilan->jumlah_termin) as $i)
+                                    <div class="mb-4">
+                                        <label>Cicilan ke-{{ $i }}</label>
+                                        <input type="number" name="cicilan[{{ $i }}][nominal]" placeholder="Nominal" required class="form-input">
+                                        <input type="date" name="cicilan[{{ $i }}][tanggal_tempo]" required class="form-input">
+                                    </div>
+                                @endforeach
+
+                                <button type="submit" class="btn btn-success">Setujui Cicilan</button>
+                            </form>
+
                         </div>
-                        <button
-                        class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
-                        @click="window.location.href='{{ route('student.pembayaran.cicilan.create') }}'"
-                        >
-                        Ajukan Cicilan
-                        </button>
                     </div>
                 </div>
-            <div class="max-w-full overflow-x-auto">
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr class="bg-gray-2 text-left dark:bg-meta-4">
-                            <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
-                            <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Tagihan</th>
-                            <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Jumlah Termin</th>
-                            <th class="min-w-[200px] px-4 py-4 font-medium text-black dark:text-white">Catatan</th>
-                            <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($cicilan as $index => $item)
-                        <tr>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                {{ $item->riwayat->tagihan->judul }} - Rp {{ number_format($item['nominal'], 0, ',', '.') }}
-                            </td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jumlah_termin'] }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['alasan'] }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                                    {{ $item['status'] == 'Disetujui'
-                                    ? 'bg-success bg-opacity-10 text-success'
-                                    : ($item['status'] == 'Ditolak' ? 'bg-danger bg-opacity-10 text-danger' : 'bg-warning bg-opacity-10 text-warning') }}">
-                                    {{ $item['status'] }}
-                                </p>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-         </div>
-      </div>
-   </main>
-</x-student-layout>
+        </div>
+    </main>
+</x-layout>

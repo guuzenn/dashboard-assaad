@@ -200,11 +200,4 @@ class PembayaranController extends Controller
         return view('pembayaran.riwayat', compact('riwayat'));
     }
 
-
-    // public function showBills()
-    // {
-    //     $siswa = auth()->user()->siswa;
-    //     $bills = RiwayatPembayaran::with('tagihan')->where('siswa_id', $siswa->id)->get();
-    //     return view('stupor.bills.index', compact('bills'));
-    // }
 }

@@ -122,9 +122,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        98
                      </h4>
-                     <span class="text-sm font-medium">TK A</span>
+                     <span class="text-sm font-medium">Rata-rata Nilai Semester Ganjil</span>
                   </div>
                </div>
             </div>
@@ -142,9 +142,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
+                        0
                      </h4>
-                     <span class="text-sm font-medium">TK B</span>
+                     <span class="text-sm font-medium">Rata-rata Nilai Semester Genap</span>
                   </div>
                </div>
             </div>
@@ -162,9 +162,9 @@
                         id="filter_tahun"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
                      >
-                        <option value="">Semua Kelas</option>
-                        <option value="A">TK A</option>
-                        <option value="B">TK B</option>
+                        <option value="">Semua Semester</option>
+                        <option value="ganjil">Ganjil</option>
+                        <option value="genap">Genap</option>
                      </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
@@ -187,7 +187,7 @@
                      class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
                      @click="window.location.href='{{ route('data.nilai.create', $id) }}'"
                   >
-                     Tambah Murid
+                     Tambah Nilai
                   </button>
                </div>
          </div>

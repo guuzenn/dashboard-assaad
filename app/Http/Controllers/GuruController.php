@@ -14,30 +14,13 @@ class GuruController extends Controller
     {
         // Dummy data
         $guru = Guru::get();
-        $guru1 = collect([
-            (object)[
-                'id' => 1,
-                'nama' => 'Hawa Nisya S.Pd',
-                'jenis_kelamin' => 'Perempuan',
-                'kelas' => 'TK A',
-                'no_hp' => '081234567890'
-            ],
-            (object)[
-                'id' => 2,
-                'nama' => 'Hadi Sudibyo S.Kom',
-                'jenis_kelamin' => 'Laki-laki',
-                'kelas' => 'TK B',
-                'no_hp' => '089876543210'
-            ],
-        ]);
-
         return view('data.guru.index', compact('guru'));
     }
 
     public function create()
     {
-        $kelas = Kelas::all();
-        return view('data.guru.create', compact('kelas'));
+        // $kelas = Kelas::all();
+        return view('data.guru.create');
     }
 
     public function store(Request $request ){
@@ -63,7 +46,7 @@ class GuruController extends Controller
             // 'kelas_id' => $request->kelas_id
         ]);
 
-        return redirect()->route('data.guru.index')->with('success', 'Kelas berhasil ditambahkan');
+        return redirect()->route('data.guru.index')->with('success', 'Data guru berhasil ditambahkan');
 
     }
 
@@ -97,8 +80,7 @@ class GuruController extends Controller
         ]);
 
 
-
-        return redirect()->route('data.guru.index')->with('success', 'Kelas berhasil diubah');
+        return redirect()->route('data.guru.index')->with('success', 'Data guru berhasil diubah');
 
     }
 
@@ -111,7 +93,7 @@ class GuruController extends Controller
     public function destroy($id)
     {
         Guru::find($id)->delete();
-        return redirect()->route('data.guru.index')->with('success', 'Guru berhasil dihapus');
+        return redirect()->route('data.guru.index')->with('success', 'Data guru berhasil dihapus');
     }
 
 }

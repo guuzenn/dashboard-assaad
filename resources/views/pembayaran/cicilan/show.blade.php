@@ -115,26 +115,26 @@
         <div class="p-6.5 grid grid-cols-1 gap-y-5 sm:grid-cols-2 sm:gap-x-8">
             <div>
             <p class="text-sm text-slate-500 mb-1">Nama Siswa</p>
-            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['siswa'] }}</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $pengajuan->riwayat->siswa->nama_lengkap }}</p>
             </div>
             <div>
             <p class="text-sm text-slate-500 mb-1">Jenis Tagihan</p>
-            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['jenis_tagihan'] }}</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $pengajuan->riwayat->tagihan->judul }}</p>
             </div>
             <div>
             <p class="text-sm text-slate-500 mb-1">Total Tagihan</p>
-            <p class="text-base font-medium text-black dark:text-white mb-4">Rp {{ number_format($cicilan['total_tagihan'], 0, ',', '.') }}</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">Rp {{ number_format($pengajuan->nominal, 0, ',', '.') }}</p>
             </div>
             <div>
             <p class="text-sm text-slate-500 mb-1">Jumlah Termin</p>
-            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $cicilan['jumlah_termin'] }}</p>
+            <p class="text-base font-medium text-black dark:text-white mb-4">{{ $pengajuan['jumlah_termin'] }}</p>
             </div>
             <div>
             <p class="text-sm text-slate-500 mb-1">Status</p>
             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
-                {{ $cicilan['status'] == 'Disetujui' ? 'bg-success bg-opacity-10 text-success' :
-                ($cicilan['status'] == 'Ditolak' ? 'bg-danger bg-opacity-10 text-danger' : 'bg-warning bg-opacity-10 text-warning') }}">
-                {{ $cicilan['status'] }}
+                {{ $pengajuan['status'] == 'Disetujui' ? 'bg-success bg-opacity-10 text-success' :
+                ($pengajuan['status'] == 'Ditolak' ? 'bg-danger bg-opacity-10 text-danger' : 'bg-warning bg-opacity-10 text-warning') }}">
+                {{ $pengajuan['status'] }}
             </p>
             </div>
         </div>
@@ -158,11 +158,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($termin as $item)
+                @foreach ($cicilan as $index => $item)
                 <tr>
-                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $item['termin_ke'] }}</td>
-                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') }}</td>
-                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $item['jatuh_tempo'] }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $index + 1 }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">Rp {{ number_format($item['nominal'], 0, ',', '.') ?? '-'  }}</td>
+                <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">{{ $item['tanggal_tempo'] ?? '-' }}</td>
                 <td class="border-b border-[#eee] px-4 py-4 dark:border-strokedark">
                     <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                     {{ $item['status'] == 'Lunas' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">

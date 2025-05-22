@@ -109,7 +109,7 @@
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data Cicilan</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
             <!-- Card Item Start -->
-            <div
+            {{-- <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                   <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24"
@@ -125,7 +125,7 @@
                      <span class="text-sm font-medium">Lunas</span>
                   </div>
                </div>
-            </div>
+            </div> --}}
             <!-- Card Item End -->
 
             <!-- Card Item Start -->
@@ -139,9 +139,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
+                        3
                      </h4>
-                     <span class="text-sm font-medium">Belum Bayar</span>
+                     <span class="text-sm font-medium">Cicilan</span>
                   </div>
                </div>
             </div>
@@ -228,12 +228,12 @@
                         @foreach ($cicilan as $index => $item)
                         <tr>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item['siswa'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{  $item->riwayat->siswa->nama_lengkap }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                                {{ $item['jenis_tagihan'] }} - Rp {{ number_format($item['nominal'], 0, ',', '.') }}
+                                {{ $item->riwayat->tagihan->judul }} - Rp {{ number_format($item['nominal'], 0, ',', '.') }}
                             </td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['jumlah_termin'] }}</td>
-                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['catatan'] }}</td>
+                            <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item['alasan'] }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                                     {{ $item['status'] == 'Disetujui'
@@ -245,7 +245,7 @@
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                                 <div class="flex items-center space-x-3.5">
                                     <!-- Button Show -->
-                                    <a href="{{ route('admin.pembayaran.cicilan.show', $item['id']) }}" class="hover:text-primary">
+                                    <a href="{{ route('pembayaran.cicilan.show', $item['id']) }}" class="hover:text-primary">
                                         <svg
                                             class="fill-current"
                                             width="18"
@@ -265,19 +265,22 @@
                                         </svg>
                                     </a>
                                     <!-- Button Approve -->
-                                    <button class="hover:text-success">
+                                    <a href="{{route('pembayaran.cicilan.create', $item->id)}}" class="hover:text-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" width="18" height="18" viewBox="0 0 24 24"
                                             fill="none">
                                             <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
                                         </svg>
-                                    </button>
+                                    </a>
                                     <!-- Button Reject -->
+                                    <form action="{{ route('pembayaran.cicilan.tolak', $item->id)}}" method="post">
+                                        @csrf
                                     <button class="hover:text-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="fill-current" width="18" height="18" viewBox="0 0 24 24"
                                             fill="none">
                                             <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
                                         </svg>
                                     </button>
+                                </form>
                                 </div>
                             </td>
                         </tr>
@@ -298,7 +301,7 @@
         confirmButtonColor: '#22c55e',
         color: '#000000',
         customClass: {
-        confirmButton: 'text-black' 
+        confirmButton: 'text-black'
     }
     });
 </script>

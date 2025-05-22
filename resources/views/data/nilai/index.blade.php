@@ -108,7 +108,7 @@
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Data Murid</h4>
          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-            <!-- Card Item Start -->
+            {{-- <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -127,9 +127,9 @@
                   </div>
                </div>
             </div>
-            <!-- Card Item End -->
+            <!-- Card Item End --> --}}
 
-            <!-- Card Item Start -->
+            {{-- <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -147,7 +147,7 @@
                   </div>
                </div>
             </div>
-            <!-- Card Item End -->
+            <!-- Card Item End --> --}}
          </div>
 
          <!-- List Murid -->
@@ -158,7 +158,7 @@
                <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
                <div class="flex items-center gap-4">
                   <div class="relative">
-                     <select
+                     {{-- <select
                         name="filter_tahun"
                         id="filter_tahun"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
@@ -166,7 +166,7 @@
                         <option value="">Semua Kelas</option>
                         <option value="A">TK A</option>
                         <option value="B">TK B</option>
-                     </select>
+                     </select> --}}
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -183,13 +183,6 @@
                         </svg>
                      </span>
                   </div>
-
-                  <button
-                     class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
-                     @click="window.location.href='{{ route('data.murid.create') }}'"
-                  >
-                     Tambah Murid
-                  </button>
                </div>
             </div>
             <!-- Table -->

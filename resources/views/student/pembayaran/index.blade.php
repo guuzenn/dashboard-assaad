@@ -140,7 +140,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tagihan as $index => $item)
+                            {{-- @foreach ($tagihan as $index => $item)
                             <tr>
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                                 <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tagihan->judul }}</td>
@@ -161,6 +161,52 @@
                                     </a>
                                 </td>
                             </tr>
+                            @endforeach --}}
+                            @php $no = 1; @endphp
+                            @foreach ($tagihan as $index => $item)
+                                @if ($item->status === 'cicilan' && $item->cicilan->count())
+                                    @foreach ($item->cicilan as $i => $cicilan)
+                                        <tr>
+                                             <td class="border-b px-4 py-5">{{ $no++ }}</td>
+                                            <td class="border-b px-4 py-5">Cicilan ke-{{ $i + 1 }} - {{ $item->tagihan->judul }}</td>
+                                            <td class="border-b px-4 py-5">Rp {{ number_format($cicilan->nominal, 0, ',', '.') }}</td>
+                                            <td class="border-b px-4 py-5">{{ $cicilan->tanggal_tempo }}</td>
+                                            <td class="border-b px-4 py-5">
+                                                <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                                                    {{ $cicilan->status == 'Lunas' ? 'bg-success bg-opacity-10 text-success' : 'bg-warning bg-opacity-10 text-warning' }}">
+                                                    {{ $cicilan->status }}
+                                                </p>
+                                            </td>
+                                            <td class="border-b px-4 py-5">
+                                                @if($cicilan->status != 'Lunas')
+                                                    <a href="{{ route('student.pembayaran.bayar', $cicilan->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                                        Bayar
+                                                    </a>
+                                                @else
+                                                    <span class="text-success">Sudah Dibayar</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                         <td class="border-b px-4 py-5">{{ $no++ }}</td>
+                                        <td class="border-b px-4 py-5">{{ $item->tagihan->judul }}</td>
+                                        <td class="border-b px-4 py-5">Rp {{ number_format($item->tagihan->nominal, 0, ',', '.') }}</td>
+                                        <td class="border-b px-4 py-5">{{ $item->tagihan->tanggal_tempo }}</td>
+                                        <td class="border-b px-4 py-5">
+                                            <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
+                                                {{ $item->status == 'Lunas' ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger' }}">
+                                                {{ $item->status }}
+                                            </p>
+                                        </td>
+                                        <td class="border-b px-4 py-5">
+                                            <a href="{{ route('student.pembayaran.bayar', $item->id) }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
+                                                Bayar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
