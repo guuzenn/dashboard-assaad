@@ -128,7 +128,6 @@
                            <option value="admin" @selected(old('role') == 'admin')>Admin</option>
                            <option value="guru" @selected(old('role') == 'guru')>Guru</option>
                            <option value="siswa" @selected(old('role') == 'siswa')>Siswa</option>
-                           <option value="public" @selected(old('role') == 'public')>Public</option>
                         </select>
                         @error('role')
                            <span class="text-red-500 text-sm">{{ $message }}</span>

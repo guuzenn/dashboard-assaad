@@ -111,6 +111,10 @@
                   <p class="text-sm text-slate-500 mb-1">No HP</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $guru->no_hp }}</p>
                </div>
+               <!-- Foto -->
+                <div>
+                    <p class="text-sm text-slate-500 mb-1">Foto</p>
+                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto Guru" class="w-32 h-32 object-cover rounded-md">
                <!-- Back Button -->
                <div class="sm:col-span-2 flex justify-end mt-6">
                   <a href="{{ route('data.guru.index') }}" class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth; // ✅ diperbaiki
 use App\Models\CalonSiswa;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class SiswaPPDBController extends Controller
 {
@@ -15,12 +16,41 @@ class SiswaPPDBController extends Controller
 
     public function formulir()
     {
+        $user = Auth::user();
+        $sudahDaftar = CalonSiswa::where('user_id', $user->id)->exists();
+
+        if ($sudahDaftar) {
+            return redirect()->route('pengumuman')->with('error', 'Anda sudah pernah mengisi formulir.');
+        }
+
         return view('webppdb.formulir');
     }
 
+    // public function pengumuman()
+    // {
+    //     $user = Auth::user();
+    //     $status = null;
+
+    //     if ($user->role === 'calon siswa') {
+    //         $calon = CalonSiswa::where('user_id', $user->id)->first();
+    //         $status = $calon ? $calon->status : null;
+    //     }
+
+    //     return view('webppdb.pengumuman', compact('status'));
+    // }
     public function pengumuman()
     {
-        return view('webppdb.pengumuman');
+        $user = auth()->user();
+        $status = null;
+        $sudahDaftar = false;
+
+        if ($user->role === 'calon siswa') {
+            $calon = \App\Models\CalonSiswa::where('user_id', $user->id)->first();
+            $status = $calon ? $calon->status : null;
+            $sudahDaftar = $calon ? true : false;
+        }
+
+        return view('webppdb.pengumuman', compact('status', 'sudahDaftar'));
     }
 
     public function store(Request $request)

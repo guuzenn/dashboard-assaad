@@ -62,11 +62,15 @@
    </header>
    <!-- ===== Header End ===== -->
 
-   @php
+    @php
         $totalAkun = $akun->count();
-        $totalAktif = $akun->where('status', 'aktif')->count();
-        $totalTidakAktif = $akun->where('status', '!=', 'aktif')->count();
-   @endphp
+        $totalGuruAdmin = $akun->filter(function($item) {
+            return in_array($item->role, ['admin', 'guru']);
+        })->count();
+        $totalAdmin = $akun->where('role', 'admin')->count();
+        $totalSiswa = $akun->where('role', 'siswa')->count();
+        $totalCalonSiswa = $akun->where('role', 'calon_siswa')->count();
+    @endphp
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -86,9 +90,9 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        {{ $totalAktif }}
+                        {{ $totalSiswa }}
                      </h4>
-                     <span class="text-sm font-medium">Akun Aktif</span>
+                     <span class="text-sm font-medium">Akun Siswa</span>
                   </div>
                </div>
             </div>
@@ -108,15 +112,37 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        {{ $totalTidakAktif }}
+                        {{ $totalCalonSiswa }}
                      </h4>
-                     <span class="text-sm font-medium">Akun Tidak Aktif</span>
+                     <span class="text-sm font-medium">Akun PPDB</span>
                   </div>
                </div>
             </div>
             <!-- Card Item End -->
 
-                        <!-- Card Item Start -->
+            <!-- Card Item Start -->
+            <div
+               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                    <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337 49.948 49.948 0 0 0-9.902 3.912l-.003.002c-.114.06-.227.119-.34.18a.75.75 0 0 1-.707 0A50.88 50.88 0 0 0 7.5 12.173v-.224c0-.131.067-.248.172-.311a54.615 54.615 0 0 1 4.653-2.52.75.75 0 0 0-.65-1.352 56.123 56.123 0 0 0-4.78 2.589 1.858 1.858 0 0 0-.859 1.228 49.803 49.803 0 0 0-4.634-1.527.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z" />
+                        <path d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282c.134 1.414.22 2.843.255 4.284a.75.75 0 0 1-.46.711 47.87 47.87 0 0 0-8.105 4.342.75.75 0 0 1-.832 0 47.87 47.87 0 0 0-8.104-4.342.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286.921.304 1.83.634 2.726.99v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11.452.213.901.434 1.346.66a6.727 6.727 0 0 0 .551-1.607 1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.667 2.25 2.25 0 0 0 2.12 0Z" />
+                        <path d="M4.462 19.462c.42-.419.753-.89 1-1.395.453.214.902.435 1.347.662a6.742 6.742 0 0 1-1.286 1.794.75.75 0 0 1-1.06-1.06Z" />
+                    </svg>
+               </div>
+               <div class="mt-4 flex items-end justify-between">
+                  <div>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{ $totalGuruAdmin }}
+                     </h4>
+                     <span class="text-sm font-medium">Akun Guru & Admin</span>
+                  </div>
+               </div>
+            </div>
+            <!-- Card Item End -->
+
+            <!-- Card Item Start -->
             <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -189,7 +215,7 @@
                         <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
                         <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Email</th>
-                        <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Status</th>
+                        {{-- <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Status</th> --}}
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
                      </tr>
                   </thead>
@@ -199,14 +225,14 @@
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->name }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->email }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                        {{-- <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                                 {{ $item->status == 'aktif'
                                     ? 'bg-success bg-opacity-10 text-success'
                                     : 'bg-danger bg-opacity-10 text-danger' }}">
                                 {{ ucfirst($item->status ?? 'tidak aktif') }}
                             </p>
-                        </td>
+                        </td> --}}
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                             <form action="{{ route('admin.akun.destroy', $item['id']) }}" method="POST">
                                 @csrf

@@ -146,37 +146,37 @@ class PPDBController extends Controller
 
         $ppdb->update([
         'nama_lengkap' => $request->nama_lengkap,
-    'nama_panggilan' => $request->nama_panggilan,
-    'jenjang_kelas' => $request->jenjang_kelas,
-    'tempat_lahir' => $request->tempat_lahir,
-    'tanggal_lahir' => $request->tanggal_lahir,
-    'usia' => $request->usia,
-    'jenis_kelamin' => $request->jenis_kelamin,
-    'agama' => $request->agama,
-    'anak_ke' => $request->anak_ke,
-    'status_dalam_keluarga' => $request->status_dalam_keluarga,
-    'jumlah_saudara' => $request->jumlah_saudara,
-    'provinsi' => $request->provinsi,
-    'kabupaten_kota' => $request->kabupaten_kota,
-    'kecamatan' => $request->kecamatan,
-    'desa_kelurahan' => $request->desa_kelurahan,
-    'alamat_lengkap' => $request->alamat_lengkap,
-    'latitude' => $request->latitude,
-    'longitude' => $request->longitude,
-    'penyakit_bawaan' => $request->penyakit_bawaan,
-    'alergi' => $request->alergi,
-    'pengawasan_medis' => $request->pengawasan_medis,
-    'cedera_serius' => $request->cedera_serius,
-    'nama_ibu' => $request->nama_ibu,
-    'no_hp_ibu' => $request->no_hp_ibu,
-    'pekerjaan_ibu' => $request->pekerjaan_ibu,
-    'nama_ayah' => $request->nama_ayah,
-    'no_hp_ayah' => $request->no_hp_ayah,
-    'pekerjaan_ayah' => $request->pekerjaan_ayah,
-    'status' => $request->status,
-    'status_pembayaran' => $request->status_pembayaran,
+        'nama_panggilan' => $request->nama_panggilan,
+        'jenjang_kelas' => $request->jenjang_kelas,
+        'tempat_lahir' => $request->tempat_lahir,
+        'tanggal_lahir' => $request->tanggal_lahir,
+        'usia' => $request->usia,
+        'jenis_kelamin' => $request->jenis_kelamin,
+        'agama' => $request->agama,
+        'anak_ke' => $request->anak_ke,
+        'status_dalam_keluarga' => $request->status_dalam_keluarga,
+        'jumlah_saudara' => $request->jumlah_saudara,
+        'provinsi' => $request->provinsi,
+        'kabupaten_kota' => $request->kabupaten_kota,
+        'kecamatan' => $request->kecamatan,
+        'desa_kelurahan' => $request->desa_kelurahan,
+        'alamat_lengkap' => $request->alamat_lengkap,
+        'latitude' => $request->latitude,
+        'longitude' => $request->longitude,
+        'penyakit_bawaan' => $request->penyakit_bawaan,
+        'alergi' => $request->alergi,
+        'pengawasan_medis' => $request->pengawasan_medis,
+        'cedera_serius' => $request->cedera_serius,
+        'nama_ibu' => $request->nama_ibu,
+        'no_hp_ibu' => $request->no_hp_ibu,
+        'pekerjaan_ibu' => $request->pekerjaan_ibu,
+        'nama_ayah' => $request->nama_ayah,
+        'no_hp_ayah' => $request->no_hp_ayah,
+        'pekerjaan_ayah' => $request->pekerjaan_ayah,
+        'status' => $request->status,
+        'status_pembayaran' => $request->status_pembayaran,
 
-    ]);
+        ]);
         $ppdb->refresh();
 
         if ($request['status'] === 'diterima' && !Siswa::where('user_id', $ppdb->user_id)->exists()) {
@@ -203,7 +203,19 @@ class PPDBController extends Controller
                 'longitude' => $ppdb->longitude,
                 'user_id' => $ppdb->user_id,
             ]);
+        } else {
+            // Jika status bukan diterima, ubah role user ke 'calon siswa'
+            $ppdb->user->update(['role' => 'calon siswa']);
         }
+        // Hapus data dari tabel siswa jika status ditolak
+        if ($request['status'] === 'ditolak') {
+            $siswa = Siswa::where('user_id', $ppdb->user_id)->first();
+            if ($siswa) {
+                // Hapus data siswa
+                $siswa->delete();
+            }
+        }
+
 
         return redirect()->route('ppdb.index')->with('success', 'Data berhasil diupdate!');
     }

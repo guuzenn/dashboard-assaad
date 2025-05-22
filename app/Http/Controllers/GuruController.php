@@ -24,7 +24,7 @@ class GuruController extends Controller
     }
 
     public function store(Request $request ){
-        $request->validate([
+        $validatedguru = $request->validate([
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'nullable|date',
             'tempat_lahir' => 'nullable|string',
@@ -32,21 +32,16 @@ class GuruController extends Controller
             'jenis_kelamin' => 'nullable|string',
             'alamat' => 'nullable',
             'no_hp'=> 'nullable',
+            'foto'=> 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             // 'kelas_id'=> 'nullable',
         ]);
 
-        Guru::create([
-            'nama' => $request->nama,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'tempat_lahir' => $request->tempat_lahir,
-            'usia' => $request->usia,
-            'jenis_kelamin' => $request->jenis_kelamin,
-            'no_hp' => $request->no_hp,
-            'alamat' => $request->alamat,
-            // 'kelas_id' => $request->kelas_id
-        ]);
+        $foto = $request->file('foto') ? $request->file('foto')->store('images/guru', 'public') : null;
+        $validatedguru['foto'] = $foto;
 
-        return redirect()->route('data.guru.index')->with('success', 'Data guru berhasil ditambahkan');
+        Guru::create($validatedguru);
+
+        return redirect()->route('data.guru.index')->with('success', 'Data Guru berhasil ditambahkan');
 
     }
 

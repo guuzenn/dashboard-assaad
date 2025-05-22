@@ -209,12 +209,12 @@
                   </div>
 
                   <!-- Tombol Tambah -->
-                  <button
+                  {{-- <button
                      class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
                      @click="window.location.href='{{ route('ppdb.create') }}'"
                   >
                      Tambah Pendaftar
-                  </button>
+                  </button> --}}
                </div>
 
 

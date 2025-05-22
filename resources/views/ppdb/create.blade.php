@@ -349,7 +349,6 @@
                 <input type="file" name="ktp_ortu"
                     class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black dark:border-form-strokedark dark:bg-form-input dark:text-white focus:border-primary" accept="image/*,.pdf" />
                 </div>
-
                {{-- <!-- Status Pendaftaran -->
                <div>
                   <label class="mb-3 block text-sm font-medium text-black dark:text-white">Status Pendaftaran</label>

@@ -127,6 +127,7 @@
       </div>
    </header>
    <!-- ===== Header End ===== -->
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -145,7 +146,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        48
+                        {{ $statistik['totalMurid'] }}
                      </h4>
                      <span class="text-sm font-medium">Total Murid</span>
                   </div>
@@ -166,7 +167,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        {{ $statistik['totalGuru'] }}
                      </h4>
                      <span class="text-sm font-medium">Total Guru</span>
                   </div>
@@ -174,7 +175,7 @@
             </div>
             <!-- Card Item End -->
          </div>
-       
+
          <!-- Teks judul PPDB seperti Dashboard -->
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">PPDB</h4>
 
@@ -185,12 +186,12 @@
                <div class="flex items-center gap-4">
                   <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                   <svg class="fill-primary dark:fill-white" width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 
+                  <path d="M5.25 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM2.25 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0
                      0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM18.75 7.5a.75.75 0 0 0-1.5 0v2.25H15a.75.75 0 0 0 0 1.5h2.25v2.25a.75.75 0 0 0 1.5 0v-2.25H21a.75.75 0 0 0 0-1.5h-2.25V7.5Z" />
                   </svg>
                   </div>
                   <div>
-                  <h4 class="text-title-sm font-bold text-black dark:text-white">60</h4>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">{{ $statistik['totalPendaftar'] }}</h4>
                   <span class="text-sm font-medium text-gray-600 dark:text-white">Total Pendaftar</span>
                   </div>
                </div>
@@ -202,7 +203,7 @@
                   </svg>
                   </div>
                   <div>
-                  <h4 class="text-title-sm font-bold text-black dark:text-white">42</h4>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">{{ $statistik['totalDiterima'] }}</h4>
                   <span class="text-sm font-medium text-gray-600 dark:text-white">Diterima</span>
                   </div>
                </div>
@@ -216,7 +217,7 @@
 
                   </div>
                   <div>
-                  <h4 class="text-title-sm font-bold text-black dark:text-white">8</h4>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">{{ $statistik['totalVerifikasi'] }}</h4>
                   <span class="text-sm font-medium text-gray-600 dark:text-white">Verifikasi</span>
                   </div>
                </div>
@@ -229,14 +230,14 @@
                   </svg>
                   </div>
                   <div>
-                  <h4 class="text-title-sm font-bold text-black dark:text-white">10</h4>
+                  <h4 class="text-title-sm font-bold text-black dark:text-white">{{ $statistik['totalDitolak'] }}</h4>
                   <span class="text-sm font-medium text-gray-600 dark:text-white">Ditolak</span>
                   </div>
                </div>
             </div>
          </div>
-  
-   
+
+
          <!-- Akses Cepat Cards -->
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Akses Cepat</h4>
          <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">

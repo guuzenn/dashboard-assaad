@@ -70,14 +70,30 @@
                 </div>
             </header>
 
+            @php
+                $sudahDaftar = $sudahDaftar ?? false;
+            @endphp
             <main class="flex-1 p-8 pt-24">
                 <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8 text-center">
                     <h1 class="text-2xl font-bold text-[#388E3C] mb-6">📣 Pengumuman</h1>
-                    <p id="isiPengumuman" class="text-gray-700 text-lg leading-relaxed"></p>
-
-                    <div id="grupWa" class="mt-6 hidden">
-                        <a href="https://chat.whatsapp.com/examplelink" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold inline-block">Gabung Grup WhatsApp</a>
-                    </div>
+                    @if (auth()->user()->role === 'calon siswa')
+                        @if (isset($sudahDaftar) && $sudahDaftar)
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                Silahkan melakukan pendaftaran dengan mengisi Formulir dan Berkas. Pastikan data dan berkas yang anda masukkan sudah tepat dan valid. Ketika sudah selesai mengisi pendaftaran, kembali ke halaman ini untuk melihat pengumuman selanjutnya.
+                            </p>
+                        @elseif (isset($status) && $status === 'diterima')
+                            <p class="text-green-700 text-lg font-bold mb-4">Selamat! Anda dinyatakan <span class="underline">DITERIMA</span> di PPDB ASSIK.</p>
+                            <div class="mt-6">
+                                <a href="https://chat.whatsapp.com/examplelink" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold inline-block">Gabung Grup WhatsApp</a>
+                            </div>
+                        @elseif (isset($status) && $status === 'ditolak')
+                            <p class="text-red-600 text-lg font-bold mb-4">Mohon maaf, Anda <span class="underline">TIDAK DITERIMA</span> di PPDB ASSIK.</p>
+                        @else
+                            <p class="text-gray-700 text-lg leading-relaxed">Pendaftaran Anda sedang diproses. Silakan cek pengumuman secara berkala.</p>
+                        @endif
+                    @elseif (auth()->user()->role === 'siswa')
+                        <p class="text-green-700 text-lg font-bold mb-4">Selamat datang, Anda sudah menjadi siswa di ASSIK!</p>
+                    @endif
                 </div>
             </main>
         </div>
@@ -85,17 +101,17 @@
 
     <script>
         // Simulasi pengecekan status dari localStorage
-        const sudahFormulir = localStorage.getItem('formulirSelesai') === 'true';
+        // const sudahFormulir = localStorage.getItem('formulirSelesai') === 'true';
 
-        const isiPengumuman = document.getElementById("isiPengumuman");
-        const grupWa = document.getElementById("grupWa");
+        // const isiPengumuman = document.getElementById("isiPengumuman");
+        // const grupWa = document.getElementById("grupWa");
 
-        if (sudahFormulir && sudahUpload) {
-            isiPengumuman.innerHTML = `Terima kasih telah melakukan pendaftaran. Untuk informasi selanjutnya, silakan bergabung ke grup WA di bawah ini.`;
-            grupWa.classList.remove("hidden");
-        } else {
-            isiPengumuman.innerHTML = `Silahkan melakukan pendaftaran dengan mengisi Formulir dan Berkas. Pastikan data dan berkas yang anda masukkan sudah tepat dan valid. Ketika sudah selesai mengisi pendaftaran, kembali ke halaman ini untuk melihat pengumuman selanjutnya.`;
-        }
+        // if (sudahFormulir && sudahUpload) {
+        //     isiPengumuman.innerHTML = `Terima kasih telah melakukan pendaftaran. Untuk informasi selanjutnya, silakan bergabung ke grup WA di bawah ini.`;
+        //     grupWa.classList.remove("hidden");
+        // } else {
+        //     isiPengumuman.innerHTML = `Silahkan melakukan pendaftaran dengan mengisi Formulir dan Berkas. Pastikan data dan berkas yang anda masukkan sudah tepat dan valid. Ketika sudah selesai mengisi pendaftaran, kembali ke halaman ini untuk melihat pengumuman selanjutnya.`;
+        // }
     </script>
 </body>
 

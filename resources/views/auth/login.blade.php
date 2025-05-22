@@ -21,10 +21,10 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
   <div class="bg-white shadow-lg rounded-lg flex w-full max-w-5xl h-[600px] md:h-[650px] lg:h-[700px] overflow-hidden">
-    
+
     <!-- Left Image Section -->
     <div class="md:w-1/2 w-full hidden md:block">
-      <img 
+      <img
         src="{{ asset('assets/images/cover/image_login.jpeg') }}"
         alt="Login Illustration"
         class="h-full w-full object-cover"
@@ -33,22 +33,19 @@
 
     <!-- Right Login Section -->
     <div class="w-full md:w-1/2 flex flex-col items-center justify-center px-6 sm:px-10 py-10 relative">
-      
-      <!-- Close Button -->
-      <div class="absolute top-4 right-4 text-xl text-gray-700 cursor-pointer hover:text-black md:block hidden">&times;</div>
 
       <!-- Form -->
       <form method="POST" action="{{ route('login') }}" class="space-y-4 w-full max-w-sm">
         @csrf
 
         <!-- Title -->
-        <h2 class="text-5xl font-bold text-gray-800 mb-6 text-left">Admin Login</h2>
+        <h2 class="text-5xl font-bold text-gray-800 mb-6 text-left">ASSIK Login</h2>
 
         <!-- Email Input -->
         <div class="flex flex-col text-left">
           <label for="email" class="mb-2 text-gray-700">Email</label>
-          <input 
-            type="email" 
+          <input
+            type="email"
             id="email"
             name="email"
             placeholder="Email"
@@ -60,8 +57,8 @@
         <!-- Password Input -->
         <div class="relative flex flex-col text-left">
           <label for="password" class="mb-1 text-gray-700">Password</label>
-          <input 
-            type="password" 
+          <input
+            type="password"
             id="password"
             name="password"
             placeholder="Enter your password"
@@ -70,8 +67,8 @@
           />
 
           <!-- Eye Toggle Icon -->
-          <button 
-            type="button" 
+          <button
+            type="button"
             onclick="togglePassword()"
             class="absolute right-3 top-10 text-gray-500 cursor-pointer"
           >
@@ -91,7 +88,7 @@
 
         <!-- Login Button -->
         <div>
-          <button 
+          <button
             type="submit"
             class="w-full bg-[#388E3C] hover:bg-[#215c24] text-white font-semibold py-3 rounded-xl transition"
           >
