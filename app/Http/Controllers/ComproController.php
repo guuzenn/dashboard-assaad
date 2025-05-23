@@ -32,6 +32,12 @@ class ComproController extends Controller
         return view('compro.event', compact('events'));
     }
 
+    public function beranda()
+    {
+        $kegiatan = Kegiatan::latest()->take(9)->get(); // ambil 9 kegiatan terbaru
+        return view('compro.beranda', compact('kegiatan'));
+    }
+
     // Menampilkan detail event berdasarkan id
     public function eventDetail($id)
     {

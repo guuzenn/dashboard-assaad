@@ -300,8 +300,26 @@
             },
         });
     </script>
+
+    @if(isset($kegiatan) && count($kegiatan))
     <script>
-        const events = [{
+        // Data kegiatan dari backend
+        const events = [
+            @foreach($kegiatan as $k)
+            {
+                id: {{ $k->id }},
+                title: @json($k->judul ?? $k->nama ?? 'Kegiatan'),
+                image: @json($k->gambar ?? '/assets/images/compro/tkA.png'),
+                desc: @json($k->deskripsi ?? '-'),
+                color: "green", // bisa diganti sesuai kebutuhan
+            },
+            @endforeach
+        ];
+    </script>
+    @else
+    <script>
+        // Data kegiatan kosong (default)
+                const events = [{
                 id: 1,
                 title: "Field Trip",
                 image: "/assets/images/compro/tkA.png",
@@ -350,10 +368,26 @@
                 desc: "Kegiatan keluarga",
                 color: "orange",
 
-            },
-            // bisa ditambahkan dari API atau database
-        ];
+            }, {
+                id: 8,
+                title: "Family Day",
+                image: "/assets/images/compro/tkA.png",
+                desc: "Kegiatan keluarga",
+                color: "green",
 
+            }, {
+                id: 9,
+                title: "Family Day",
+                image: "/assets/images/compro/tkA.png",
+                desc: "Kegiatan keluarga",
+                color: "orange",
+
+            },
+        ];
+    </script>
+    @endif
+
+    <script>
         const wrapper = document.getElementById("event-wrapper");
 
         for (let i = 0; i < events.length; i += 3) {
@@ -364,15 +398,15 @@
             group.forEach(ev => {
                 const box = `
         <div class="w-1/3">
-          <a href="event-detail.html?id=${ev.id}" class="block rounded-2xl shadow-md hover:shadow-xl border-4 border-${ev.color}-300 hover:border-${ev.color}-500 transition-all duration-300 bg-white overflow-hidden transform hover:scale-105">
+        <a href="event-detail.html?id=${ev.id}" class="block rounded-2xl shadow-md hover:shadow-xl border-4 border-${ev.color}-300 hover:border-${ev.color}-500 transition-all duration-300 bg-white overflow-hidden transform hover:scale-105">
             <div class="relative">
-              <img src="${ev.image}" alt="${ev.title}" class="w-full h-64 object-cover rounded-t-xl">
+            <img src="${ev.image}" alt="${ev.title}" class="w-full h-64 object-cover rounded-t-xl">
             </div>
             <div class="p-4 text-center">
-              <h3 class="text-lg font-semibold text-green-700 mb-2">${ev.title}</h3>
-              <p class="text-sm text-gray-600">${ev.desc}</p>
+            <h3 class="text-lg font-semibold text-green-700 mb-2">${ev.title}</h3>
+            <p class="text-sm text-gray-600">${ev.desc}</p>
             </div>
-          </a>
+        </a>
         </div>`;
                 slide.innerHTML += box;
             });
