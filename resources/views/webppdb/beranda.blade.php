@@ -177,8 +177,8 @@
                             </p>
                             <p class="ml-7 mt-1">
                                 Jika ada kendala saat mendaftar, hubungi kami melalui:<br>
-                                <span class="font-semibold">WA:</span> 0812-xxxx-xxxx<br>
-                                <span class="font-semibold">Email:</span> tkkceria@example.com
+                                <span class="font-semibold">WA:</span> 0812-5423-1123<br>
+                                <span class="font-semibold">Email:</span> assik@gmail.com
                             </p>
                         </div>
 

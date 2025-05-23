@@ -40,7 +40,7 @@ class SiswaPPDBController extends Controller
     // }
     public function pengumuman()
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $status = null;
         $sudahDaftar = false;
 

@@ -177,6 +177,80 @@
                 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
                 <script>
                     // Data dari Laravel
+                    // const sekolah = @json($sekolah); // {lat: ..., lng: ...}
+                    // const siswaData = @json($siswa); // Array berisi siswa
+
+                    // const map = L.map('map').setView([sekolah.lat, sekolah.lng], 13);
+
+                    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    //     maxZoom: 19, minZoom:10,
+                    // }).addTo(map);
+
+                    // // Marker sekolah
+                    // L.marker([sekolah.lat, sekolah.lng], {
+                    //     icon: L.icon({
+                    //         iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61168.png',
+                    //         iconSize: [32, 32]
+                    //     })
+                    // })
+                    //     .addTo(map)
+                    //     .bindPopup(sekolah.nama)
+                    //     .openPopup();
+
+                    // const siswaLayer = L.layerGroup().addTo(map);
+                    // let routeLayer;
+
+                    // function hitungJarak(lat1, lon1, lat2, lon2) {
+                    //     const R = 6371;
+                    //     const dLat = (lat2 - lat1) * Math.PI / 180;
+                    //     const dLon = (lon2 - lon1) * Math.PI / 180;
+                    //     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    //             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                    //             Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                    //     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    //     return R * c;
+                    // }
+
+                    // function tampilkanSiswa(filterKm = null, keyword = '') {
+                    //     siswaLayer.clearLayers();
+
+                    //     siswaData.forEach((siswa) => {
+                    //         if (!siswa.latitude || !siswa.longitude || !siswa.nama_lengkap) return;
+
+                    //         const jarak = hitungJarak(sekolah.lat, sekolah.lng, siswa.latitude, siswa.longitude);
+                    //         const cocokKeyword = siswa.nama_lengkap.toLowerCase().includes(keyword.toLowerCase());
+
+                    //         if ((filterKm === null || jarak <= filterKm) && cocokKeyword) {
+                    //             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
+                    //             marker.bindPopup(`
+                    //                 <b>${siswa.nama_lengkap}</b>
+                    //                 <br>Kelas: ${siswa.usia}
+                    //                 <br>Alamat: ${siswa.alamat}
+                    //                 <br>Jarak ke sekolah: ${jarak.toFixed(2)} km
+                    //                 <br><button onclick="tampilkanRute(${siswa.latitude}, ${siswa.longitude})">Lihat Rute</button>
+                    //             `);
+                    //         }
+                    //     });
+                    // }
+
+                    // // Menampilkan siswa otomatis saat map dibuka
+                    // tampilkanSiswa();
+
+                    // // Fungsi routing
+                    // function tampilkanRute(lat, lng) {
+                    //     if (routeLayer) map.removeControl(routeLayer);
+
+                    //     routeLayer = L.Routing.control({
+                    //         waypoints: [
+                    //             L.latLng(lat, lng),
+                    //             L.latLng(sekolah.lat, sekolah.lng)
+                    //         ],
+                    //         routeWhileDragging: false
+                    //     }).addTo(map);
+                    // }
+
+
+                    //hitung jarak Rute
                     const sekolah = @json($sekolah); // {lat: ..., lng: ...}
                     const siswaData = @json($siswa); // Array berisi siswa
 

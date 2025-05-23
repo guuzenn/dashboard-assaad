@@ -142,7 +142,7 @@
                                     @enderror
                                 </div>
 
-                                <!-- Kelas -->
+                                {{-- <!-- Kelas -->
                                 <div>
                                     <label
                                         class="mb-3 block text-sm font-medium text-black dark:text-white">Kelas</label>
@@ -156,7 +156,7 @@
                                     @error('kelas_id')
                                         <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
-                                </div>
+                                </div> --}}
 
                                 <!-- Siswa -->
                                 <div>

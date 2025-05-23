@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Guru;
 use App\Models\Kelas;
 use App\Models\LaporanHarian;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LaporanHarianController extends Controller
 {
@@ -31,9 +33,15 @@ class LaporanHarianController extends Controller
 
     public function create()
     {
-        $murid = Siswa::all();
-        $kelas = Kelas::all();
-        return view('data.laporan_harian.create', compact('kelas','murid'));
+        $guru = Guru::where('user_id', Auth::id())->first();
+        $murid = [];
+        if ($guru) {
+            $murid = Siswa::whereHas('kelas', function ($q) use ($guru) {
+                $q->where('guru_id', $guru->id);
+            })->with('user')->get();
+        }
+        // $kelas = Kelas::all();
+        return view('data.laporan_harian.create', compact('murid'));
     }
 
     public function store(Request $request)
@@ -41,7 +49,7 @@ class LaporanHarianController extends Controller
         $request->validate([
             'judul' => 'required|string',
             'tanggal' => 'required|date',
-            'kelas_id' => 'nullable',
+            // 'kelas_id' => 'nullable',
             'siswa_id' => 'nullable',
             'deskripsi' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -55,10 +63,11 @@ class LaporanHarianController extends Controller
         $fotoPath = 'assets/images/laporan_harian/' . $filename;
     }
 
+    $siswa=Siswa::where('id',$request->siswa_id)->first();
     LaporanHarian::create([
         'judul' => $request->judul,
         'tanggal' => $request->tanggal,
-        'kelas_id' => $request->kelas_id,
+        'kelas_id' => $siswa->kelas->id,
         'siswa_id' => $request->siswa_id,
         'deskripsi' => $request->deskripsi,
         'image' => $fotoPath,

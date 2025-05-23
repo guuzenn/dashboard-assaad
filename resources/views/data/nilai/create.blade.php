@@ -165,7 +165,7 @@
                            name="mata_pelajaran_id"
                            class="w-full rounded-lg border-[1.5px] border-stroke bg-transparent px-5 py-3 font-normal text-black outline-none transition focus:border-primary dark:border-form-strokedark dark:bg-form-input dark:text-white"
                         >
-                           <option value="">Pilih Semester</option>
+                           <option value="">Pilih Mata Pelajaran</option>
                             @foreach ($mapel as $item)
                                 <option value="{{ $item->id }}" >{{ $item->nama }}</option>
                             @endforeach

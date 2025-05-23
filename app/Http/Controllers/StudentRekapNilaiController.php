@@ -11,11 +11,25 @@ class StudentRekapNilaiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $siswa = Auth::user()->siswa;
-        $laporan = Nilai::where('siswa_id', $siswa->id)->get();
-        return view('student.rekap_nilai.index', compact('laporan'));
+        // $laporan = Nilai::where('siswa_id', $siswa->id)->get();
+        $semester = $request->input('semester');
+        $query = Nilai::with('mata_pelajaran')->where('siswa_id', $siswa->id);
+        if ($semester && in_array($semester, ['ganjil', 'genap'])) {
+            $query->where('semester', $semester);
+        }
+        $laporan = $query->get();
+
+        $rataGanjil = Nilai::where('siswa_id', $siswa->id)
+            ->where('semester', 'ganjil')
+            ->avg('nilai');
+
+        $rataGenap = Nilai::where('siswa_id', $siswa->id)
+            ->where('semester', 'genap')
+            ->avg('nilai');
+        return view('student.rekap_nilai.index', compact('laporan', 'rataGanjil', 'rataGenap'));
     }
 
     /**
