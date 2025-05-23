@@ -106,7 +106,7 @@
                         </svg>
                     </div>
                     <div class="mt-4">
-                        <h4 class="text-title-md font-bold text-black dark:text-white">1</h4>
+                        <h4 class="text-title-md font-bold text-black dark:text-white">{{ count($laporan)}}</h4>
                         <span class="text-sm font-medium">Total Laporan Saya</span>
                     </div>
                 </div>

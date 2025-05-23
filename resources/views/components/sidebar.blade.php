@@ -33,6 +33,7 @@
             <div>
                 <h3 class="mb-4 ml-4 text-sm font-medium text-bodydark2">MENU</h3>
                 <ul class="mb-6 flex flex-col gap-1.5">
+                    @can('admin')
                     <!-- Menu Item Dashboard -->
                     <li>
                     <a href="{{ route('dashboard') }}"
@@ -147,6 +148,7 @@
                             Data Kelas
                         </a>
                     </li>
+                    @endcan
 
                     <!-- Panel Rekap Nilai & Mapel (Dropdown) -->
                     <li x-data="{ open: {{ Request::routeIs('data.nilai.*') || Request::routeIs('data.mata_pelajaran.*') || Request::routeIs('data.pivot_mapel_kelas.*') || Request::routeIs('data.laporan_harian.*') ? 'true' : 'false' }} }">
@@ -173,40 +175,45 @@
                             </svg>
                         </button>
                         <ul x-show="open" class="mt-1 space-y-1 pl-6 text-sm" x-transition>
+                            @can('guru')
                             <li>
-                            <a href="{{ route('data.nilai.index') }}"
-                                class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
-                                hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('data.nilai.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
-                                    Rekap Nilai
+                                <a href="{{ route('data.nilai.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::routeIs('data.nilai.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                        Rekap Nilai
+                                    </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('data.laporan_harian.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::is('data/laporan-harian*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                    Laporan Harian
+                                </a>
+                            </li>
+                            @endcan
+                            @can('admin')
+                            <li>
+                                <a href="{{ route('data.mata_pelajaran.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::routeIs('data.mata_pelajaran.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                        Mata Pelajaran
                                 </a>
                             </li>
                             <li>
-                            <a href="{{ route('data.mata_pelajaran.index') }}"
-                                class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
-                                hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('data.mata_pelajaran.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
-                                    Mata Pelajaran
-                                </a>
+                                <a href="{{ route('data.pivot_mapel_kelas.index') }}"
+                                    class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
+                                    hover:bg-primary/10 dark:hover:bg-meta-4
+                                    {{ Request::routeIs('data.pivot_mapel_kelas.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
+                                        Pembagian Mapel
+                                    </a>
                             </li>
-                            <li>
-                            <a href="{{ route('data.pivot_mapel_kelas.index') }}"
-                                class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
-                                hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::routeIs('data.pivot_mapel_kelas.*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
-                                    Pembagian Mapel
-                                </a>
-                            </li>
-                            <li>
-                            <a href="{{ route('data.laporan_harian.index') }}"
-                                class="block rounded-sm px-4 py-1.5 font-medium transition duration-300 ease-in-out
-                                hover:bg-primary/10 dark:hover:bg-meta-4
-                                {{ Request::is('data/laporan-harian*') ? 'text-primary bg-primary-active' : 'text-dark' }}">
-                                Laporan Harian
-                            </a>
-                            </li>
+                            @endcan
                         </ul>
                     </li>
+                    @can('admin')
                     <!-- Panel Keuangan (Dropdown) -->
                     <li x-data="{ open: {{ Request::routeIs('pembayaran.*', 'pembayaran.cicilan.*') ? 'true' : 'false' }} }">
                         <button @click="open = !open"
@@ -322,18 +329,19 @@
                         <a href="{{ route('data.maps.index') }}"
                             class="group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
                             hover:bg-primary/10 dark:hover:bg-meta-4">
-                            <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M16.5 3.75a1.5 1.5 0 0 1 1.5 1.5v13.5a1.5 1.5 0 0 1-1.5 1.5h-6a1.5 1.5 0 0 1-1.5-1.5V15a.75.75 0 0 0-1.5 0v3.75a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V5.25a3 3 0 0 0-3-3h-6a3 3 0 0 0-3
-                                3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" >
+                                <path stroke-linecap="round" fill-rule="evenodd"  stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"  clip-rule="evenodd"/>
+                                <path stroke-linecap="round"fill-rule="evenodd" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"  clip-rule="evenodd" />
                             </svg>
                             Maps
                         </a>
                     </li>
-
-
+                @endcan
+                <form method="POST" action="{{ route('logout') }}">
+                @csrf
                     <li>
-                        <a href="{{ route('admin.akun.logout') }}"
+                        <button
                             class="group flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium transition duration-300 ease-in-out
                             hover:bg-primary/10 dark:hover:bg-meta-4">
                             <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -342,9 +350,9 @@
                                 3V9A.75.75 0 1 0 9 9V5.25a1.5 1.5 0 0 1 1.5-1.5h6ZM5.78 8.47a.75.75 0 0 0-1.06 0l-3 3a.75.75 0 0 0 0 1.06l3 3a.75.75 0 0 0 1.06-1.06l-1.72-1.72H15a.75.75 0 0 0 0-1.5H4.06l1.72-1.72a.75.75 0 0 0 0-1.06Z" clip-rule="evenodd" />
                             </svg>
                             Logout
-                        </a>
+                        </button>
                     </li>
-
+                </form>
                 </ul>
             </div>
         </nav>

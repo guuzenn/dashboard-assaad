@@ -14,8 +14,6 @@ class NilaiController extends Controller
 {
     public function index()
     {
-        // $nilai = Nilai::with('siswa')->get();
-        // return view('data.nilai.index', compact('nilai'));
         $guru = Guru::where('user_id', Auth::id())->first();
         $siswa = [];
         if ($guru) {
@@ -27,10 +25,24 @@ class NilaiController extends Controller
         return view('data.nilai.index', compact('siswa'));
     }
 
-    public function list($id){
-        $nilai = Nilai::with('mata_pelajaran')->where('siswa_id',$id)->get();
-        return view('data.nilai.list', compact('nilai','id'));
+    public function list(Request $request,$id){
+        $semester = $request->input('semester');
+        $query = Nilai::with('mata_pelajaran')->where('siswa_id', $id);
+        if ($semester && in_array($semester, ['ganjil', 'genap'])) {
+            $query->where('semester', $semester);
+        }
+
+    $nilai = $query->get();
+        $rataGanjil = Nilai::where('siswa_id', $id)
+            ->where('semester', 'ganjil')
+            ->avg('nilai');
+
+        $rataGenap = Nilai::where('siswa_id', $id)
+            ->where('semester', 'genap')
+            ->avg('nilai');
+        return view('data.nilai.list', compact('nilai','id', 'rataGanjil', 'rataGenap'));
     }
+
 
     public function show($id)
     {

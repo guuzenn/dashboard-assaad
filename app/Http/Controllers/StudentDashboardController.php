@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentDashboardController extends Controller
 {
+
+
     // public function index()
     // {
     //     $siswa = Auth::user()->siswa; // atau ambil dari parameter jika perlu

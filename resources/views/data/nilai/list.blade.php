@@ -122,7 +122,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        98
+                        {{$rataGanjil ?? '0'}}
                      </h4>
                      <span class="text-sm font-medium">Rata-rata Nilai Semester Ganjil</span>
                   </div>
@@ -142,7 +142,7 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        0
+                        {{$rataGenap ?? '0'}}
                      </h4>
                      <span class="text-sm font-medium">Rata-rata Nilai Semester Genap</span>
                   </div>
@@ -157,14 +157,16 @@
             <h4 class="text-lg font-bold text-black dark:text-white">List Nilai Murid</h4>
             <div class="flex items-center gap-4">
                   <div class="relative">
+                    <form action="{{ route('data.nilai.list', $id) }}" method="GET">
                      <select
-                        name="filter_tahun"
-                        id="filter_tahun"
+                     onchange="this.form.submit()"
+                        name="semester"
+                        id="semester"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
                      >
                         <option value="">Semua Semester</option>
-                        <option value="ganjil">Ganjil</option>
-                        <option value="genap">Genap</option>
+                        <option value="ganjil"{{ request('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                        <option value="genap"{{ request('semester') == 'genap' ? 'selected' : '' }}>Genap</option>
                      </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
@@ -181,6 +183,7 @@
                            />
                         </svg>
                      </span>
+                    </form>
                   </div>
 
                   <button

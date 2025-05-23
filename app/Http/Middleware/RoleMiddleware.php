@@ -16,7 +16,7 @@ class RoleMiddleware
         $user = Auth::user();
         if (!in_array($user->role, $roles)) {
             Auth::logout();
-            return redirect()->route('login')->withErrors(['email' => 'Akses tidak diizinkan.']);
+            return redirect()->route('login')->withErrors(['error' => 'Akses tidak diizinkan.']);
         }
 
         return $next($request);

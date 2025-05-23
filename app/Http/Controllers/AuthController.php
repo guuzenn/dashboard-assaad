@@ -43,9 +43,9 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->role === 'admin') {
-                return redirect()->route('data.guru.index');
+                return redirect()->route('dashboard');
             } elseif ($user->role === 'guru') {
-                return redirect()->route('data.murid.index');
+                return redirect()->route('data.nilai.index');
             } else {
                 return redirect()->route('student.dashboard'); // Default for siswa. Redirect to the PPFB prefix
             }

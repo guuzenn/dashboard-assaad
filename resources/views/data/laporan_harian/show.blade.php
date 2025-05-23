@@ -164,7 +164,7 @@
                             class="rounded-md max-w-xs border border-stroke dark:border-strokedark">
                     </div>
                     <!-- Tombol Kembali -->
-                    <div class="sm:col-span-2 flex justify-end mt-6">
+                    <div class="col-span-2 sm:col-span-2 flex justify-end mt-6">
                         <a href="{{ route('data.laporan_harian.index') }}"
                             class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark">
                             Kembali
@@ -172,6 +172,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
 

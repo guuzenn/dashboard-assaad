@@ -99,23 +99,81 @@
 
             <!-- Statistik Ringkas -->
             <div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-                <div class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-                    <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                        <svg class="fill-primary dark:fill-white" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M4 4H20V6H4V4ZM4 11H20V13H4V11ZM4 18H14V20H4V18Z" />
-                        </svg>
-                    </div>
-                    <div class="mt-4">
-                        <h4 class="text-title-md font-bold text-black dark:text-white">1</h4>
-                        <span class="text-sm font-medium">Total Rekap Nilai</span>
-                    </div>
-                </div>
+                <!-- Card Item Start -->
+            <div
+               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                  <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24"
+                     fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+                     <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+                  </svg>
+               </div>
+               <div class="mt-4 flex items-end justify-between">
+                  <div>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{$rataGanjil ?? '0'}}
+                     </h4>
+                     <span class="text-sm font-medium">Rata-rata Nilai Semester Ganjil</span>
+                  </div>
+               </div>
+            </div>
+            <!-- Card Item End -->
+
+            <!-- Card Item Start -->
+            <div
+               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                  <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd" d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z" clip-rule="evenodd" />
+                     <path d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
+                  </svg>
+               </div>
+               <div class="mt-4 flex items-end justify-between">
+                  <div>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{$rataGenap ?? '0'}}
+                     </h4>
+                     <span class="text-sm font-medium">Rata-rata Nilai Semester Genap</span>
+                  </div>
+               </div>
+            </div>
+            <!-- Card Item End -->
             </div>
 
             <!-- List Laporan -->
             <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-lg font-bold text-black dark:text-white">Daftar Nilai</h4>
+                    <div class="relative">
+                    <form action="{{ route('student.rekap_nilai.index') }}" method="GET">
+                     <select
+                     onchange="this.form.submit()"
+                        name="semester"
+                        id="semester"
+                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                     >
+                        <option value="">Semua Semester</option>
+                        <option value="ganjil"{{ request('semester') == 'ganjil' ? 'selected' : '' }}>Ganjil</option>
+                        <option value="genap"{{ request('semester') == 'genap' ? 'selected' : '' }}>Genap</option>
+                     </select>
+
+                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                        <svg
+                           width="14"
+                           height="10"
+                           viewBox="0 0 10 6"
+                           fill="none"
+                           xmlns="http://www.w3.org/2000/svg"
+                        >
+                           <path
+                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                              fill="#637381"
+                           />
+                        </svg>
+                     </span>
+                    </form>
+                  </div>
                 </div>
 
                 <!-- Table -->
