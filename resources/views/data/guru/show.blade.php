@@ -84,10 +84,10 @@
                   <p class="text-base font-medium text-black dark:text-white">{{ $guru->jenis_kelamin }}</p>
                </div>
                <!-- Kelas -->
-               <div>
+               {{-- <div>
                   <p class="text-sm text-slate-500 mb-1">Kelas yang Diajarkan</p>
                   <p class="text-base font-medium text-black dark:text-white">{{ $guru->kelas }}</p>
-               </div>
+               </div> --}}
                <!-- Alamat -->
                <div class="sm:col-span-2">
                   <p class="text-sm text-slate-500 mb-1">Alamat</p>

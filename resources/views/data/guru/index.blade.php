@@ -89,15 +89,16 @@
                <h4 class="text-lg font-bold text-black dark:text-white">List Guru</h4>
                <div class="flex items-center gap-4">
                   <div class="relative">
-                     <select
-                        name="filter_tahun"
-                        id="filter_tahun"
-                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Semua Kelas</option>
-                        <option value="A">Kelas A</option>
-                        <option value="B">Kelas B</option>
-                     </select>
+                        <select
+                            name="filter_gender"
+                            id="filter_gender"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                            onchange="filterGuru()"
+                        >
+                            <option value="">Semua Jenis Kelamin</option>
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -138,7 +139,7 @@
                   </thead>
                   <tbody>
                      @foreach ($guru as $index => $item)
-                     <tr>
+                     <tr data-gender="{{ $item->jenis_kelamin }}">
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
@@ -221,19 +222,36 @@
          </div>
       </div>
    </main>
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+
+    <script>
+    function filterGuru() {
+        const filter = document.getElementById('filter_gender').value;
+        const rows = document.querySelectorAll('tbody tr[data-gender]');
+        rows.forEach(row => {
+            const gender = row.getAttribute('data-gender');
+            if (!filter) {
+                row.style.display = '';
+            } else {
+                row.style.display = (gender === filter) ? '' : 'none';
+            }
+        });
     }
-    });
-</script>
-@endif
+    document.addEventListener('DOMContentLoaded', filterGuru);
+    </script>
+
+   @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
+    @endif
 
 </x-layout>

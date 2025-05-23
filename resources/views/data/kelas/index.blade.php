@@ -125,16 +125,17 @@
                <h4 class="text-lg font-bold text-black dark:text-white">List Kelas</h4>
                <div class="flex items-center gap-4">
                   <div class="relative">
-                     <select
+                    <select
                         name="filter_tahun"
                         id="filter_tahun"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
+                        onchange="filterKelas()"
+                    >
                         <option value="">Semua Tahun</option>
-                        <option value="2024">Tahun 2024</option>
-                        <option value="2023">Tahun 2023</option>
-                        <option value="2022">Tahun 2022</option>
-                     </select>
+                        <option value="2024/2025">Tahun 2024/2025</option>
+                        <option value="2025/2026">Tahun 2025/2026</option>
+                        <option value="2026/2027">Tahun 2026/2027</option>
+                    </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -178,11 +179,11 @@
                   </thead>
                   <tbody>
                      @foreach ($kelas as $index => $item)
-                     <tr>
+                     <tr data-tahun="{{ $item->tahun_ajar }}">
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->nama }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                            {{ $item->total_murid }}
+                            {{ $item->siswa_count }}
                         </td>
 
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->tahun_ajar }}</td>
@@ -273,19 +274,36 @@
          </div>
       </div>
    </main>
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+
+   <script>
+    function filterKelas() {
+        const filter = document.getElementById('filter_tahun').value;
+        const rows = document.querySelectorAll('tbody tr[data-tahun]');
+        rows.forEach(row => {
+            const tahun = row.getAttribute('data-tahun');
+            if (!filter) {
+                row.style.display = '';
+            } else {
+                row.style.display = (tahun === filter) ? '' : 'none';
+            }
+        });
     }
-    });
-</script>
+    document.addEventListener('DOMContentLoaded', filterKelas);
+    </script>
+
+   @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
 @endif
 
 </x-layout>
