@@ -312,8 +312,27 @@
                                 L.latLng(lat, lng),
                                 L.latLng(sekolah.lat, sekolah.lng)
                             ],
-                            routeWhileDragging: false
+                            routeWhileDragging: false,
+                            lineOptions: {
+                                styles: [{ color: '#3388ff', weight: 5, opacity: 0.8 }]
+                            },
+                            createMarker: function() { return null; },
+                            // Custom panel with white background
+                            show: true,
+                            collapsible: true,
+                            formatter: null,
+                            summaryTemplate: '<div style="background: #fff; padding: 10px; border-radius: 8px;">{name} {distance}, {time}</div>'
                         }).addTo(map);
+
+                        // Set background putih untuk panel routing
+                        setTimeout(() => {
+                            const panels = document.querySelectorAll('.leaflet-routing-container');
+                            panels.forEach(panel => {
+                                panel.style.background = '#fff';
+                                panel.style.borderRadius = '8px';
+                                panel.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
+                            });
+                        }, 100);
                     }
 
                     // Pencarian
