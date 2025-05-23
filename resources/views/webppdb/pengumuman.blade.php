@@ -89,10 +89,20 @@
                         @elseif (isset($status) && $status === 'ditolak')
                             <p class="text-red-600 text-lg font-bold mb-4">Mohon maaf, Anda <span class="underline">TIDAK DITERIMA</span> di PPDB ASSIK.</p>
                         @else
-                            <p class="text-gray-700 text-lg leading-relaxed">Pendaftaran Anda sedang diproses. Silakan cek pengumuman secara berkala.</p>
+                            <p class="text-gray-700 text-lg leading-relaxed">Pendaftaran Anda sedang diproses. Silakan cek pengumuman secara berkala. Si</p>
                         @endif
                     @elseif (auth()->user()->role === 'siswa')
                         <p class="text-green-700 text-lg font-bold mb-4">Selamat datang, Anda sudah menjadi siswa di ASSIK!</p>
+                        <div class="mt-6 flex flex-col items-center gap-3">
+                            <a href="{{ route('student.dashboard') }}"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full font-semibold inline-block">
+                                Masuk Student Dashboard
+                            </a>
+                            <a href="https://chat.whatsapp.com/E82Kt0RjLTN32MLMYamJn6" target="_blank"
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full font-semibold inline-block">
+                                Gabung Grup WhatsApp Siswa
+                            </a>
+                        </div>
                     @endif
                 </div>
             </main>

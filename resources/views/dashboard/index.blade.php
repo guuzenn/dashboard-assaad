@@ -221,7 +221,7 @@
          <!-- Akses Cepat Cards -->
          <h4 class="text-lg font-bold text-black dark:text-white mb-4">Akses Cepat</h4>
          <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
-            <!-- Box Tambah Pendaftar -->
+            {{-- <!-- Box Tambah Pendaftar -->
             <a href="{{ route('ppdb.create') }}"
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default transition hover:shadow-md hover:-translate-y-0.5 dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
@@ -234,7 +234,7 @@
                   <h4 class="text-sm font-semibold text-primary">Tambah Pendaftar</h4>
                   <p class="text-xs text-slate-600 dark:text-slate-300">Input data siswa yang mendaftar</p>
                </div>
-            </a>
+            </a> --}}
             <!-- Box Tambah Murid -->
             <a href="{{ route('data.murid.create') }}"
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default transition hover:shadow-md hover:-translate-y-0.5 dark:border-strokedark dark:bg-boxdark">
@@ -281,6 +281,21 @@
                   <h4 class="text-sm font-semibold text-primary">Tambah Kelas</h4>
                   <p class="text-xs text-slate-600 dark:text-slate-300">Buat kelas baru</p>
                </div>
+            </a>
+            <!-- Box Peta-->
+            <a href="{{ route('data.maps.index') }}"
+            class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default transition hover:shadow-md hover:-translate-y-0.5 dark:border-strokedark dark:bg-boxdark">
+            <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                <!-- Icon: Peta-->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-primary dark:text-white">
+                    <path stroke-linecap="round" fill-rule="evenodd" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd"/>
+                    <path stroke-linecap="round" fill-rule="evenodd" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" clip-rule="evenodd" />
+                </svg>
+            </div>
+            <div class="mt-4">
+                <h4 class="text-sm font-semibold text-primary">Lihat Peta Siswa</h4>
+                <p class="text-xs text-slate-600 dark:text-slate-300">Tampilkan lokasi siswa di peta</p>
+            </div>
             </a>
          </div>
       </div>

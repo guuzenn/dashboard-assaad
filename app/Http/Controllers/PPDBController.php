@@ -141,7 +141,7 @@ class PPDBController extends Controller
             $validated['ktp_ortu'] = $request->file('ktp_ortu')->store('images/berkas', 'public');
         }
 
-        $ppdb->user = User::findOrFail($ppdb->user_id);
+        // $ppdb->user = User::findOrFail($ppdb->user_id);
 
         $ppdb->update([
         'nama_lengkap' => $request->nama_lengkap,

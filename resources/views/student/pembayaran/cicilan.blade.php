@@ -96,7 +96,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-lg font-bold text-black dark:text-white">Daftar Cicilan Saya</h4>
                     <div class="flex items-center gap-4">
-                        <div class="relative">
+                        {{-- <div class="relative">
                             <select class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary">
                                 <option value="">Jenis Pembayaran</option>
                                 <option value="SPP">SPP</option>
@@ -120,7 +120,7 @@
                                     <path d="M0.47 1.09c0-.06 0-.13.07-.17.1-.1.26-.1.35 0L4.85 4.6c.07.08.2.08.3 0l3.94-3.7c.1-.1.26-.1.35 0 .1.1.1.26 0 .35l-3.94 3.7c-.28.25-.72.25-1 0L0.54 1.26c-.07-.06-.07-.11-.07-.17Z" fill="#637381"/>
                                 </svg>
                             </span>
-                        </div>
+                        </div> --}}
                         <button
                         class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
                         @click="window.location.href='{{ route('student.pembayaran.cicilan.create') }}'"

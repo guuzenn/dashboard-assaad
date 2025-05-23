@@ -116,7 +116,7 @@
             <!-- Card Item End -->
 
             <!-- Card Item Start -->
-            <div
+            {{-- <div
                class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
                <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
                   <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +131,7 @@
                      <span class="text-sm font-medium">Cicilan</span>
                   </div>
                </div>
-            </div>
+            </div> --}}
             <!-- Card Item End -->
          </div>
 
@@ -142,7 +142,7 @@
             <div class="flex items-center justify-between mb-4">
                <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
                <div class="flex items-center gap-4">
-                 <div class="relative">
+                 {{-- <div class="relative">
                      <select
                         name="filter_tahun"
                         id="filter_tahun"
@@ -194,7 +194,7 @@
                            />
                         </svg>
                      </span>
-                  </div>
+                  </div> --}}
                </div>
             </div>
             <!-- Table Cicilan -->

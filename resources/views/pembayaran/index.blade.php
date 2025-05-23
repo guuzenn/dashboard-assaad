@@ -90,6 +90,10 @@
    </header>
    <!-- ===== Header End ===== -->
 
+@php
+    $totalTagihan = $tagihan->count();
+@endphp
+
    <!-- ===== Main Content Start ===== -->
    <main>
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
@@ -107,32 +111,14 @@
                <div class="mt-4 flex items-end justify-between">
                   <div>
                      <h4 class="text-title-md font-bold text-black dark:text-white">
-                        12
+                        {{ $totalTagihan }}
                      </h4>
-                     <span class="text-sm font-medium">Lunas</span>
+                     <span class="text-sm font-medium">Total Tagihan</span>
                   </div>
                </div>
             </div>
             <!-- Card Item End -->
 
-            <!-- Card Item Start -->
-            <div
-               class="rounded-sm border border-stroke bg-white px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
-               <div class="flex h-11.5 w-11.5 items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
-                  <svg class="fill-primary dark:fill-white" width="20" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z" clip-rule="evenodd" />
-                  </svg>
-               </div>
-               <div class="mt-4 flex items-end justify-between">
-                  <div>
-                     <h4 class="text-title-md font-bold text-black dark:text-white">
-                        5
-                     </h4>
-                     <span class="text-sm font-medium">Belum Bayar</span>
-                  </div>
-               </div>
-            </div>
-            <!-- Card Item End -->
          </div>
 
          <!-- List Murid -->
@@ -140,61 +126,25 @@
             class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6"
             >
             <div class="flex items-center justify-between mb-4">
-               <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
+               <h4 class="text-lg font-bold text-black dark:text-white">List Tagihan</h4>
                <div class="flex items-center gap-4">
-                 <div class="relative">
-                     <select
-                        name="filter_tahun"
-                        id="filter_tahun"
-                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Jenis Pembayaran</option>
-                        <option value="SPP">SPP</option>
-                        <option value="Daftar Ulang">Daftar Ulang</option>
-                     </select>
-
-                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                        <svg
-                           width="14"
-                           height="10"
-                           viewBox="0 0 10 6"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
+                    <div class="relative">
+                        <select
+                            name="filter_jenis"
+                            id="filter_jenis"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                            onchange="filterTagihan()"
                         >
-                           <path
-                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
-                              fill="#637381"
-                           />
-                        </svg>
-                     </span>
-                  </div>
-                  <div class="relative">
-                     <select
-                        name="filter_tahun"
-                        id="filter_tahun"
-                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Semua Status</option>
-                        <option value="Lunas">Lunas</option>
-                        <option value="Belum Bayar">Belum Bayar</option>
-                        <option value="Cicilan">Cicilan</option>
-                     </select>
-
-                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                        <svg
-                           width="14"
-                           height="10"
-                           viewBox="0 0 10 6"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
-                        >
-                           <path
-                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
-                              fill="#637381"
-                           />
-                        </svg>
-                     </span>
-                  </div>
+                            <option value="">Jenis Pembayaran</option>
+                            <option value="SPP Bulanan">SPP</option>
+                            <option value="Daftar Ulang">Daftar Ulang</option>
+                        </select>
+                        <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                            <svg width="14" height="10" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z" fill="#637381"/>
+                            </svg>
+                        </span>
+                    </div>
 
                   <button
                      class="px-4 py-2 text-white bg-primary rounded-md hover:bg-primary-dark"
@@ -220,7 +170,7 @@
                     </thead>
                     <tbody>
                         @foreach ($tagihan as $index => $item)
-                        <tr>
+                        <tr data-jenis="{{ $item->judul }}">
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->siswa->nama_lengkap?? '-' }}</td>
                             <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->judul}}</td>
@@ -313,19 +263,34 @@
          <!-- ====== Table Three End -->
       </div>
    </main>
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+    <script>
+    function filterTagihan() {
+        const jenis = document.getElementById('filter_jenis').value;
+        const rows = document.querySelectorAll('tbody tr[data-jenis]');
+        rows.forEach(row => {
+            const rowJenis = row.getAttribute('data-jenis');
+            let show = true;
+            if (jenis && rowJenis !== jenis) show = false;
+            row.style.display = show ? '' : 'none';
+        });
     }
-    });
-</script>
-@endif
+    document.addEventListener('DOMContentLoaded', filterTagihan);
+    </script>
+
+
+   @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
+    @endif
 
 </x-layout>
