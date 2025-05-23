@@ -168,16 +168,74 @@
                <div class="flex items-center gap-4">
                   <!-- Filter Status Pendaftaran -->
                   <div class="relative">
-                     <select
-                        name="filter_status"
-                        id="filter_status"
+                        <select
+                            name="filter_status"
+                            id="filter_status"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                            onchange="filterPPDB()"
+                        >
+                            <option value="">Semua Status</option>
+                            <option value="Diterima">Diterima</option>
+                            <option value="Verifikasi">Verifikasi</option>
+                            <option value="Ditolak">Ditolak</option>
+                        </select>
+
+                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                        <svg
+                        width="14"
+                        height="10"
+                        viewBox="0 0 10 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                           fill="#637381"
+                        />
+                        </svg>
+                     </span>
+                  </div>
+                <!-- Filter Status Pembayaran -->
+                  <div class="relative">
+                        <select
+                            name="filter_pembayaran"
+                            id="filter_pembayaran"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                            onchange="filterPPDB()"
+                        >
+                            <option value="">Semua Pembayaran</option>
+                            <option value="lunas">Lunas</option>
+                            <option value="belum lunas">Belum Lunas</option>
+                        </select>
+
+                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                        <svg
+                        width="14"
+                        height="10"
+                        viewBox="0 0 10 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path
+                           d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                           fill="#637381"
+                        />
+                        </svg>
+                     </span>
+                  </div>
+                 <!-- Filter Tahun -->
+                  <div class="relative">
+                    <select
+                        name="filter_tahun"
+                        id="filter_tahun"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Semua Status</option>
-                        <option value="Diterima">Diterima</option>
-                        <option value="Verifikasi">Verifikasi</option>
-                        <option value="Ditolak">Ditolak</option>
-                     </select>
+                        onchange="filterPPDB()"
+                    >
+                        <option value="">Semua Tahun</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                    </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -224,7 +282,9 @@
                </thead>
                <tbody>
                   @foreach ($ppdb as $index => $item)
-                  <tr>
+                  <tr   data-status="{{ strtolower($item->status) }}"
+                        data-pembayaran="{{ strtolower($item->status_pembayaran) }}"
+                        data-tahun="{{ \Carbon\Carbon::parse($item->created_at)->format('Y') }}" >
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->nama_lengkap }}</td>
                      <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
@@ -304,19 +364,39 @@
       </div>
    </main>
 
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+    <script>
+    function filterPPDB() {
+        const status = document.getElementById('filter_status').value.toLowerCase();
+        const pembayaran = document.getElementById('filter_pembayaran').value.toLowerCase();
+        const tahun = document.getElementById('filter_tahun').value;
+        const rows = document.querySelectorAll('tbody tr[data-status][data-pembayaran][data-tahun]');
+        rows.forEach(row => {
+            const rowStatus = row.getAttribute('data-status');
+            const rowPembayaran = row.getAttribute('data-pembayaran');
+            const rowTahun = row.getAttribute('data-tahun');
+            let show = true;
+            if (status && rowStatus !== status) show = false;
+            if (pembayaran && rowPembayaran !== pembayaran) show = false;
+            if (tahun && rowTahun !== tahun) show = false;
+            row.style.display = show ? '' : 'none';
+        });
     }
-    });
-</script>
-@endif
+    document.addEventListener('DOMContentLoaded', filterPPDB);
+    </script>
+
+   @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
+    @endif
 
 </x-layout>

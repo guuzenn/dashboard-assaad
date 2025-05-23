@@ -88,8 +88,6 @@ class PPDBController extends Controller
     public function update(Request $request, $id)
     {
 
-        // $ppdb->user = User::findOrFail($ppdb->user_id);
-
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'nama_panggilan' => 'required|string|max:255',
@@ -143,6 +141,7 @@ class PPDBController extends Controller
             $validated['ktp_ortu'] = $request->file('ktp_ortu')->store('images/berkas', 'public');
         }
 
+        $ppdb->user = User::findOrFail($ppdb->user_id);
 
         $ppdb->update([
         'nama_lengkap' => $request->nama_lengkap,
@@ -207,15 +206,6 @@ class PPDBController extends Controller
             // Jika status bukan diterima, ubah role user ke 'calon siswa'
             $ppdb->user->update(['role' => 'calon siswa']);
         }
-        // Hapus data dari tabel siswa jika status ditolak
-        if ($request['status'] === 'ditolak') {
-            $siswa = Siswa::where('user_id', $ppdb->user_id)->first();
-            if ($siswa) {
-                // Hapus data siswa
-                $siswa->delete();
-            }
-        }
-
 
         return redirect()->route('ppdb.index')->with('success', 'Data berhasil diupdate!');
     }

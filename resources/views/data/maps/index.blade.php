@@ -146,7 +146,20 @@
             <div class="max-w-full overflow-x-auto h-1000px">
                @section('css')
                <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-                <style>#map { height: 600px; }</style>
+
+
+                <style>
+                    #map { height: 600px; }
+                    .leaflet-routing-container {
+                        background: white;
+                        padding: 10px;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                        max-height: 500px;
+                        overflow-y: auto;
+                    }
+
+                </style>
                 {{-- <style>
                     /* #map { height: 100vh; } */
                     .search-box, .radius-box {
@@ -317,20 +330,34 @@
                                 styles: [{ color: '#3388ff', weight: 5, opacity: 0.8 }]
                             },
                             createMarker: function() { return null; },
-                            // Custom panel with white background
                             show: true,
                             collapsible: true,
                             formatter: null,
                             summaryTemplate: '<div style="background: #fff; padding: 10px; border-radius: 8px;">{name} {distance}, {time}</div>'
                         }).addTo(map);
 
-                        // Set background putih untuk panel routing
+                        // Set background putih untuk panel routing dan tambahkan tombol close
                         setTimeout(() => {
                             const panels = document.querySelectorAll('.leaflet-routing-container');
                             panels.forEach(panel => {
                                 panel.style.background = '#fff';
                                 panel.style.borderRadius = '8px';
                                 panel.style.boxShadow = '0 2px 6px rgba(0,0,0,0.1)';
+                                panel.style.maxHeight = '300px';
+                                panel.style.overflowY = 'auto';
+
+                                // Tambahkan tombol close jika belum ada
+                                if (!panel.querySelector('.close-routing')) {
+                                    const closeBtn = document.createElement('button');
+                                    closeBtn.innerHTML = '&times;';
+                                    closeBtn.className = 'close-routing';
+                                    closeBtn.style.cssText = 'position:absolute;top:8px;right:12px;font-size:22px;background:none;border:none;cursor:pointer;color:#333;z-index:9999;';
+                                    closeBtn.onclick = function() {
+                                        if (routeLayer) map.removeControl(routeLayer);
+                                    };
+                                    panel.style.position = 'relative';
+                                    panel.appendChild(closeBtn);
+                                }
                             });
                         }, 100);
                     }

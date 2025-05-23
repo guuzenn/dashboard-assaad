@@ -150,15 +150,16 @@
                <h4 class="text-lg font-bold text-black dark:text-white">List Murid</h4>
                <div class="flex items-center gap-4">
                   <div class="relative">
-                     <select
-                        name="filter_tahun"
-                        id="filter_tahun"
+                    <select
+                        name="filter_kelas"
+                        id="filter_kelas"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
+                        onchange="filterMurid()"
+                    >
                         <option value="">Semua Kelas</option>
-                        <option value="A">TK A</option>
-                        <option value="B">TK B</option>
-                     </select>
+                        <option value="KIDDY A">Kiddy A</option>
+                        <option value="TODDLER B">Toddler B</option>
+                    </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -192,7 +193,7 @@
                         <th class="min-w-[60px] px-4 py-4 font-medium text-black dark:text-white">No.</th>
                         <th class="min-w-[220px] px-4 py-4 font-medium text-black dark:text-white">Nama Lengkap</th>
                         <th class="min-w-[150px] px-4 py-4 font-medium text-black dark:text-white">Jenis Kelamin</th>
-                        <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Agama</th>
+                        <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Usia Saat Ini</th>
                         {{-- <th class="min-w-[140px] px-4 py-4 font-medium text-black dark:text-white">Status Pembayaran</th> --}}
                         <th class="min-w-[120px] px-4 py-4 font-medium text-black dark:text-white">Kelas</th>
                         <th class="px-4 py-4 font-medium text-black dark:text-white">Aksi</th>
@@ -200,11 +201,19 @@
                   </thead>
                   <tbody>
                      @foreach ($murid as $index => $item)
-                     <tr>
+                     <tr data-kelas="{{ strtoupper($item->kelas->nama ?? '-') }}">
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->nama_lengkap }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->jenis_kelamin }}</td>
-                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->agama }}</td>
+                        <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                            @php
+                                $lahir = \Carbon\Carbon::parse($item->tanggal_lahir);
+                                $now = \Carbon\Carbon::now();
+                                $tahun = $lahir->diffInYears($now);
+                                $hari = $lahir->copy()->addYears($tahun)->diffInDays($now);
+                            @endphp
+                            {{ (int) $tahun }} tahun {{ (int) $hari }} hari
+                        </td>
                         {{-- <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                            <p class="inline-flex rounded-full px-3 py-1 text-sm font-medium
                               {{ $item->status_pembayaran == 'Lunas'
@@ -293,19 +302,36 @@
          <!-- ====== Table Three End -->
       </div>
    </main>
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+
+   <script>
+    function filterMurid() {
+        const filter = document.getElementById('filter_kelas').value.toUpperCase();
+        const rows = document.querySelectorAll('tbody tr[data-kelas]');
+        rows.forEach(row => {
+            const kelas = row.getAttribute('data-kelas');
+            if (!filter) {
+                row.style.display = '';
+            } else {
+                row.style.display = (kelas === filter) ? '' : 'none';
+            }
+        });
     }
-    });
-</script>
-@endif
+    document.addEventListener('DOMContentLoaded', filterMurid);
+    </script>
+
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
+    @endif
 
 </x-layout>

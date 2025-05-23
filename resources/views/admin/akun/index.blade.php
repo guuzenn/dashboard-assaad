@@ -161,14 +161,16 @@
                <div class="flex items-center gap-4">
                   <div class="relative">
                      <select
-                        name="filter_status"
-                        id="filter_status"
+                        name="filter_role"
+                        id="filter_role"
                         class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Semua Status</option>
-                        <option value="active">Aktif</option>
-                        <option value="inactive">Tidak Aktif</option>
-                     </select>
+                        onchange="filterAkun()"
+                    >
+                        <option value="">Semua Jenis Akun</option>
+                        <option value="siswa">Siswa</option>
+                        <option value="guru_admin">Guru & Admin</option>
+                        <option value="calon_siswa">Calon Siswa</option>
+                    </select>
 
                      <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
                         <svg
@@ -208,7 +210,7 @@
                   </thead>
                   <tbody>
                      @foreach ($akun as $index => $item)
-                     <tr>
+                     <tr data-role="{{ $item->role }}">
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $index + 1 }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 pl-9 dark:border-strokedark xl:pl-11">{{ $item->name }}</td>
                         <td class="border-b border-[#eee] px-4 py-5 dark:border-strokedark">{{ $item->email }}</td>
@@ -284,19 +286,45 @@
          </div>
       </div>
    </main>
-   @if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'Berhasil!',
-        text: "{{ session('success') }}",
-        confirmButtonColor: '#22c55e',
-        color: '#000000',
-        customClass: {
-        confirmButton: 'text-black'
+
+    <script>
+    function filterAkun() {
+        const filter = document.getElementById('filter_role').value;
+        const rows = document.querySelectorAll('tbody tr[data-role]');
+        rows.forEach(row => {
+            const role = row.getAttribute('data-role');
+            if (!filter) {
+                row.style.display = '';
+            } else if (filter === 'guru_admin') {
+                if (role === 'guru' || role === 'admin') {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            } else {
+                row.style.display = (role === filter) ? '' : 'none';
+            }
+        });
     }
-    });
-</script>
-@endif
+
+    document.addEventListener('DOMContentLoaded', filterAkun);
+    </script>
+
+
+   @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            confirmButtonColor: '#22c55e',
+            color: '#000000',
+            customClass: {
+            confirmButton: 'text-black'
+        }
+        });
+    </script>
+    @endif
+
 
 </x-layout>

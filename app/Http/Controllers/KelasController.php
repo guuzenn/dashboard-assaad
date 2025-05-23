@@ -12,7 +12,7 @@ class KelasController extends Controller
 {
     public function index()
     {
-        $kelas = Kelas::get();
+        $kelas = Kelas::withCount('siswa')->get();
         return view('data.kelas.index', compact('kelas'));
     }
 

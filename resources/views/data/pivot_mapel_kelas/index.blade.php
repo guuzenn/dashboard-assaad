@@ -108,7 +108,9 @@
                </div>
                <div class="mt-4 flex items-end justify-between">
                   <div>
-                     <h4 class="text-title-md font-bold text-black dark:text-white">3</h4>
+                     <h4 class="text-title-md font-bold text-black dark:text-white">
+                        {{ $pivot->pluck('kelas_id')->unique()->count() }}
+                     </h4>
                      <span class="text-sm font-medium">Total Kelas</span>
                   </div>
                </div>
