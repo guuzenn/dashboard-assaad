@@ -89,7 +89,7 @@
                         @elseif (isset($status) && $status === 'ditolak')
                             <p class="text-red-600 text-lg font-bold mb-4">Mohon maaf, Anda <span class="underline">TIDAK DITERIMA</span> di PPDB ASSIK.</p>
                         @else
-                            <p class="text-gray-700 text-lg leading-relaxed">Pendaftaran Anda sedang diproses. Silakan cek pengumuman secara berkala. Si</p>
+                            <p class="text-gray-700 text-lg leading-relaxed">Pendaftaran Anda sedang diproses. Silakan cek pengumuman secara berkala.</p>
                         @endif
                     @elseif (auth()->user()->role === 'siswa')
                         <p class="text-green-700 text-lg font-bold mb-4">Selamat datang, Anda sudah menjadi siswa di ASSIK!</p>
