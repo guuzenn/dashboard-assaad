@@ -278,7 +278,6 @@ Route::middleware(['auth', 'role:siswa'])->prefix('student')->name('student.')->
 
 
 
-
 // Data Nilai
 Route::middleware(['auth', 'role:guru'])->group(function () {
     Route::prefix('data/nilai')->name('data.nilai.')->group(function() {
@@ -325,4 +324,8 @@ Route::middleware(['auth', 'role:guru'])->group(function () {
         Route::get('/{tagihan}', [PembayaranController::class, 'show'])
             ->where('tagihan', '[0-9]+')
             ->name('show');
+    });
+
+    Route::prefix('student/pembayaran')->name('student.pembayaran.')->group(function () {
+
     });

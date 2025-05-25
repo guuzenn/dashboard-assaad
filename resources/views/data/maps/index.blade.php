@@ -109,39 +109,46 @@
          <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
             <div class="flex items-center justify-between mb-4">
                <h4 class="text-lg font-bold text-black dark:text-white">Lokasi Persebaran Rumah Siswa</h4>
-               <div class="flex items-center gap-4">
-                  <div class="relative">
-                     <select
-                        id="radiusFilter"
-                        class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                     >
-                        <option value="">Filter Radius</option>
-                        <option value="1">1 KM</option>
-                        <option value="3">3 KM</option>
-                        <option value="5">5 KM</option>
-                     </select>
-
-                     <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-                        <svg
-                           width="14"
-                           height="10"
-                           viewBox="0 0 10 6"
-                           fill="none"
-                           xmlns="http://www.w3.org/2000/svg"
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <select
+                            id="radiusFilter"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
                         >
-                           <path
-                              d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
-                              fill="#637381"
-                           />
-                        </svg>
-                     </span>
-                  </div>
+                            <option value="">Filter Radius</option>
+                            <option value="1">1 KM</option>
+                            <option value="3">3 KM</option>
+                            <option value="5">5 KM</option>
+                            <option value="1000">&gt; 5 KM</option>
+                        </select>
+                        <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                            <svg
+                                width="14"
+                                height="10"
+                                viewBox="0 0 10 6"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                                    fill="#637381"
+                                />
+                            </svg>
+                        </span>
+                    </div>
 
-                 <input id="searchSiswa" type="text"
-                    placeholder="Cari siswa..."
-                    class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
-                />
-               </div>
+                    <div class="relative w-64">
+                        <input id="searchSiswa" type="text"
+                            placeholder="Cari siswa..."
+                            autocomplete="off"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-full"
+                        />
+                        <ul id="searchSuggestions"
+                            class="absolute left-0 right-0 top-full z-[1001] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg mt-1 shadow-lg max-h-60 overflow-y-auto w-full hidden">
+                        </ul>
+                    </div>
+
+                </div>
             </div>
             <div class="max-w-full overflow-x-auto h-1000px">
                @section('css')
@@ -160,15 +167,6 @@
                     }
 
                 </style>
-                {{-- <style>
-                    /* #map { height: 100vh; } */
-                    .search-box, .radius-box {
-                        background: white;
-                        padding: 10px;
-                        border-radius: 8px;
-                        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-                    }
-                </style> --}}
                @endsection
 
                 <div id="map" clas></div>
@@ -176,81 +174,6 @@
                 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
                 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
                 <script>
-                    // Data dari Laravel
-                    // const sekolah = @json($sekolah); // {lat: ..., lng: ...}
-                    // const siswaData = @json($siswa); // Array berisi siswa
-
-                    // const map = L.map('map').setView([sekolah.lat, sekolah.lng], 13);
-
-                    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    //     maxZoom: 19, minZoom:10,
-                    // }).addTo(map);
-
-                    // // Marker sekolah
-                    // L.marker([sekolah.lat, sekolah.lng], {
-                    //     icon: L.icon({
-                    //         iconUrl: 'https://cdn-icons-png.flaticon.com/512/61/61168.png',
-                    //         iconSize: [32, 32]
-                    //     })
-                    // })
-                    //     .addTo(map)
-                    //     .bindPopup(sekolah.nama)
-                    //     .openPopup();
-
-                    // const siswaLayer = L.layerGroup().addTo(map);
-                    // let routeLayer;
-
-                    // function hitungJarak(lat1, lon1, lat2, lon2) {
-                    //     const R = 6371;
-                    //     const dLat = (lat2 - lat1) * Math.PI / 180;
-                    //     const dLon = (lon2 - lon1) * Math.PI / 180;
-                    //     const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                    //             Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                    //             Math.sin(dLon / 2) * Math.sin(dLon / 2);
-                    //     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                    //     return R * c;
-                    // }
-
-                    // function tampilkanSiswa(filterKm = null, keyword = '') {
-                    //     siswaLayer.clearLayers();
-
-                    //     siswaData.forEach((siswa) => {
-                    //         if (!siswa.latitude || !siswa.longitude || !siswa.nama_lengkap) return;
-
-                    //         const jarak = hitungJarak(sekolah.lat, sekolah.lng, siswa.latitude, siswa.longitude);
-                    //         const cocokKeyword = siswa.nama_lengkap.toLowerCase().includes(keyword.toLowerCase());
-
-                    //         if ((filterKm === null || jarak <= filterKm) && cocokKeyword) {
-                    //             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
-                    //             marker.bindPopup(`
-                    //                 <b>${siswa.nama_lengkap}</b>
-                    //                 <br>Kelas: ${siswa.usia}
-                    //                 <br>Alamat: ${siswa.alamat}
-                    //                 <br>Jarak ke sekolah: ${jarak.toFixed(2)} km
-                    //                 <br><button onclick="tampilkanRute(${siswa.latitude}, ${siswa.longitude})">Lihat Rute</button>
-                    //             `);
-                    //         }
-                    //     });
-                    // }
-
-                    // // Menampilkan siswa otomatis saat map dibuka
-                    // tampilkanSiswa();
-
-                    // // Fungsi routing
-                    // function tampilkanRute(lat, lng) {
-                    //     if (routeLayer) map.removeControl(routeLayer);
-
-                    //     routeLayer = L.Routing.control({
-                    //         waypoints: [
-                    //             L.latLng(lat, lng),
-                    //             L.latLng(sekolah.lat, sekolah.lng)
-                    //         ],
-                    //         routeWhileDragging: false
-                    //     }).addTo(map);
-                    // }
-
-
-                    //hitung jarak Rute
                     const sekolah = @json($sekolah); // {lat: ..., lng: ...}
                     const siswaData = @json($siswa); // Array berisi siswa
 
@@ -270,54 +193,66 @@
                     const siswaLayer = L.layerGroup().addTo(map);
                     let routeLayer;
 
-                    // Fungsi untuk mendapatkan jarak rute dari siswa ke sekolah
-                    async function getRouteDistance(fromLat, fromLng, toLat, toLng) {
-                        return new Promise((resolve) => {
-                            const tempRoute = L.Routing.control({
-                                waypoints: [
-                                    L.latLng(fromLat, fromLng),
-                                    L.latLng(toLat, toLng)
-                                ],
-                                router: L.Routing.osrmv1({
-                                    serviceUrl: 'https://router.project-osrm.org/route/v1'
-                                }),
-                                createMarker: () => null,
-                                addWaypoints: false,
-                                fitSelectedRoutes: false,
-                                routeWhileDragging: false
-                            }).on('routesfound', function (e) {
-                                const jarakKm = e.routes[0].summary.totalDistance / 1000;
-                                tempRoute.remove();
-                                resolve(jarakKm);
-                            }).addTo(map);
+                    // Calculate distance between two lat/lng points
+                    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+                        const R = 6371; // Radius bumi dalam km
+                        const dLat = (lat2 - lat1) * Math.PI / 180;
+                        const dLon = (lon2 - lon1) * Math.PI / 180;
+                        const a =
+                            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                        return R * c;
+                    }
+
+                    // Show students on map, filter by radius and keyword
+                    function tampilkanSiswa(filterKm = null, keyword = '') {
+                        siswaLayer.clearLayers();
+
+                        siswaData.forEach((siswa) => {
+                            if (!siswa.latitude || !siswa.longitude || !siswa.nama_lengkap) return;
+                            if (keyword && !siswa.nama_lengkap.toLowerCase().includes(keyword.toLowerCase())) return;
+
+                            // Filter by radius if filterKm is set
+                            if (filterKm) {
+                                const dist = getDistanceFromLatLonInKm(
+                                    sekolah.lat, sekolah.lng,
+                                    siswa.latitude, siswa.longitude
+                                );
+                                if (dist > filterKm) return;
+                            }
+
+                            const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
+                            marker.bindPopup(`
+                                <b>${siswa.nama_lengkap}</b><br>
+                                Kelas: ${siswa.usia}<br>
+                                Alamat: ${siswa.alamat}<br>
+                                <button onclick="tampilkanRute(${siswa.latitude}, ${siswa.longitude}, '${siswa.nama_lengkap}', '${siswa.usia}', '${siswa.alamat}')">Lihat Rute & Jarak</button>
+                            `);
                         });
                     }
 
-                    async function tampilkanSiswa(filterKm = null, keyword = '') {
-                        siswaLayer.clearLayers();
+                    // Inisialisasi filter
+                    let currentRadius = null;
+                    let currentKeyword = '';
 
-                        for (const siswa of siswaData) {
-                            if (!siswa.latitude || !siswa.longitude || !siswa.nama_lengkap) continue;
-                            if (!siswa.nama_lengkap.toLowerCase().includes(keyword.toLowerCase())) continue;
+                    // Event listener untuk filter radius
+                    document.getElementById('radiusFilter').addEventListener('change', function (e) {
+                        currentRadius = this.value ? parseFloat(this.value) : null;
+                        tampilkanSiswa(currentRadius, currentKeyword);
+                    });
 
-                            const jarak = await getRouteDistance(siswa.latitude, siswa.longitude, sekolah.lat, sekolah.lng);
+                    // Event listener untuk search siswa
+                    document.getElementById('searchSiswa').addEventListener('input', function (e) {
+                        currentKeyword = this.value;
+                        tampilkanSiswa(currentRadius, currentKeyword);
+                    });
 
-                            if (filterKm === null || jarak <= filterKm) {
-                                const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
-                                marker.bindPopup(`
-                                    <b>${siswa.nama_lengkap}</b><br>
-                                    Kelas: ${siswa.usia}<br>
-                                    Alamat: ${siswa.alamat}<br>
-                                    Jarak rute ke sekolah: ${jarak.toFixed(2)} km<br>
-                                    <button onclick="tampilkanRute(${siswa.latitude}, ${siswa.longitude})">Lihat Rute</button>
-                                `);
-                            }
-                        }
-                    }
+                    tampilkanSiswa();
 
-                    tampilkanSiswa(); // tampilkan awal
-
-                    function tampilkanRute(lat, lng) {
+                    // Calculate route and distance only when button is clicked
+                    async function tampilkanRute(lat, lng, nama, usia, alamat) {
                         if (routeLayer) map.removeControl(routeLayer);
 
                         routeLayer = L.Routing.control({
@@ -325,6 +260,9 @@
                                 L.latLng(lat, lng),
                                 L.latLng(sekolah.lat, sekolah.lng)
                             ],
+                            router: L.Routing.osrmv1({
+                                serviceUrl: 'https://router.project-osrm.org/route/v1'
+                            }),
                             routeWhileDragging: false,
                             lineOptions: {
                                 styles: [{ color: '#3388ff', weight: 5, opacity: 0.8 }]
@@ -334,9 +272,20 @@
                             collapsible: true,
                             formatter: null,
                             summaryTemplate: '<div style="background: #fff; padding: 10px; border-radius: 8px;">{name} {distance}, {time}</div>'
+                        }).on('routesfound', function(e) {
+                            const jarak = e.routes[0].summary.totalDistance / 1000;
+                            // Show popup with distance info
+                            L.popup()
+                                .setLatLng([lat, lng])
+                                .setContent(`
+                                    <b>${nama}</b><br>
+                                    Kelas: ${usia}<br>
+                                    Alamat: ${alamat}<br>
+                                    Jarak rute ke sekolah: ${jarak.toFixed(2)} km
+                                `)
+                                .openOn(map);
                         }).addTo(map);
 
-                        // Set background putih untuk panel routing dan tambahkan tombol close
                         setTimeout(() => {
                             const panels = document.querySelectorAll('.leaflet-routing-container');
                             panels.forEach(panel => {
@@ -346,7 +295,7 @@
                                 panel.style.maxHeight = '300px';
                                 panel.style.overflowY = 'auto';
 
-                                // Tambahkan tombol close jika belum ada
+                                // Add close button if not exists
                                 if (!panel.querySelector('.close-routing')) {
                                     const closeBtn = document.createElement('button');
                                     closeBtn.innerHTML = '&times;';
@@ -362,43 +311,122 @@
                         }, 100);
                     }
 
-                    // Pencarian
-                    // const searchInput = L.control({position: 'topright'});
-                    // searchInput.onAdd = function () {
-                    //     const div = L.DomUtil.create('div', 'search-box');
-                    //     div.innerHTML = `<input id="searchSiswa" type="text" placeholder="Cari siswa..." style="width:150px;" />`;
-                    //     return div;
-                    // };
-                    // searchInput.addTo(map);
+                    // Custom legend control
+                    let legendVisible = true;
+                    const legend = L.control({ position: 'bottomleft' });
 
-                    document.addEventListener('input', function (e) {
-                        if (e.target.id === 'searchSiswa') {
-                            tampilkanSiswa(null, e.target.value);
+                    legend.onAdd = function (map) {
+                        const div = L.DomUtil.create('div', 'leaflet-control leaflet-bar bg-white rounded-lg shadow-lg p-4 text-sm border border-gray-300 flex flex-col gap-2');
+                        div.id = 'mapLegendBox';
+                        div.innerHTML = `
+                            <button id="toggleLegendBtn" type="button"
+                                class="mb-2 px-3 py-1 rounded bg-gray-200 hover:bg-gray-300 text-xs font-semibold text-gray-700 self-end">
+                                Sembunyikan Legenda
+                            </button>
+                            <div id="legendContent">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/61/61168.png" alt="Sekolah" style="width: 22px; height: 22px;">
+                                    <span>Sekolah</span>
+                                </div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span style="display:inline-block;width:18px;height:18px;background:#3388ff;border-radius:50%;"></span>
+                                    <span>Rumah Siswa</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span style="display:inline-block;width:24px;height:4px;background:#3388ff;border-radius:2px;"></span>
+                                    <span>Rute ke Sekolah</span>
+                                </div>
+                            </div>
+                        `;
+                        return div;
+                    };
+
+                    legend.addTo(map);
+
+                    // Toggle logic inside the legend
+                    function setLegendVisibility(show) {
+                        const legendBox = document.getElementById('mapLegendBox');
+                        const legendContent = document.getElementById('legendContent');
+                        const toggleBtn = document.getElementById('toggleLegendBtn');
+                        if (!legendBox || !toggleBtn || !legendContent) return;
+
+                        if (show) {
+                            legendContent.style.display = '';
+                            toggleBtn.textContent = 'Sembunyikan Legenda';
+                        } else {
+                            legendContent.style.display = 'none';
+                            toggleBtn.textContent = 'Tampilkan Legenda';
+                        }
+                        legendVisible = show;
+                    }
+
+                    // Wait until legend is rendered
+                    setTimeout(() => {
+                        const toggleBtn = document.getElementById('toggleLegendBtn');
+                        if (toggleBtn) {
+                            toggleBtn.addEventListener('click', function() {
+                                setLegendVisibility(!legendVisible);
+                            });
+                        }
+                    }, 300);
+
+                    // --- Autocomplete Search ---
+                    const siswaList = siswaData.map(s => s.nama_lengkap);
+                    const searchInput = document.getElementById('searchSiswa');
+                    const suggestions = document.getElementById('searchSuggestions');
+
+                    searchInput.addEventListener('input', function () {
+                        const val = this.value.toLowerCase();
+                        // Filter names
+                        const filtered = siswaList.filter(nama => nama.toLowerCase().includes(val));
+                        // Show suggestions
+                        if (val && filtered.length) {
+                            suggestions.innerHTML = filtered.map(nama =>
+                                `<li class="px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-meta-4" data-nama="${nama}">${nama}</li>`
+                            ).join('');
+                            suggestions.classList.remove('hidden');
+                        } else {
+                            suggestions.innerHTML = '';
+                            suggestions.classList.add('hidden');
+                        }
+                        // Filter map markers
+                        tampilkanSiswa(currentRadius, val);
+                    });
+
+                    // Click suggestion: autofill input, filter, and focus marker
+                    suggestions.addEventListener('click', function(e) {
+                        if (e.target && e.target.matches('li[data-nama]')) {
+                            const namaDipilih = e.target.getAttribute('data-nama');
+                            searchInput.value = namaDipilih;
+                            suggestions.innerHTML = '';
+                            suggestions.classList.add('hidden');
+                            tampilkanSiswa(currentRadius, namaDipilih.toLowerCase());
+
+                            // Cari data siswa yang sesuai dan fokus ke marker
+                            const siswa = siswaData.find(s => s.nama_lengkap === namaDipilih);
+                            if (siswa && siswa.latitude && siswa.longitude) {
+                                map.setView([siswa.latitude, siswa.longitude], 16);
+                                // Buka popup marker jika ada
+                                siswaLayer.eachLayer(function(marker) {
+                                    if (
+                                        marker.getLatLng().lat === siswa.latitude &&
+                                        marker.getLatLng().lng === siswa.longitude
+                                    ) {
+                                        marker.openPopup();
+                                    }
+                                });
+                            }
                         }
                     });
 
-                    // Filter Radius
-                    // const radiusControl = L.control({position: 'topright'});
-                    // radiusControl.onAdd = function () {
-                    //     const div = L.DomUtil.create('div', 'radius-box');
-                    //     div.innerHTML =
-                    //     // `
-                    //     //     <select id="radiusFilter" style="width:150px;">
-                    //     //         <option value="">-- Filter Radius --</option>
-                    //     //         <option value="1">1 km</option>
-                    //     //         <option value="3">3 km</option>
-                    //     //         <option value="5">5 km</option>
-                    //     //     </select>`;
-                    //     return div;
-                    // };
-                    // radiusControl.addTo(map);
-
-                    document.addEventListener('change', function (e) {
-                        if (e.target.id === 'radiusFilter') {
-                            const km = e.target.value ? parseFloat(e.target.value) : null;
-                            tampilkanSiswa(km);
-                        }
+                    // Hide suggestions on blur (with delay for click)
+                    searchInput.addEventListener('blur', function() {
+                        setTimeout(() => {
+                            suggestions.classList.add('hidden');
+                        }, 150);
                     });
+
+                    setLegendVisibility(true);
                 </script>
             </div>
          </div>

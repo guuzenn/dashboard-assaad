@@ -57,7 +57,7 @@
                 <li><a href="{{ route('compro.kontak') }}" class="text-base text-gray-900 hover:font-semibold hover:text-green-700">Kontak</a></li>
                 <li>
                     <a href="{{ route('login') }}" class="text-base text-white bg-orange-500 hover:bg-orange-700 px-4 py-2 rounded-full font-semibold transition">
-                        Internal Login
+                        Login
                     </a>
                 </li>
             </ul>
