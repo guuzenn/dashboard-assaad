@@ -113,11 +113,28 @@
                             Tampilkan Pembagian Kecamatan Area Cileungsi
                         </button>
                     </div>
-                    <div class="relative w-64">
-                        <button id="toggleFilterPolygon"
-                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-auto">
-                            Filter Marker di Dalam Polygon
-                        </button>
+
+                    <div class="relative">
+                        <select
+                            id="kecamatanFilter"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
+                        >
+                            <option value="">Filter Kecamatan (default)</option>
+                        </select>
+                        <span class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
+                            <svg
+                                width="14"
+                                height="10"
+                                viewBox="0 0 10 6"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M0.47072 1.08816C0.47072 1.02932 0.500141 0.955772 0.54427 0.911642C0.647241 0.808672 0.809051 0.808672 0.912022 0.896932L4.85431 4.60386C4.92785 4.67741 5.06025 4.67741 5.14851 4.60386L9.09079 0.896932C9.19376 0.793962 9.35557 0.808672 9.45854 0.911642C9.56151 1.01461 9.5468 1.17642 9.44383 1.27939L5.50155 4.98632C5.22206 5.23639 4.78076 5.23639 4.51598 4.98632L0.558981 1.27939C0.50014 1.22055 0.47072 1.16171 0.47072 1.08816Z"
+                                    fill="#637381"
+                                />
+                            </svg>
+                        </span>
                     </div>
 
                     <div class="relative">
@@ -125,7 +142,7 @@
                             id="radiusFilter"
                             class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary"
                         >
-                            <option value="">Filter Radius</option>
+                            <option value="">Filter Radius (default)</option>
                             <option value="1">1 KM</option>
                             <option value="3">3 KM</option>
                             <option value="5">5 KM</option>
@@ -181,6 +198,7 @@
                 <div id="map" clas></div>
 
                 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+                <script src="https://unpkg.com/leaflet-geometryutil"></script>
                 <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.min.js"></script>
                 <script>
                     const sekolah = @json($sekolah); // {lat: ..., lng: ...}
@@ -347,8 +365,76 @@
                         return inside;
                     }
 
-                    // --- Update tampilkanSiswa to use filterPolygonActive ---
-                    function tampilkanSiswa(filterKm = null, keyword = '', filterPolygon = false) {
+                    let kecamatanPolygons = {}; // { NAMOBJ: polygonLayer }
+                    let kecamatanList = [];     // Array of NAMOBJ
+                    let currentKecamatan = '';
+
+                    // Ambil daftar kecamatan dari geojson dan isi dropdown
+                    async function loadKecamatanOptions() {
+                        const response = await fetch('/assets/geojson/pembagian_cileungsi.geojson');
+                        const geojson = await response.json();
+                        kecamatanList = [];
+                        kecamatanPolygons = {};
+
+                        geojson.features.forEach(feature => {
+                            if (feature.properties && feature.properties.NAMOBJ) {
+                                const nama = feature.properties.NAMOBJ;
+                                kecamatanList.push(nama);
+
+                                // Simpan polygon untuk filter point-in-polygon
+                                const polygon = L.geoJSON(feature);
+                                kecamatanPolygons[nama] = polygon;
+                            }
+                        });
+
+                        // Isi dropdown
+                        const kecamatanFilter = document.getElementById('kecamatanFilter');
+                        kecamatanFilter.innerHTML = `<option value="">Filter Kecamatan (default)</option>`;
+                        kecamatanList.forEach(nama => {
+                            kecamatanFilter.innerHTML += `<option value="${nama}">${nama}</option>`;
+                        });
+                    }
+
+                    // --- Check if point is in specific kecamatan polygon, ini paling stress ---
+                    function isPointInKecamatan(lat, lng, namaKecamatan) {
+                        const polygon = kecamatanPolygons[namaKecamatan];
+                        if (!polygon) return false;
+                        let inside = false;
+                        polygon.eachLayer(function(layer) {
+                            if (layer instanceof L.Polygon) {
+                                // latlngs: multipolygon = array of array, polygon = array
+                                const latlngs = layer.getLatLngs();
+                                // Jika latlngs[0][0] ada, berarti multipolygon
+                                const polygons = Array.isArray(latlngs[0][0]) ? latlngs : [latlngs];
+                                polygons.forEach(poly => {
+                                    // Untuk polygon dengan lubang, ambil hanya outer ring
+                                    const ring = Array.isArray(poly[0]) ? poly[0] : poly;
+                                    if (pointInPolygon([lat, lng], ring)) {
+                                        inside = true;
+                                    }
+                                });
+                            }
+                        });
+                        return inside;
+                    }
+
+                    // Fungsi point-in-polygon sederhana
+                    function pointInPolygon(point, vs) {
+                        // point: [lat, lng], vs: array of [lat, lng]
+                        var x = point[0], y = point[1];
+                        var inside = false;
+                        for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                            var xi = vs[i].lat, yi = vs[i].lng;
+                            var xj = vs[j].lat, yj = vs[j].lng;
+                            var intersect = ((yi > y) !== (yj > y)) &&
+                                (x < (xj - xi) * (y - yi) / (yj - yi + 0.0000001) + xi);
+                            if (intersect) inside = !inside;
+                        }
+                        return inside;
+                    }
+
+                    // --- Update tampilkanSiswa function, holy stress---
+                    function tampilkanSiswa(filterKm = null, keyword = '', filterPolygon = false, filterKecamatan = '') {
                         siswaLayer.clearLayers();
 
                         siswaData.forEach((siswa) => {
@@ -369,6 +455,11 @@
                                 return;
                             }
 
+                            // Filter by kecamatan
+                            if (filterKecamatan && !isPointInKecamatan(siswa.latitude, siswa.longitude, filterKecamatan)) {
+                                return;
+                            }
+
                             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
                             marker.bindPopup(`
                                 <b>${siswa.nama_lengkap}</b><br>
@@ -379,28 +470,35 @@
                         });
                     }
 
+                    // Event listener untuk filter kecamatan
+                    document.getElementById('kecamatanFilter').addEventListener('change', function () {
+                        currentKecamatan = this.value;
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
+                    });
+
+                    // Panggil loadKecamatanOptions saat halaman siap
+                    loadKecamatanOptions();
+
                     // --- Event listeners for new buttons ---
                     document.getElementById('toggleCileungsi').addEventListener('click', toggleCileungsiPolygon);
                     document.getElementById('togglePembagian').addEventListener('click', togglePembagianPolygon);
-                    document.getElementById('toggleFilterPolygon').addEventListener('click', toggleFilterPolygon);
+                    // document.getElementById('toggleFilterPolygon').addEventListener('click', toggleFilterPolygon);
 
                     // Inisialisasi filter
                     let currentRadius = null;
                     let currentKeyword = '';
 
-                    // Event listener untuk filter radius
+                    // Event listeners for radius and keyword filters
                     document.getElementById('radiusFilter').addEventListener('change', function (e) {
                         currentRadius = this.value ? parseFloat(this.value) : null;
-                        tampilkanSiswa(currentRadius, currentKeyword);
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
                     });
-
-                    // Event listener untuk search siswa
                     document.getElementById('searchSiswa').addEventListener('input', function (e) {
                         currentKeyword = this.value;
-                        tampilkanSiswa(currentRadius, currentKeyword);
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
                     });
 
-                    tampilkanSiswa();
+                    tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
 
                     // Calculate route and distance only when button is clicked
                     async function tampilkanRute(lat, lng, nama, usia, alamat) {
