@@ -96,7 +96,7 @@
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <!-- Peta -->
          <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
-            <h4 class="text-lg font-bold text-black dark:text-white pb-6 text-center">
+            <h1 class="text-lg font-bold text-black dark:text-white pb-6 text-center">
                 Peta Persebaran Lokasi Tempat Tinggal Siswa
             </h4>
             <div class="flex flex-wrap justify-center items-center gap-4">
@@ -166,12 +166,12 @@
 
                     <div class="relative w-64">
                         <input id="searchSiswa" type="text"
-                            placeholder="Cari siswa..."
+                            placeholder="Cari (Nama) Siswa..."
                             autocomplete="off"
                             class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-full"
                         />
                         <ul id="searchSuggestions"
-                            class="absolute left-0 right-0 bottom-full z-[1001] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg mb-1 shadow-lg max-h-60 overflow-y-auto w-full hidden">
+                            class="absolute left-0 right-0 top-full z-[9999] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg shadow-lg max-h-60 overflow-y-auto w-full hidden">
                         </ul>
                     </div>
                 </div>
@@ -222,7 +222,7 @@
 
                     // Calculate distance between two lat/lng points
                     function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-                        const R = 6371; // Radius bumi dalam km
+                        const R = 6371; // Radius bumi dalam km (sekitar segitu lah)
                         const dLat = (lat2 - lat1) * Math.PI / 180;
                         const dLon = (lon2 - lon1) * Math.PI / 180;
                         const a =
@@ -323,7 +323,27 @@
                                             info += `<br><b>Provinsi:</b> ${feature.properties.WADMPR}`;
                                         }
                                         // Hitung total siswa di kecamatan ini
-                                        const totalSiswa = siswaData.filter(s => s.kecamatan === feature.properties.NAMOBJ).length;
+                                        const totalSiswa = siswaData.filter(s => {
+                                            if (!s.latitude || !s.longitude) return false;
+                                            // Cek apakah marker siswa benar-benar di dalam polygon kecamatan ini, aneh banget tapi bagian ini
+                                            // Ambil polygon dari feature
+                                            let inside = false;
+                                            // Buat geojson layer sementara dari feature ini
+                                            const tempPolygon = L.geoJSON(feature);
+                                            tempPolygon.eachLayer(function(layer) {
+                                                if (layer instanceof L.Polygon) {
+                                                    const latlngs = layer.getLatLngs();
+                                                    const polygons = Array.isArray(latlngs[0][0]) ? latlngs : [latlngs];
+                                                    polygons.forEach(poly => {
+                                                        const ring = Array.isArray(poly[0]) ? poly[0] : poly;
+                                                        if (pointInPolygon([s.latitude, s.longitude], ring)) {
+                                                            inside = true;
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                            return inside;
+                                        }).length;
                                         info += `<br><b>Total Siswa:</b> ${totalSiswa}`;
                                         layer.bindPopup(info);
                                     }
@@ -347,22 +367,24 @@
 
                     // --- Check if point in any visible polygon ---
                     function isPointInAnyPolygon(lat, lng) {
-                        let inside = false;
-                        if (cileungsiVisible && cileungsiLayer) {
-                            cileungsiLayer.eachLayer(function(poly) {
-                                if (poly instanceof L.Polygon && poly.getBounds().contains([lat, lng])) {
-                                    inside = true;
+                        // Cek di area Cileungsi saja (bukan pembagian kecamatan)
+                        if (cileungsiLayer) {
+                            let inside = false;
+                            cileungsiLayer.eachLayer(function(layer) {
+                                if (layer instanceof L.Polygon) {
+                                    const latlngs = layer.getLatLngs();
+                                    const polygons = Array.isArray(latlngs[0][0]) ? latlngs : [latlngs];
+                                    polygons.forEach(poly => {
+                                        const ring = Array.isArray(poly[0]) ? poly[0] : poly;
+                                        if (pointInPolygon([lat, lng], ring)) {
+                                            inside = true;
+                                        }
+                                    });
                                 }
                             });
+                            return inside;
                         }
-                        if (pembagianVisible && pembagianLayer) {
-                            pembagianLayer.eachLayer(function(poly) {
-                                if (poly instanceof L.Polygon && poly.getBounds().contains([lat, lng])) {
-                                    inside = true;
-                                }
-                            });
-                        }
-                        return inside;
+                        return false;
                     }
 
                     let kecamatanPolygons = {}; // { NAMOBJ: polygonLayer }
@@ -389,7 +411,8 @@
 
                         // Isi dropdown
                         const kecamatanFilter = document.getElementById('kecamatanFilter');
-                        kecamatanFilter.innerHTML = `<option value="">Filter Kecamatan (default)</option>`;
+                        kecamatanFilter.innerHTML = `<option value="">Filter Kecamatan (default)</option>
+                            <option value="__luar_cileungsi__">Area Luar Cileungsi</option>`;
                         kecamatanList.forEach(nama => {
                             kecamatanFilter.innerHTML += `<option value="${nama}">${nama}</option>`;
                         });
@@ -456,8 +479,13 @@
                             }
 
                             // Filter by kecamatan
-                            if (filterKecamatan && !isPointInKecamatan(siswa.latitude, siswa.longitude, filterKecamatan)) {
-                                return;
+                            if (filterKecamatan) {
+                                if (filterKecamatan === "__luar_cileungsi__") {
+                                    // Tampilkan hanya yang di luar area cileungsi
+                                    if (isPointInAnyPolygon(siswa.latitude, siswa.longitude)) return;
+                                } else {
+                                    if (!isPointInKecamatan(siswa.latitude, siswa.longitude, filterKecamatan)) return;
+                                }
                             }
 
                             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
