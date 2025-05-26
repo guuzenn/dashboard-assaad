@@ -256,6 +256,18 @@
                         @endsection
                         <div>
                             <label class="mb-3 block text-sm font-medium text-black dark:text-white">Lokasi Rumah Siswa</label>
+                            <div class="flex items-center justify-center gap-2 mb-2">
+                                <button
+                                    type="button"
+                                    id="btn-lokasi-saat-ini"
+                                    class="inline-flex items-center gap-2 rounded-lg border border-primary bg-primary px-4 py-2 text-sm font-medium text-white shadow hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
+                                    </svg>
+                                    Gunakan Lokasi Saat Ini
+                                </button>
+                            </div>
                             <div id="map" style="height: 400px;"></div>
                             <input type="hidden" name="latitude" id="latitude">
                             <input type="hidden" name="longitude" id="longitude">
@@ -415,6 +427,26 @@
                 marker.setLatLng(center);
                 updateInput(center);
             }).addTo(map);
+
+            // Lokasi saat ini
+            document.getElementById('btn-lokasi-saat-ini').onclick = function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(pos) {
+                        var latlng = L.latLng(pos.coords.latitude, pos.coords.longitude);
+                        marker.setLatLng(latlng);
+                        map.setView(latlng, 16);
+                        updateInput(latlng);
+                    }, function() {
+                        alert('Gagal mendapatkan lokasi. Pastikan izin lokasi diaktifkan.');
+                    }, {
+                        enableHighAccuracy: true,
+                        timeout: 10000,
+                        maximumAge: 0
+                    });
+                } else {
+                    alert('Browser tidak mendukung geolokasi.');
+                }
+            };
         </script>
     @endsection
 </x-layout>

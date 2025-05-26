@@ -96,9 +96,30 @@
       <div class="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
          <!-- Peta -->
          <div class="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1 mt-6">
-            <div class="flex items-center justify-between mb-4">
-               <h4 class="text-lg font-bold text-black dark:text-white">Peta Persebaran Lokasi Tempat Tinggal Siswa</h4>
+            <h4 class="text-lg font-bold text-black dark:text-white pb-6 text-center">
+                Peta Persebaran Lokasi Tempat Tinggal Siswa
+            </h4>
+            <div class="flex flex-wrap justify-center items-center gap-4">
                 <div class="flex items-center gap-4">
+                    <div class="relative w-64">
+                        <button id="toggleCileungsi"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-auto">
+                            Tampilkan Area Cileungsi
+                        </button>
+                    </div>
+                    <div class="relative w-64">
+                        <button id="togglePembagian"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-auto">
+                            Tampilkan Pembagian Kecamatan Area Cileungsi
+                        </button>
+                    </div>
+                    <div class="relative w-64">
+                        <button id="toggleFilterPolygon"
+                            class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-auto">
+                            Filter Marker di Dalam Polygon
+                        </button>
+                    </div>
+
                     <div class="relative">
                         <select
                             id="radiusFilter"
@@ -133,13 +154,12 @@
                             class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-full"
                         />
                         <ul id="searchSuggestions"
-                            class="absolute left-0 right-0 top-full z-[1001] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg mt-1 shadow-lg max-h-60 overflow-y-auto w-full hidden">
+                            class="absolute left-0 right-0 bottom-full z-[1001] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg mb-1 shadow-lg max-h-60 overflow-y-auto w-full hidden">
                         </ul>
                     </div>
-
                 </div>
             </div>
-            <div class="max-w-full overflow-x-auto h-1000px">
+            <div class="max-w-full overflow-x-auto h-1000px pt-6">
                @section('css')
                <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -169,7 +189,7 @@
                     const map = L.map('map').setView([sekolah.lat, sekolah.lng], 13);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19, minZoom: 10,
+                        maxZoom: 19, minZoom: 12,
                     }).addTo(map);
 
                     L.marker([sekolah.lat, sekolah.lng], {
@@ -195,21 +215,158 @@
                         return R * c;
                     }
 
-                    // Show students on map, filter by radius and keyword
-                    function tampilkanSiswa(filterKm = null, keyword = '') {
+                    let cileungsiLayer = null;
+                    let pembagianLayer = null;
+                    let cileungsiVisible = false;
+                    let pembagianVisible = false;
+                    let filterPolygonActive = false;
+
+                    async function toggleCileungsiPolygon() {
+                        if (cileungsiLayer) {
+                            if (cileungsiVisible) {
+                                map.removeLayer(cileungsiLayer);
+                                cileungsiVisible = false;
+                                document.getElementById('toggleCileungsi').textContent = 'Tampilkan Area Cileungsi';
+                            } else {
+                                cileungsiLayer.addTo(map);
+                                cileungsiVisible = true;
+                                document.getElementById('toggleCileungsi').textContent = 'Sembunyikan Area Cileungsi';
+                                map.fitBounds(cileungsiLayer.getBounds());
+                            }
+                        } else {
+                            const response = await fetch('/assets/geojson/cileungsi_only.geojson');
+                            const geojson = await response.json();
+                            cileungsiLayer = L.geoJSON(geojson, {
+                                style: {
+                                    color: "#16a34a",
+                                    weight: 2,
+                                    fillOpacity: 0.3
+                                },
+                                onEachFeature: function (feature, layer) {
+                                // Tampilkan info lebih lengkap di popup
+                                    let info = `<b>Area Cileungsi</b>`;
+                                    if (feature.properties) {
+                                        if (feature.properties.NAMOBJ) {
+                                            info += `<br><b>Nama:</b> ${feature.properties.NAMOBJ}`;
+                                        }
+                                        if (feature.properties.LUASWH) {
+                                            info += `<br><b>Luas:</b> ${feature.properties.LUASWH.toFixed(2)} Ha`;
+                                        }
+                                        if (feature.properties.WADMKK) {
+                                            info += `<br><b>Kabupaten:</b> ${feature.properties.WADMKK}`;
+                                        }
+                                        if (feature.properties.WADMPR) {
+                                            info += `<br><b>Provinsi:</b> ${feature.properties.WADMPR}`;
+                                        }
+                                    }
+                                    layer.bindPopup(info);
+                                }
+                            }).addTo(map);
+                            cileungsiVisible = true;
+                            document.getElementById('toggleCileungsi').textContent = 'Sembunyikan Area Cileungsi';
+                            map.fitBounds(cileungsiLayer.getBounds());
+                        }
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive);
+                    }
+
+                    // --- Polygon Pembagian Cileungsi ---
+                    async function togglePembagianPolygon() {
+                        if (pembagianLayer) {
+                            if (pembagianVisible) {
+                                map.removeLayer(pembagianLayer);
+                                pembagianVisible = false;
+                                document.getElementById('togglePembagian').textContent = 'Tampilkan Pembagian Kecamatan Area Cileungsi';
+                            } else {
+                                pembagianLayer.addTo(map);
+                                pembagianVisible = true;
+                                document.getElementById('togglePembagian').textContent = 'Sembunyikan Pembagian Kecamatan Area Cileungsi';
+                                map.fitBounds(pembagianLayer.getBounds());
+                            }
+                        } else {
+                            const response = await fetch('/assets/geojson/pembagian_cileungsi.geojson');
+                            const geojson = await response.json();
+                            pembagianLayer = L.geoJSON(geojson, {
+                                style: {
+                                    color: "#2563eb",
+                                    weight: 1,
+                                    fillOpacity: 0.15
+                                },
+                                onEachFeature: function (feature, layer) {
+                                    // Tampilkan info kecamatan lebih lengkap
+                                    if (feature.properties && feature.properties.NAMOBJ) {
+                                        let info = `<b>Kecamatan:</b> ${feature.properties.NAMOBJ}`;
+                                        if (feature.properties.LUASWH) {
+                                            info += `<br><b>Luas:</b> ${feature.properties.LUASWH.toFixed(2)} Ha`;
+                                        }
+                                        if (feature.properties.WADMKK) {
+                                            info += `<br><b>Kabupaten:</b> ${feature.properties.WADMKK}`;
+                                        }
+                                        if (feature.properties.WADMPR) {
+                                            info += `<br><b>Provinsi:</b> ${feature.properties.WADMPR}`;
+                                        }
+                                        // Hitung total siswa di kecamatan ini
+                                        const totalSiswa = siswaData.filter(s => s.kecamatan === feature.properties.NAMOBJ).length;
+                                        info += `<br><b>Total Siswa:</b> ${totalSiswa}`;
+                                        layer.bindPopup(info);
+                                    }
+                                }
+                            }).addTo(map);
+                            pembagianVisible = true;
+                            document.getElementById('togglePembagian').textContent = 'Sembunyikan Pembagian Kecamatan Area Cileungsi';
+                            map.fitBounds(pembagianLayer.getBounds());
+                        }
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive);
+                    }
+
+                    // --- Filter Marker in Polygon ---
+                    function toggleFilterPolygon() {
+                        filterPolygonActive = !filterPolygonActive;
+                        document.getElementById('toggleFilterPolygon').textContent = filterPolygonActive
+                            ? 'Tampilkan Semua Marker'
+                            : 'Filter Marker di Dalam Polygon';
+                        tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive);
+                    }
+
+                    // --- Check if point in any visible polygon ---
+                    function isPointInAnyPolygon(lat, lng) {
+                        let inside = false;
+                        if (cileungsiVisible && cileungsiLayer) {
+                            cileungsiLayer.eachLayer(function(poly) {
+                                if (poly instanceof L.Polygon && poly.getBounds().contains([lat, lng])) {
+                                    inside = true;
+                                }
+                            });
+                        }
+                        if (pembagianVisible && pembagianLayer) {
+                            pembagianLayer.eachLayer(function(poly) {
+                                if (poly instanceof L.Polygon && poly.getBounds().contains([lat, lng])) {
+                                    inside = true;
+                                }
+                            });
+                        }
+                        return inside;
+                    }
+
+                    // --- Update tampilkanSiswa to use filterPolygonActive ---
+                    function tampilkanSiswa(filterKm = null, keyword = '', filterPolygon = false) {
                         siswaLayer.clearLayers();
 
                         siswaData.forEach((siswa) => {
                             if (!siswa.latitude || !siswa.longitude || !siswa.nama_lengkap) return;
                             if (keyword && !siswa.nama_lengkap.toLowerCase().includes(keyword.toLowerCase())) return;
 
-                            // Filter by radius if filterKm is set
+                            // Filter by radius
                             if (filterKm) {
                                 const dist = getDistanceFromLatLonInKm(
                                     sekolah.lat, sekolah.lng,
                                     siswa.latitude, siswa.longitude
                                 );
                                 if (dist > filterKm) return;
+                            }
+
+                            // Filter by polygon(s)
+                            if (filterPolygon && !isPointInAnyPolygon(siswa.latitude, siswa.longitude)) {
+                                return;
                             }
 
                             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
@@ -221,6 +378,11 @@
                             `);
                         });
                     }
+
+                    // --- Event listeners for new buttons ---
+                    document.getElementById('toggleCileungsi').addEventListener('click', toggleCileungsiPolygon);
+                    document.getElementById('togglePembagian').addEventListener('click', togglePembagianPolygon);
+                    document.getElementById('toggleFilterPolygon').addEventListener('click', toggleFilterPolygon);
 
                     // Inisialisasi filter
                     let currentRadius = null;
@@ -254,7 +416,7 @@
                             }),
                             routeWhileDragging: false,
                             lineOptions: {
-                                styles: [{ color: '#3388ff', weight: 5, opacity: 0.8 }]
+                                styles: [{ color: '#e11d48', weight: 5, opacity: 0.8 }]
                             },
                             createMarker: function() { return null; },
                             show: true,
@@ -321,9 +483,17 @@
                                     <span style="display:inline-block;width:18px;height:18px;background:#3388ff;border-radius:50%;"></span>
                                     <span>Rumah Siswa</span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span style="display:inline-block;width:24px;height:4px;background:#3388ff;border-radius:2px;"></span>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span style="display:inline-block;width:24px;height:4px;background:#e11d48;border-radius:2px;"></span>
                                     <span>Rute ke Sekolah</span>
+                                </div>
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span style="display:inline-block;width:22px;height:14px;background:#16a34a;opacity:0.3;border:2px solid #16a34a;border-radius:2px;"></span>
+                                    <span>Area Cileungsi</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span style="display:inline-block;width:22px;height:14px;background:#2563eb;opacity:0.15;border:2px solid #2563eb;border-radius:2px;"></span>
+                                    <span>Pembagian Kecamatan Area Cileungsi</span>
                                 </div>
                             </div>
                         `;
@@ -416,6 +586,7 @@
                     });
 
                     setLegendVisibility(true);
+
                 </script>
             </div>
          </div>
