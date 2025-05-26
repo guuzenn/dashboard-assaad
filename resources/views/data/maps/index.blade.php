@@ -489,11 +489,37 @@
                             }
 
                             const marker = L.marker([siswa.latitude, siswa.longitude]).addTo(siswaLayer);
+
+                            // Kalkulasi usia dari tanggal_lahir (format: YYYY-MM-DD)
+                            function hitungUsia(tanggalLahir) {
+                                if (!tanggalLahir) return '-';
+                                const tgl = new Date(tanggalLahir);
+                                const now = new Date();
+                                let usia = now.getFullYear() - tgl.getFullYear();
+                                const m = now.getMonth() - tgl.getMonth();
+                                if (m < 0 || (m === 0 && now.getDate() < tgl.getDate())) {
+                                    usia--;
+                                }
+                                return usia;
+                            }
+
                             marker.bindPopup(`
-                                <b>${siswa.nama_lengkap}</b><br>
-                                Kelas: ${siswa.usia}<br>
-                                Alamat: ${siswa.alamat}<br>
-                                <button onclick="tampilkanRute(${siswa.latitude}, ${siswa.longitude}, '${siswa.nama_lengkap}', '${siswa.usia}', '${siswa.alamat}')">Lihat Rute & Jarak</button>
+                                <div class="p-2 text-sm leading-relaxed text-black dark:text-white">
+                                    <b>${siswa.nama_lengkap}</b><br>
+                                    Usia: ${hitungUsia(siswa.tanggal_lahir)} Tahun<br>
+                                    Jenis Kelamin: ${siswa.jenis_kelamin || '-'}<br>
+                                    HP Ayah: ${siswa.hp_ayah || '-'}<br>
+                                    HP Ibu: ${siswa.hp_ibu || '-'}<br>
+                                    Alamat: ${siswa.alamat || '-'}<br>
+                                    Koordinat: <span class="font-mono">${siswa.latitude}, ${siswa.longitude}</span><br>
+                                    <button class="mt-2 px-3 py-1 rounded bg-primary text-white text-xs hover:bg-primary/80"
+                                        onclick="tampilkanRute(
+                                            ${siswa.latitude},
+                                            ${siswa.longitude},
+                                            '${siswa.nama_lengkap}',
+                                            '${siswa.alamat || '-'}'
+                                        )">Lihat Rute & Jarak</button>
+                                </div>
                             `);
                         });
                     }
@@ -529,7 +555,7 @@
                     tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
 
                     // Calculate route and distance only when button is clicked
-                    async function tampilkanRute(lat, lng, nama, usia, alamat) {
+                    async function tampilkanRute(lat, lng, nama, alamat) {
                         if (routeLayer) map.removeControl(routeLayer);
 
                         routeLayer = L.Routing.control({
@@ -542,7 +568,7 @@
                             }),
                             routeWhileDragging: false,
                             lineOptions: {
-                                styles: [{ color: '#e11d48', weight: 5, opacity: 0.8 }]
+                                styles: [{ color: '#3388ff', weight: 5, opacity: 0.8 }]
                             },
                             createMarker: function() { return null; },
                             show: true,
@@ -555,10 +581,15 @@
                             L.popup()
                                 .setLatLng([lat, lng])
                                 .setContent(`
-                                    <b>${nama}</b><br>
-                                    Kelas: ${usia}<br>
-                                    Alamat: ${alamat}<br>
-                                    Jarak rute ke sekolah: ${jarak.toFixed(2)} km
+                                    <div class="p-2 text-sm leading-relaxed text-black dark:text-white">
+                                        <b>${nama}</b><br>
+                                        Alamat: ${alamat}<br>
+                                        Koordinat: <span class="font-semibold">${lat}, ${lng}</span><br>
+                                        Jarak garis lurus ke sekolah: <span class="font-semibold">
+                                            ${getDistanceFromLatLonInKm(sekolah.lat, sekolah.lng, lat, lng).toFixed(2)} km
+                                        </span><br>
+                                        Jarak rute ke sekolah: <span class="font-semibold">${jarak.toFixed(2)} km</span>
+                                    </div>
                                 `)
                                 .openOn(map);
                         }).addTo(map);
@@ -610,7 +641,7 @@
                                     <span>Rumah Siswa</span>
                                 </div>
                                 <div class="flex items-center gap-2 mb-2">
-                                    <span style="display:inline-block;width:24px;height:4px;background:#e11d48;border-radius:2px;"></span>
+                                    <span style="display:inline-block;width:24px;height:4px;background:#3388ff;border-radius:2px;"></span>
                                     <span>Rute ke Sekolah</span>
                                 </div>
                                 <div class="flex items-center gap-2 mb-2">
