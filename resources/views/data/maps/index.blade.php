@@ -548,8 +548,31 @@
                     let currentKeyword = '';
 
                     // Event listeners for radius and keyword filters
+                    let radiusCircle = null; // Tambahkan variabel global untuk lingkaran radius
+
+                    // Event listeners for radius and keyword filters
                     document.getElementById('radiusFilter').addEventListener('change', function (e) {
                         currentRadius = this.value ? parseFloat(this.value) : null;
+
+                        // Hapus lingkaran sebelumnya jika ada
+                        if (radiusCircle) {
+                            map.removeLayer(radiusCircle);
+                            radiusCircle = null;
+                        }
+
+                        // Jika ada radius, tampilkan lingkaran
+                        if (currentRadius) {
+                            radiusCircle = L.circle([sekolah.lat, sekolah.lng], {
+                                radius: currentRadius * 1000, // km ke meter
+                                color: '#16a34a',
+                                fillColor: '#16a34a',
+                                fillOpacity: 0.12,
+                                weight: 2,
+                                dashArray: '6 6'
+                            }).addTo(map);
+                            map.fitBounds(radiusCircle.getBounds(), {padding: [30, 30]});
+                        }
+
                         tampilkanSiswa(currentRadius, currentKeyword, filterPolygonActive, currentKecamatan);
                     });
                     document.getElementById('searchSiswa').addEventListener('input', function (e) {
