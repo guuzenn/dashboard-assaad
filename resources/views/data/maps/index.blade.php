@@ -171,12 +171,12 @@
                             class="relative inline-flex appearance-none rounded-lg border border-stroke bg-transparent py-2 pl-5 pr-10 text-sm font-medium text-black dark:border-form-strokedark dark:bg-form-input dark:text-white outline-none focus:border-primary w-full"
                         />
                         <ul id="searchSuggestions"
-                            class="absolute left-0 right-0 top-full z-[9999] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg shadow-lg max-h-60 overflow-y-auto w-full hidden">
+                            class="absolute left-0 right-0 top-full mt-1 z-[9999] bg-white dark:bg-boxdark border border-stroke dark:border-strokedark rounded-lg shadow-lg max-h-60 overflow-y-auto w-full hidden">
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="max-w-full overflow-x-auto h-1000px pt-6">
+            <div class="max-w-full overflow-x-auto h-1000px z[1001] pt-6">
                @section('css')
                <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
@@ -190,6 +190,11 @@
                         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
                         max-height: 500px;
                         overflow-y: auto;
+                    }
+
+                    #searchSuggestions {
+                        position: absolute;
+                        z-index: 1001;
                     }
 
                 </style>
