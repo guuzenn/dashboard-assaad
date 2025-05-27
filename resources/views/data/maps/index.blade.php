@@ -619,7 +619,7 @@
                         }, 100);
                     }
 
-                    // Custom legend control
+                    // legend control
                     let legendVisible = true;
                     const legend = L.control({ position: 'bottomleft' });
 
